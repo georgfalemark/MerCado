@@ -14,7 +14,6 @@ namespace mercado.nu.Models
         public string Purpose { get; set; }
         public int MinAge { get; set; }
         public int MaxAge { get; set; }
-        public int MyProperty { get; set; }
         public Gender Gender { get; set; }
         public string Area { get; set; }
         public DateTime CreationDate { get; set; }
