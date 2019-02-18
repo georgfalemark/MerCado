@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,12 +18,15 @@ namespace mercado.nu.Models
         public string PostNumber { get; set; }
         public string Country { get; set; }
 
-        public Guid OrganizationÍd { get; set; }
-        public Organization Organization { get; set; }
+        
+        public List<Organization> ContactPersonOrganizations { get; set; }
+
+        public Organization Employer { get; set; }
 
         public List<Responders> Responders { get; set; }
 
-        public AspNetUsers MyProperty { get; set; }
+        public ApplicationUser User { get; set; }
+
 
     }
 }
