@@ -7,5 +7,7 @@ namespace mercado.nu.Models.Entities
 {
     public class QuestionTypes
     {
+        public Guid QuestionTypeId { get; set; }
+        public string QuestionType { get; set; }
     }
 }
