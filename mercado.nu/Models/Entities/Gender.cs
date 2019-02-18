@@ -3,6 +3,7 @@
     public enum Gender
     {
         Kvinna,
-        Man
+        Man,
+        Other
     }
 }
