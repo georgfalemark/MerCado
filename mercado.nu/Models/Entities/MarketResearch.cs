@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mercado.nu.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ namespace mercado.nu.Models
         public string Purpose { get; set; }
         public int MinAge { get; set; }
         public int MaxAge { get; set; }
-        public int MyProperty { get; set; }
         public Gender Gender { get; set; }
         public string Area { get; set; }
         public DateTime CreationDate { get; set; }
@@ -24,6 +24,8 @@ namespace mercado.nu.Models
         public Person CreatorId { get; set; }
 
         public List<Responders> Responders { get; set; }
+
+        public List<Chapters> Chapters { get; set; }
 
 
 
