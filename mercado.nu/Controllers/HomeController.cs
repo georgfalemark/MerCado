@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using mercado.nu.Data;
 using mercado.nu.Models;
 
 namespace mercado.nu.Controllers
@@ -13,7 +14,9 @@ namespace mercado.nu.Controllers
         public IActionResult Index()
         {
             return View();
+            
         }
+        
 
         public IActionResult About()
         {
