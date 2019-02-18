@@ -25,7 +25,7 @@ namespace mercado.nu.Models
 
         public List<Responders> Responders { get; set; }
 
-        public AspNetUsers MyProperty { get; set; }
+        public ApplicationUser User { get; set; }
 
     }
 }
