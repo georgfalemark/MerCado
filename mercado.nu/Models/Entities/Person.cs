@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace mercado.nu.Models
         public string PostNumber { get; set; }
         public string Country { get; set; }
 
-        
+        [ForeignKey("ContactPersonId")]
         public List<Organization> ContactPersonOrganizations { get; set; }
 
         public Organization Employer { get; set; }

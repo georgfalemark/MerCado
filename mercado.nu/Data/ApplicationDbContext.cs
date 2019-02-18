@@ -15,7 +15,7 @@ namespace mercado.nu.Data
         public DbSet<Responders> Responders { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Chapters> MyProperty { get; set; }
+        public DbSet<Chapters> Chapters { get; set; }
         public DbSet<MarketResearch> MarketResearches { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
@@ -36,8 +36,11 @@ namespace mercado.nu.Data
         {
             modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
         }
 
     }
