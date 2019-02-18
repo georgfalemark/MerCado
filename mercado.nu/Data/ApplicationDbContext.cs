@@ -34,6 +34,10 @@ namespace mercado.nu.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
+            base.OnModelCreating(modelBuilder);
         }
 
     }

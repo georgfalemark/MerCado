@@ -7,10 +7,10 @@ namespace mercado.nu.Models.Entities
 {
     public class QuestionToMarketResearch
     {
-        public string QuestionId { get; set; }
+        public Guid QuestionId { get; set; }
         public Question Question { get; set; }
 
-        public string MarketResearchId { get; set; }
+        public Guid MarketResearchId { get; set; }
         public MarketResearch MarketResearch { get; set; }
     }
 }
