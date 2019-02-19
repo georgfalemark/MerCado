@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mercado.nu.Data;
 using mercado.nu.Models.Entities;
+using mercado.nu.Models;
 
 namespace mercado.nu
 {
     public class QuestionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly DataAccessQuestions _dataAccessQuestion;
 
-        public QuestionsController(ApplicationDbContext context)
+        public QuestionsController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestion)
         {
             _context = context;
+            _dataAccessQuestion = dataAccessQuestion;
         }
 
         // GET: Questions
@@ -83,7 +86,7 @@ namespace mercado.nu
             {
                 return NotFound();
             }
-            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "ChaptersId", question.ChaptersId);
+            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "Name", question.ChaptersId);
             return View(question);
         }
 
@@ -156,6 +159,28 @@ namespace mercado.nu
         private bool QuestionExists(Guid id)
         {
             return _context.Questions.Any(e => e.QuestionId == id);
+        }
+
+        public IActionResult AddChapter(Guid marketReaserchId)
+        {
+            var viewModelAddChapter = new AddChapterVm();
+
+            viewModelAddChapter.MarketResearchId = marketReaserchId;
+
+            return View("AddChapter", viewModelAddChapter);
+        }
+
+        public async  Task<IActionResult> SaveChapter(Chapters chapters)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AddChapter");
+            }
+
+            await _dataAccessQuestion.SaveChapter(chapters);
+
+            return View("Create");
+
         }
     }
 }
