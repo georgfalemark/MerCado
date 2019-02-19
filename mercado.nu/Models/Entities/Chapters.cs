@@ -11,8 +11,5 @@ namespace mercado.nu.Models.Entities
         public string Name { get; set; }
         public List<Question> ListOfQuestion { get; set; }
 
-        public Guid MarketResearchId { get; set; }
-        public MarketResearch MarketResearch { get; set; }
-
     }
 }

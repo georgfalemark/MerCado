@@ -17,6 +17,7 @@ namespace mercado.nu.Data
 
         internal async Task SaveChapter(Chapters chapters)
         {
+            _questionContext.
             chapters.ChaptersId = Guid.NewGuid();
             _questionContext.Add(chapters);
             await _questionContext.SaveChangesAsync();
