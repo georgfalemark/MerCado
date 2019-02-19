@@ -7,15 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mercado.nu.Data;
 using mercado.nu.Models;
+using mercado.nu.Models.ViewModels;
+using mercado.nu.Models.Entities;
 
 namespace mercado.nu
 {
     public class MarketResearchesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Question _question;
 
-        public MarketResearchesController(ApplicationDbContext context)
+        public MarketResearchesController(ApplicationDbContext context, Question question)
         {
+            _question = question;
             _context = context;
         }
 
@@ -65,6 +69,18 @@ namespace mercado.nu
             }
             return View(marketResearch);
         }
+
+        public IActionResult CreateQuestionsToMarketResearch(Guid id)
+        {
+
+
+            var questionToMarketResearch = new AddQuestionToMarketResearchVm
+            {
+                CurrentMarketResearchId = id
+            };
+            return RedirectToAction("Index", "Question", questionToMarketResearch);
+        }
+
 
         // GET: MarketResearches/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
