@@ -12,5 +12,7 @@ namespace mercado.nu.Models.Entities
         public Guid ChaptersId { get; set; }
         public Chapters Chapter { get; set; }
         public List<QuestionToMarketResearch> MarketResearches { get; set; }
+        public List<Answer> Answers { get; set; }
+        public List<QuestionOption> QuestionOptions { get; set; }
     }
 }

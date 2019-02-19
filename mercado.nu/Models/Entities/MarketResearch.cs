@@ -20,14 +20,13 @@ namespace mercado.nu.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public Guid OrganizationId { get; set; }
-        public Person CreatorId { get; set; }
-
         public List<Responders> Responders { get; set; }
 
         public List<Chapters> Chapters { get; set; }
 
         public List<QuestionToMarketResearch> Questions { get; set; }
+
+        public List<Answer> Answers { get; set; }
 
 
 

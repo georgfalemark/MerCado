@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,14 +20,15 @@ namespace mercado.nu.Models
         public string PostNumber { get; set; }
         public string Country { get; set; }
 
-        [ForeignKey("ContactPersonId")]
         public List<Organization> ContactPersonOrganizations { get; set; }
-
-        public Organization Employer { get; set; }
 
         public List<Responders> Responders { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public List<Answer> Answer { get; set; }
+
+        public List<MarketResearch> MarketResearches { get; set; }
 
     }
 }

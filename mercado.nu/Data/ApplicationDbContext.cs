@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace mercado.nu.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Responders> Responders { get; set; }
@@ -21,6 +21,7 @@ namespace mercado.nu.Data
         public DbSet<QuestionOption> QuestionOptions { get; set; }
         public DbSet<QuestionTypes> QuestionTypes { get; set; }
         public DbSet<QuestionToMarketResearch> GetQuestionToMarketResearches { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -40,7 +41,7 @@ namespace mercado.nu.Data
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
+            modelBuilder.Entity<Organization>().HasOne(p => p.ContactPerson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
         }
 
     }
