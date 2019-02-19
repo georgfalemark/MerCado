@@ -47,6 +47,7 @@ namespace mercado.nu
 
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<DataAccessQuestions>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
