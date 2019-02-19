@@ -30,10 +30,5 @@ namespace mercado.nu.Models
 
         public List<MarketResearch> MarketResearches { get; set; }
 
-
-
-
-        public int hEEEJ { get; set; }
-
     }
 }
