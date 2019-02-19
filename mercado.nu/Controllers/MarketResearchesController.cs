@@ -25,6 +25,11 @@ namespace mercado.nu
         // GET: MarketResearches
         public async Task<IActionResult> Index()
         {
+            var questionTypes = _context.QuestionTypes.SingleOrDefault();
+            if (questionTypes==null)
+            {
+
+            }
             return View(await _context.MarketResearches.ToListAsync());
         }
 
@@ -75,6 +80,7 @@ namespace mercado.nu
 
             var questionToMarketResearch = new AddQuestionToMarketResearchVm
             {
+                
                 CurrentMarketResearchId = id
             };
             return RedirectToAction("Create", "Questions", questionToMarketResearch);

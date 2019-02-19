@@ -34,5 +34,7 @@ namespace mercado.nu.Data
             var chapters = _questionContext.Chapters.Where(x => x.MarketResearchID == marketResearchId).ToList();
             return chapters;
         }
+
+
     }
 }
