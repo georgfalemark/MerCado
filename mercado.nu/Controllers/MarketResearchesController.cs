@@ -15,11 +15,10 @@ namespace mercado.nu
     public class MarketResearchesController : Controller
     {
         private readonly ApplicationDbContext _context;
-       
+
 
         public MarketResearchesController(ApplicationDbContext context)
         {
-           
             _context = context;
         }
 

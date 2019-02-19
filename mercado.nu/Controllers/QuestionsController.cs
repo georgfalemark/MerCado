@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using mercado.nu.Data;
 using mercado.nu.Models.Entities;
 using mercado.nu.Models;
+using mercado.nu.Models.ViewModels;
 
 namespace mercado.nu
 {
@@ -49,10 +50,10 @@ namespace mercado.nu
         }
 
         // GET: Questions/Create
-        public IActionResult Create()
+        public IActionResult Create(AddQuestionToMarketResearchVm addQuestionToMarketResearchVm)
         {
             ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "ChaptersId");
-            return View();
+            return View(addQuestionToMarketResearchVm);
         }
 
         // POST: Questions/Create
@@ -122,7 +123,7 @@ namespace mercado.nu
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "ChaptersId", question.ChaptersId);
+            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "Name", question.ChaptersId);
             return View(question);
         }
 
@@ -170,16 +171,21 @@ namespace mercado.nu
             return View("AddChapter", viewModelAddChapter);
         }
 
-        public async  Task<IActionResult> SaveChapter(Chapters chapters)
+        public async  Task<IActionResult> SaveChapter(Guid marketResearchId, Chapters chapters)
         {
-            if (!ModelState.IsValid)
+                if (!ModelState.IsValid)
             {
                 return View("AddChapter");
             }
 
-            await _dataAccessQuestion.SaveChapter(chapters);
+            await _dataAccessQuestion.SaveChapter(marketResearchId, chapters);
 
-            return View("Create");
+            AddQuestionToMarketResearchVm viewModel = new AddQuestionToMarketResearchVm();
+            viewModel.CurrentMarketResearchId = marketResearchId;
+
+            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "Name");
+
+            return View("Create", viewModel);
 
         }
     }
