@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,5 +29,6 @@ namespace mercado.nu.Models
 
         public ApplicationUser User { get; set; }
 
+        public List<Answer> Answers { get; set; }
     }
 }

@@ -27,9 +27,9 @@ namespace mercado.nu.Models
 
         public List<Chapters> Chapters { get; set; }
 
-        public List<QuestionToMarketResearch> Questions { get; set; }
+        public List<QuestionToMarketResearch> QuestionToMarketResearches { get; set; }
 
-
+        public List<Answer> Answers { get; set; }
 
 
 
