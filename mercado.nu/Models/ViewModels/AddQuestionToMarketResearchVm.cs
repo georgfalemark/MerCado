@@ -1,4 +1,5 @@
 ﻿using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace mercado.nu.Models.ViewModels
     {
         public Question Question { get; set; }
         public Guid CurrentMarketResearchId { get; set; }
+        public List<SelectListItem> Chapters { get; set; }
     }
 }
