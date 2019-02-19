@@ -34,13 +34,14 @@ namespace mercado.nu.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
+            //modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
         }
 
     }
