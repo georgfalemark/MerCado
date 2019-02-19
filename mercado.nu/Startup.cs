@@ -47,6 +47,8 @@ namespace mercado.nu
 
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

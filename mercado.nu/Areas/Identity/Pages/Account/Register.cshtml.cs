@@ -21,20 +21,20 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            ApplicationDbContext applicationDbContext)
-            //IEmailSender emailSender)
+            ApplicationDbContext applicationDbContext,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _applicationDbContext = applicationDbContext;
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
         }
 
 
@@ -81,25 +81,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Id = myGuid, PersonId = myGuid, Person = Input.Person };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
-
-
-
-
-
-
                 _applicationDbContext.Add(Input.Person);
-
-
-
-
-
-
-                //var person = new Person { blabla = Input. }
-
-
-                
-
-
 
                 if (result.Succeeded)
                 {
@@ -112,8 +94,8 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
