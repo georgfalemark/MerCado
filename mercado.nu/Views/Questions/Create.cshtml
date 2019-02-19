@@ -16,8 +16,13 @@
                 <label asp-for="ChaptersId" class="control-label"></label>
                 <select asp-for="ChaptersId" class="form-control" asp-items="ViewBag.Name"></select>
                 <a asp-controller="Questions" asp-action="AddChapter">Lägg till nytt avsnitt</a>
-                
 
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualQuestion" class="control-label"></label>
+                <input asp-for="ActualQuestion" class="form-control" />
+                <span asp-validation-for="ActualQuestion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ActualQuestion" class="control-label"></label>

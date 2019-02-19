@@ -14,4 +14,5 @@ namespace mercado.nu.Models.Entities
 
         public List<QuestionOption> QuestionOptions { get; set; }
     }
+
 }

@@ -15,17 +15,22 @@ namespace mercado.nu
     public class MarketResearchesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly Question _question;
+       
 
-        public MarketResearchesController(ApplicationDbContext context, Question question)
+        public MarketResearchesController(ApplicationDbContext context)
         {
-            _question = question;
+           
             _context = context;
         }
 
         // GET: MarketResearches
         public async Task<IActionResult> Index()
         {
+            var questionTypes = _context.QuestionTypes.SingleOrDefault();
+            if (questionTypes==null)
+            {
+
+            }
             return View(await _context.MarketResearches.ToListAsync());
         }
 
@@ -76,9 +81,10 @@ namespace mercado.nu
 
             var questionToMarketResearch = new AddQuestionToMarketResearchVm
             {
+                
                 CurrentMarketResearchId = id
             };
-            return RedirectToAction("Index", "Question", questionToMarketResearch);
+            return RedirectToAction("Create", "Questions", questionToMarketResearch);
         }
 
 
