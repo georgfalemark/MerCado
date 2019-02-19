@@ -1,4 +1,4 @@
-﻿@model mercado.nu.Models.Entities.Question
+﻿@model mercado.nu.Models.ViewModels.AddQuestionToMarketResearchVm
 
 @{
     ViewData["Title"] = "Create";
@@ -13,16 +13,16 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ChaptersId" class="control-label"></label>
-                <select asp-for="ChaptersId" class="form-control" asp-items="ViewBag.Name"></select>
-                <a asp-controller="Questions" asp-action="AddChapter">Lägg till nytt avsnitt</a>
+                <label asp-for="Question.ChaptersId" class="control-label"></label>
+                <select asp-for="Question.ChaptersId" class="form-control" asp-items="ViewBag.Name"></select>
+                <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
                 
-
+      
             </div>
             <div class="form-group">
-                <label asp-for="ActualQuestion" class="control-label"></label>
-                <input asp-for="ActualQuestion" class="form-control" />
-                <span asp-validation-for="ActualQuestion" class="text-danger"></span>
+                <label asp-for="Question.ActualQuestion" class="control-label"></label>
+                <input asp-for="Question.ActualQuestion" class="form-control" />
+                <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

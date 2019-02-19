@@ -15,11 +15,10 @@ namespace mercado.nu
     public class MarketResearchesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly Question _question;
 
-        public MarketResearchesController(ApplicationDbContext context, Question question)
+
+        public MarketResearchesController(ApplicationDbContext context)
         {
-            _question = question;
             _context = context;
         }
 
@@ -78,7 +77,7 @@ namespace mercado.nu
             {
                 CurrentMarketResearchId = id
             };
-            return RedirectToAction("Index", "Question", questionToMarketResearch);
+            return RedirectToAction("Create", "Questions", questionToMarketResearch);
         }
 
 

@@ -15,11 +15,17 @@ namespace mercado.nu.Data
             _questionContext = questionContext;
         }
 
-        internal async Task SaveChapter(Chapters chapters)
+        internal async Task SaveChapter(Guid marketResearchId, Chapters chapters)
         {
-            _questionContext.
+            
             chapters.ChaptersId = Guid.NewGuid();
+            chapters.MarketResearchID = marketResearchId;
             _questionContext.Add(chapters);
+            await _questionContext.SaveChangesAsync();
+
+            var marketResearch = _questionContext.MarketResearches.Single(x => x.MarketResearchId == marketResearchId);
+            marketResearch.Chapters.Add(chapters);
+            _questionContext.Update(marketResearch);
             await _questionContext.SaveChangesAsync();
         }
     }
