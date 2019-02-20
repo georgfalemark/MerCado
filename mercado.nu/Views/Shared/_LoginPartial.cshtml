@@ -10,10 +10,10 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hej @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logga ut</button>
             </li>
         </ul>
     </form>
@@ -21,8 +21,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Registerrrr</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
-        <li>name @UserManager.GetUserName(User)</li>
+        <li><a asp-area="Identity" asp-page="/Account/Register">Registera dig</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Login">Logga in</a></li>
     </ul>
 }
