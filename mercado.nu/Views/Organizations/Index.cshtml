@@ -1,14 +1,21 @@
 ﻿@model mercado.nu.Models.Organization
+@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
 
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<br />
-<p>
-    <a asp-action="Create" class="btn btn-default">Registrera företag</a>
-</p>
+@inject SignInManager<ApplicationUser> SignInManager
+@if (SignInManager.IsSignedIn(User))
+{
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">Registrera företag</a>
+    </p>
+}
+
 <h3>Erat företag</h3>
 <br />
 <table class="table">

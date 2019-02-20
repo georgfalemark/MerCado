@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace mercado.nu.Controllers
 {
+    [Authorize]
     public class OrganizationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -83,6 +84,15 @@ namespace mercado.nu.Controllers
             if (ModelState.IsValid)
             {
                 organization.OrganizationId = Guid.NewGuid();
+
+                Guid? guidId = null;
+                if (_signInManager.IsSignedIn(User))
+                {
+                    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    guidId = Guid.Parse(userId);
+                }
+                organization.ContactPersonId = (Guid) guidId;
+
                 _context.Add(organization);
 
                 Person person = _context.Persons.SingleOrDefault(x => x.PersonId == organization.ContactPersonId);
