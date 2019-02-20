@@ -17,4 +17,5 @@ namespace mercado.nu.Models.Entities
         public Guid QuestionId { get; set; }
         public Question Question { get; set; }
     }
+
 }
