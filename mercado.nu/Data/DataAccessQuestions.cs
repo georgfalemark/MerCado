@@ -17,6 +17,7 @@ namespace mercado.nu.Data
 
         internal async Task SaveChapter(Guid marketResearchId, Chapters chapters)
         {
+
             
             chapters.ChaptersId = Guid.NewGuid();
             chapters.MarketResearchID = marketResearchId;
@@ -28,6 +29,19 @@ namespace mercado.nu.Data
             _questionContext.Update(marketResearch);
             await _questionContext.SaveChangesAsync();
         }
+
+        internal async Task SeedQuestionTypes()
+        {
+            var qt1 = new QuestionTypes { QuestionType = "YesOrNo", QuestionTypesId = Guid.NewGuid() };
+            var qt2 = new QuestionTypes { QuestionType = "TextShort", QuestionTypesId = Guid.NewGuid() };
+            var qt3 = new QuestionTypes { QuestionType = "TextLong", QuestionTypesId = Guid.NewGuid() };
+            var qt4 = new QuestionTypes { QuestionType = "Multiple", QuestionTypesId = Guid.NewGuid() };
+            var qt5 = new QuestionTypes { QuestionType = "Range", QuestionTypesId = Guid.NewGuid() };
+
+            _questionContext.AddRange(qt1, qt2, qt3, qt4, qt5);
+            await _questionContext.SaveChangesAsync();
+        }
+
 
 
     }

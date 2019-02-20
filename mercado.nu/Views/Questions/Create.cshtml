@@ -25,14 +25,14 @@
                 <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ActualQuestion" class="control-label"></label>
-                <input asp-for="ActualQuestion" class="form-control" />
-                <span asp-validation-for="ActualQuestion" class="text-danger"></span>
+                <label asp-for="QuestionTypes" class="control-label"></label>
+                <select asp-for="QuestionTypes" asp-items="ViewBag.Name" class="form-control"></select>
+                <span asp-validation-for="QuestionTypes" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+</form>
     </div>
 </div>
 

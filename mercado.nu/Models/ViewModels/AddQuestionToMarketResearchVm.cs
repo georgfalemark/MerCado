@@ -10,5 +10,6 @@ namespace mercado.nu.Models.ViewModels
     {
         public Question Question { get; set; }
         public Guid CurrentMarketResearchId { get; set; }
+        public List<QuestionTypes> QuestionTypes { get; set; }
     }
 }
