@@ -23,6 +23,24 @@ namespace mercado.nu
             _dataAccessQuestion = dataAccessQuestion;
         }
 
+
+        public IActionResult ShowQuestionsForMarketResearch(Guid marketResearchId)
+        {
+            var allQuestionsForMarketResearch = _dataAccessQuestion.GetQuestionsForMarketResearch(marketResearchId);
+            var viewModelAllQuestions = new ViewAllQuestionsForMarketResearchVm();
+            var listOfQuestions = new List<Question>();
+            foreach (var item in allQuestionsForMarketResearch)
+            {
+                foreach (var item2 in item.Question.MarketResearches)
+                {
+                    listOfQuestions.Add(item2.Question);
+                }
+            }
+
+            viewModelAllQuestions.Questions = listOfQuestions;
+            return View("Questions/ShowAllQuestionsForMarketResearch", viewModelAllQuestions);
+        }
+
         // GET: Questions
         public async Task<IActionResult> Index()
         {
@@ -73,6 +91,7 @@ namespace mercado.nu
             {
                 question.QuestionId = Guid.NewGuid();
                 _context.Add(question);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

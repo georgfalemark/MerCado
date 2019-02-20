@@ -1,5 +1,7 @@
-﻿using mercado.nu.Models.Entities;
+﻿using mercado.nu.Models;
+using mercado.nu.Models.Entities;
 using mercado.nu.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,12 @@ namespace mercado.nu.Data
             
             var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).ToList();
             return chapters;
+        }
+
+        internal List<QuestionToMarketResearch> GetQuestionsForMarketResearch(Guid marketResearchId)
+        {
+            var allQuestionsForMarketResearch = _questionContext.GetQuestionToMarketResearches.Include(x => x.MarketResearch).Include(x => x.Question).Where(x => x.MarketResearchId == marketResearchId).ToList();
+            return allQuestionsForMarketResearch;
         }
 
         internal async Task<Guid> saveQuestion(AddQuestionToMarketResearchVm questionToMarketResearchVm)
