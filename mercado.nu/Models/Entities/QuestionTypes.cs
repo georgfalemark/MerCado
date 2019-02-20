@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace mercado.nu.Models.Entities
 {
-    public class QuestionTypes
+    public enum QuestionTypes
     {
-        
-        public Guid QuestionTypesId { get; set; }
-        public string QuestionType { get; set; }
-
-        public List<QuestionOption> QuestionOptions { get; set; }
+        Graderingsfråga,
+        Flervalsfråga,
+        JaNejfråga,
+        Textfråga,
     }
 
 }

@@ -190,11 +190,11 @@ namespace mercado.nu
 
             viewModel.CurrentMarketResearchId = marketResearchId;
 
-            var listOfChapters = _dataAccessQuestion.GetChapters(marketResearchId);
+            var listofchapters = _dataAccessQuestion.GetChapters(marketResearchId);
 
-            var selectChapters = GetSelectChapters(listOfChapters);
+            var selectchapters = GetSelectChapters(listofchapters);
 
-            viewModel.Chapters = selectChapters;
+            viewModel.Chapters = selectchapters;
 
             return View("Create", viewModel);
         }

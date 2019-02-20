@@ -24,14 +24,14 @@ namespace mercado.nu
             _accessQuestions = dataAccessQuestions;
         }
 
-        // GET: MarketResearches
+        //GET: MarketResearches
         public async Task<IActionResult> Index()
         {
-            List<string> questionType = await _context.QuestionTypes.Select(x => x.QuestionType).ToListAsync();
-            if (questionType.Count == 0)
-            {
-                await _accessQuestions.SeedQuestionTypes();
-            }
+            //List<string> questionType = await _context.QuestionTypes.Select(x => x.QuestionType).ToListAsync();
+            //if (questionType.Count == 0)
+            //{
+            //    await _accessQuestions.SeedQuestionTypes();
+            //}
 
 
             return View(await _context.MarketResearches.ToListAsync());
@@ -84,7 +84,7 @@ namespace mercado.nu
 
             var questionToMarketResearch = new AddQuestionToMarketResearchVm
             {
-                QuestionTypes = _context.QuestionTypes.Select(x=>x).ToList(),
+                //QuestionTypes = _context.QuestionTypes.Select(x=>x).ToList(),
                 CurrentMarketResearchId = id
             };
             

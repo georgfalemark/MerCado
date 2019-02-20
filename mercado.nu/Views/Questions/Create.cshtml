@@ -1,5 +1,5 @@
 ﻿@model mercado.nu.Models.ViewModels.AddQuestionToMarketResearchVm
-
+@using mercado.nu.Models.Entities
 @{
     ViewData["Title"] = "Create";
 }
@@ -24,7 +24,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="QuestionTypes" class="control-label"></label>
-                <select asp-for="QuestionTypes" asp-items="ViewBag.Name" class="form-control"></select>
+                <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
+
                 <span asp-validation-for="QuestionTypes" class="text-danger"></span>
             </div>
                 <div class="form-group">
