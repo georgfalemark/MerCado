@@ -215,5 +215,11 @@ namespace mercado.nu
 
             return selectChapters;
         }
+
+        public IActionResult SetOptionsForQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+
+            return View("Create", questionToMarketResearchVm);
+        }
     }
 }
