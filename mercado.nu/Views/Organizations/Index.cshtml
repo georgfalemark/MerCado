@@ -1,14 +1,16 @@
-﻿@model IEnumerable<mercado.nu.Models.Organization>
+﻿@model mercado.nu.Models.Organization
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
+<br />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-default">Registrera företag</a>
 </p>
+<h3>Erat företag</h3>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -43,42 +45,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(model => model.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StreetName)
+                @Html.DisplayFor(model => model.StreetName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StreetNumber)
+                @Html.DisplayFor(model => model.StreetNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City)
+                @Html.DisplayFor(model => model.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country)
+                @Html.DisplayFor(model => model.Country)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
-                @Html.DisplayFor(modelItem => item.ContactPerson.LastName)
+                @Html.DisplayFor(model => model.ContactPerson.FirstName)
+                @Html.DisplayFor(model => model.ContactPerson.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(model => model.PhoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(model => model.Email)
             </td>
-            <td>
-                <img height="40" width="60" src="@Html.DisplayFor(modelItem=> item.PathLogoImage)"/>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrganizationId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrganizationId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrganizationId">Delete</a>
-            </td>
+            @if (Model != null)
+            {
+                <td>
+                    <img height="40" width="60" src="@Html.DisplayFor(model => model.PathLogoImage)" />
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Model.OrganizationId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@Model.OrganizationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@Model.OrganizationId">Delete</a>
+                </td>
+            }
+
         </tr>
-}
     </tbody>
 </table>

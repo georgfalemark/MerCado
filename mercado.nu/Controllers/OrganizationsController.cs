@@ -8,23 +8,43 @@ using Microsoft.EntityFrameworkCore;
 using mercado.nu.Data;
 using mercado.nu.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace mercado.nu.Controllers
 {
     public class OrganizationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public OrganizationsController(ApplicationDbContext context)
+        public OrganizationsController(ApplicationDbContext context, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
 
         // GET: Organizations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Organizations.Include(o => o.ContactPerson);
-            return View(await applicationDbContext.ToListAsync());
+            Guid? guidId = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                guidId = Guid.Parse(userId);
+            }
+
+            Guid? organizationID = null;
+            foreach (var item in _context.Persons)
+            {
+                if (item.PersonId == guidId)
+                {
+                    organizationID = item.OrganizationId;
+                }
+            }
+
+            Organization organization = _context.Organizations.Include(x => x.ContactPerson).SingleOrDefault(x => x.OrganizationId == organizationID);
+            return View(organization);
         }
 
         // GET: Organizations/Details/5
