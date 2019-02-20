@@ -64,6 +64,12 @@ namespace mercado.nu.Controllers
             {
                 organization.OrganizationId = Guid.NewGuid();
                 _context.Add(organization);
+
+                Person person = _context.Persons.SingleOrDefault(x => x.PersonId == organization.ContactPersonId);
+                person.OrganizationId = organization.OrganizationId;
+
+                _context.Update(person);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

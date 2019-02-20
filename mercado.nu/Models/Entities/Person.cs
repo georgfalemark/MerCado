@@ -20,6 +20,7 @@ namespace mercado.nu.Models
         public string PostNumber { get; set; }
         public string Country { get; set; }
 
+        public Guid? OrganizationId { get; set; }
         public List<Organization> ContactPersonOrganizations { get; set; }
 
         public List<Responders> Responders { get; set; }
