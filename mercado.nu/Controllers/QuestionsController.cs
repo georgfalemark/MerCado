@@ -52,7 +52,13 @@ namespace mercado.nu
         // GET: Questions/Create
         public IActionResult Create(AddQuestionToMarketResearchVm addQuestionToMarketResearchVm)
         {
-            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "ChaptersId");
+           
+            var listOfChapters = _dataAccessQuestion.GetChapters(addQuestionToMarketResearchVm.CurrentMarketResearchId);
+
+            var selectChapters = GetSelectChapters(listOfChapters);
+
+            addQuestionToMarketResearchVm.Chapters = selectChapters;
+
             return View(addQuestionToMarketResearchVm);
         }
 
@@ -181,12 +187,33 @@ namespace mercado.nu
             await _dataAccessQuestion.SaveChapter(marketResearchId, chapters);
 
             AddQuestionToMarketResearchVm viewModel = new AddQuestionToMarketResearchVm();
+
             viewModel.CurrentMarketResearchId = marketResearchId;
 
-            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "Name");
+            var listOfChapters = _dataAccessQuestion.GetChapters(marketResearchId);
+
+            var selectChapters = GetSelectChapters(listOfChapters);
+
+            viewModel.Chapters = selectChapters;
 
             return View("Create", viewModel);
+        }
 
+        private List<SelectListItem> GetSelectChapters(List<Chapters> listOfChapters)
+        {
+            var selectChapters = new List<SelectListItem>();
+
+            foreach (var chapter in listOfChapters)
+            {
+                selectChapters.Add(new SelectListItem
+                {
+                    Text = chapter.Name,
+                    Value = chapter.ChaptersId.ToString()
+                });
+
+            }
+
+            return selectChapters;
         }
     }
 }

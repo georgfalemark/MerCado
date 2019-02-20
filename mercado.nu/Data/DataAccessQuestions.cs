@@ -24,10 +24,16 @@ namespace mercado.nu.Data
             _questionContext.Add(chapters);
             await _questionContext.SaveChangesAsync();
 
-            var marketResearch = _questionContext.MarketResearches.Single(x => x.MarketResearchId == marketResearchId);
-            marketResearch.Chapters.Add(chapters);
-            _questionContext.Update(marketResearch);
-            await _questionContext.SaveChangesAsync();
+            //var marketResearch = _questionContext.MarketResearches.Single(x => x.MarketResearchId == marketResearchId);
+            //marketResearch.Chapters.Add(chapters);
+            //_questionContext.Update(marketResearch);
+            //await _questionContext.SaveChangesAsync();
+        }
+
+        internal List<Chapters> GetChapters(Guid marketResearchId)
+        {
+            var chapters = _questionContext.Chapters.Where(x => x.MarketResearchID == marketResearchId).ToList();
+            return chapters;
         }
 
         internal async Task SeedQuestionTypes()
