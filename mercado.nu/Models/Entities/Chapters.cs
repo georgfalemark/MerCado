@@ -10,6 +10,6 @@ namespace mercado.nu.Models.Entities
         public Guid ChaptersId { get; set; }
         public string Name { get; set; }
         public List<Question> ListOfQuestion { get; set; }
-
+        public MarketResearch MarketResearch { get; set; }
     }
 }

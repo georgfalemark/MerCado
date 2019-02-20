@@ -33,11 +33,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+<<<<<<< HEAD
                     <li><a asp-controller="Organizations" asp-action="Index">Företagsanvändare???</a></li>
+=======
                     <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
                     <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
 
 
+>>>>>>> ef736a198124619d75eac1c5dbef07de71123b0c
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

@@ -1,0 +1,44 @@
+﻿@model mercado.nu.Models.ViewModels.AddQuestionToMarketResearchVm
+@using mercado.nu.Models.Entities
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Skapa en fråga</h2>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Question.ChaptersId" class="control-label"></label>
+                <select asp-for="Question.ChaptersId" class="form-control" asp-items="Model.Chapters"></select>
+                <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.ActualQuestion" class="control-label"></label>
+                <input asp-for="Question.ActualQuestion" class="form-control" />
+                <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionTypes" class="control-label"></label>
+                <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
+
+                <span asp-validation-for="QuestionTypes" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+</form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
