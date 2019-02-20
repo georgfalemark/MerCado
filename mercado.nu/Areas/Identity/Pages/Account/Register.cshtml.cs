@@ -5,6 +5,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using mercado.nu.Data;
 using mercado.nu.Models;
+using mercado.nu.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -22,19 +23,22 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailSender _emailSender;
+        private readonly AuthService _auth;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             ApplicationDbContext applicationDbContext,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            AuthService auth)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
+            _auth = auth;
         }
 
 
@@ -68,7 +72,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
         }
-        
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -85,6 +89,8 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    //bool xy = await _auth.AddRole("User", myGuid.ToString());
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

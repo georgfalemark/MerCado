@@ -10,6 +10,7 @@ using mercado.nu.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using mercado.nu.Services;
 
 namespace mercado.nu.Controllers
 {
@@ -18,11 +19,13 @@ namespace mercado.nu.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly AuthService _auth;
 
-        public OrganizationsController(ApplicationDbContext context, SignInManager<ApplicationUser> signInManager)
+        public OrganizationsController(ApplicationDbContext context, SignInManager<ApplicationUser> signInManager, AuthService auth)
         {
             _context = context;
             _signInManager = signInManager;
+            _auth = auth;
         }
 
         // GET: Organizations
@@ -99,6 +102,10 @@ namespace mercado.nu.Controllers
                 person.OrganizationId = organization.OrganizationId;
 
                 _context.Update(person);
+
+                //Går in i AuthService för att lägga till en roll till en viss användare. I detta fall "SuperCompanyUser" till de som registrerar sig som ansvariga för ett företag
+                bool xy = await _auth.AddRole("SuperCompanyUser", person.PersonId.ToString());
+
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
