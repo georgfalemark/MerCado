@@ -20,7 +20,6 @@ namespace mercado.nu.Data
         public DbSet<MarketResearch> MarketResearches { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
-       
         public DbSet<QuestionToMarketResearch> GetQuestionToMarketResearches { get; set; }
         public DbSet<Answer> Answers { get; set; }
 

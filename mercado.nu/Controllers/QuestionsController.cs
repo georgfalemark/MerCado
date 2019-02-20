@@ -27,18 +27,24 @@ namespace mercado.nu
         public IActionResult ShowQuestionsForMarketResearch(Guid marketResearchId)
         {
             var allQuestionsForMarketResearch = _dataAccessQuestion.GetQuestionsForMarketResearch(marketResearchId);
+
             var viewModelAllQuestions = new ViewAllQuestionsForMarketResearchVm();
             var listOfQuestions = new List<Question>();
+
             foreach (var item in allQuestionsForMarketResearch)
             {
-                foreach (var item2 in item.Question.MarketResearches)
+                listOfQuestions.Add(new Question
                 {
-                    listOfQuestions.Add(item2.Question);
-                }
+                    ActualQuestion = item.Question.ActualQuestion,
+                    QuestionId = item.Question.QuestionId,
+                    QuestionOptions = item.Question.QuestionOptions,
+                    QuestionType = item.Question.QuestionType
+                });
             }
 
             viewModelAllQuestions.Questions = listOfQuestions;
-            return View("Questions/ShowAllQuestionsForMarketResearch", viewModelAllQuestions);
+
+            return View("ShowAllQuestionsForMarketResearch", viewModelAllQuestions);
         }
 
         // GET: Questions

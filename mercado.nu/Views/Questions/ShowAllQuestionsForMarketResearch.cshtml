@@ -1,5 +1,64 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model mercado.nu.Models.ViewModels.ViewAllQuestionsForMarketResearchVm
+
+<div>
+<h1>Alla frågor i marknadsundersökningen</h1>
+</div>
+<div>
+    @foreach (var question in Model.Questions)
+    {
+        <div>
+            <h3>@question.QuestionId</h3>
+        </div>
+        <div>
+            <p>@question.ActualQuestion</p>
+        </div>
+        @if (question.QuestionType.ToString() == "Graderingsfråga")
+        {
+            <form>
+                @foreach (var questionOption in question.QuestionOptions)
+                {
+                    <div>
+                        <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                        <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                    </div>
+
+                }
+            </form>
+        }
+        else if (question.QuestionType.ToString() == "Flervalsfråga")
+        {
+            <form>
+                @foreach (var questionOption in question.QuestionOptions)
+                {
+                    <div>
+                        <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                        <input name="question" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
+                    </div>
+                }
+            </form>
+        }
+        else if (question.QuestionType.ToString() == "JaNejfråga")
+        {
+            <form>
+                @foreach (var questionOption in question.QuestionOptions)
+                {
+                <div>
+                    <label for="@questionOption.QuestionOptionId">Ja</label>
+                    <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="true" />
+                    <label for="@questionOption.QuestionOptionId">Ja</label>
+                    <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="false" />
+                </div>
+                }
+            </form>
+        }
+        else if (question.QuestionType.ToString() == "Textfråga")
+        {
+            @foreach (var questionOption in question.QuestionOptions)
+            {
+                <textarea></textarea>
+            }
+        }
+    }
+</div>
+<a asp-controller="MarketResearches" asp-action="Index">Tillbaka till undersökningarna</a>
+
