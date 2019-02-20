@@ -27,12 +27,6 @@ namespace mercado.nu
         //GET: MarketResearches
         public async Task<IActionResult> Index()
         {
-            //List<string> questionType = await _context.QuestionTypes.Select(x => x.QuestionType).ToListAsync();
-            //if (questionType.Count == 0)
-            //{
-            //    await _accessQuestions.SeedQuestionTypes();
-            //}
-
 
             return View(await _context.MarketResearches.ToListAsync());
         }

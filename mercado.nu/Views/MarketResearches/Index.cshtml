@@ -79,10 +79,11 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MarketResearchId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MarketResearchId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MarketResearchId">Delete</a>
-                <p> <a asp-controller="MarketResearches" asp-action="CreateQuestionsToMarketResearch" asp-route-id="@item.MarketResearchId">Lägg till frågor</a></p>
+                <a asp-action="Edit" asp-route-id="@item.MarketResearchId">Uppdatera</a> |
+                <a asp-action="Details" asp-route-id="@item.MarketResearchId">Detaljer</a> |
+                <a asp-action="Delete" asp-route-id="@item.MarketResearchId">Ta bort undersökning</a> |
+                <a asp-controller="Questions" asp-action="ShowQuestionsForMarketResearch" asp-route-marketResearchId="@item.MarketResearchId">Visa frågor</a> |
+                <a asp-controller="MarketResearches" asp-action="CreateQuestionsToMarketResearch" asp-route-id="@item.MarketResearchId">Lägg till frågor</a>
             </td>
         </tr>
 }

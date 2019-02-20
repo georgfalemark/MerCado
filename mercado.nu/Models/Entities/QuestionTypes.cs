@@ -9,8 +9,8 @@ namespace mercado.nu.Models.Entities
     public enum QuestionTypes
     {
         Graderingsfråga,
-        Flervalsfråga,
         JaNejfråga,
+        Flervalsfråga,
         Textfråga,
     }
 
