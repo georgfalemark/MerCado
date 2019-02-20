@@ -218,6 +218,71 @@ namespace mercado.nu
 
         public IActionResult SetOptionsForQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
+            var vm = new AddQuestionToMarketResearchVm();
+            questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
+
+            return View("Create", questionToMarketResearchVm);
+        }
+
+        public async Task<IActionResult> CreateQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
+        {
+            switch (questionToMarketResearchVm.QuestionTypes.ToString())
+            {
+                case "Graderingsfråga" :
+                    {
+
+                       var questionGuid = await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
+                        
+                        for (int i = 0; i < questionToMarketResearchVm.HighGrade; i++)
+                        {
+
+                            var questionOption = new QuestionOption();
+                            questionOption.QuestionOptionId = Guid.NewGuid();
+                            questionOption.Value = (i + 1).ToString();
+
+                            questionOption.QuestionId = questionGuid;
+                            if (i==0)
+                            {
+                                var listitem = questionToMarketResearchVm.GradeChoices[questionToMarketResearchVm.TypeChoice];
+                                string[] headingsInArray = listitem.Text.Split('-');
+                                questionOption.QuestionOptionHeading = headingsInArray[0].Trim();
+                            }
+                            else if(i== questionToMarketResearchVm.HighGrade - 1)
+                            {
+                                var listitem = questionToMarketResearchVm.GradeChoices[questionToMarketResearchVm.TypeChoice];
+                                string[] headingsInArray = listitem.Text.Split('-');
+                                questionOption.QuestionOptionHeading = headingsInArray[1].Trim();
+                            }
+
+                           await _dataAccessQuestion.AddQuestionOption(questionOption);
+                        }
+                    break;
+                    }
+                case "JaNejfråga":
+                    {
+
+                        break;
+                    }
+                case "Flervalsfråga":
+                    {
+                        if (buttonstate)
+                        {
+                        
+                        }
+                        else
+                        {
+                            return View("Create", questionToMarketResearchVm);
+                        }
+                        break;
+                    }
+                case "Textfråga":
+                    {
+
+                        break;
+                    }
+                default:
+                    break;
+            }
 
             return View("Create", questionToMarketResearchVm);
         }

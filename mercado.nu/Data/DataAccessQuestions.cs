@@ -1,4 +1,5 @@
 ﻿using mercado.nu.Models.Entities;
+using mercado.nu.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,20 @@ namespace mercado.nu.Data
             
             var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).ToList();
             return chapters;
+        }
+
+        internal async Task<Guid> saveQuestion(AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            questionToMarketResearchVm.Question.QuestionId = Guid.NewGuid();
+            _questionContext.Add(questionToMarketResearchVm.Question);
+            await _questionContext.SaveChangesAsync();
+            return questionToMarketResearchVm.Question.QuestionId;
+        }
+
+        internal async Task AddQuestionOption(QuestionOption questionOption)
+        {
+            _questionContext.Add(questionOption);
+            await _questionContext.SaveChangesAsync();
         }
     }
 }

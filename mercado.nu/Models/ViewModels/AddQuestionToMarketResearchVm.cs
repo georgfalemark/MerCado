@@ -20,5 +20,18 @@ namespace mercado.nu.Models.ViewModels
         public int TypeChoice { get; set; }
         [Display(Name = "Binära alternativ")]
         public List<SelectListItem> BinaryChoice { get; set; }
+
+        public List<SelectListItem> SetGradeChoicesList()
+        {
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value= "0", Text="Dålig - Bra" });
+            list.Add(new SelectListItem { Value= "1", Text="Aldrig - Alltid" });
+            list.Add(new SelectListItem { Value= "2", Text="Instämmer inte - Instämmer" });
+            return list;
+        }
     }
+
+    
+
+    
 }
