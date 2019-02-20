@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mercado.nu.Data;
 using mercado.nu.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mercado.nu.Controllers
 {
@@ -17,7 +18,7 @@ namespace mercado.nu.Controllers
             
         }
         
-
+        [Authorize]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

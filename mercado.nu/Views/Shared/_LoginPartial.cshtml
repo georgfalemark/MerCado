@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using mercado.nu.Models
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -18,7 +21,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Register">Registerrrr</a></li>
         <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <li>name @UserManager.GetUserName(User)</li>
     </ul>
 }

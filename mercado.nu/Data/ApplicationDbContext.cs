@@ -1,5 +1,6 @@
 ﻿using mercado.nu.Models;
 using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;

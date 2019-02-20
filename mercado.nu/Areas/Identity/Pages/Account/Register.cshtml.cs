@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using mercado.nu.Data;
+using mercado.nu.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -15,22 +17,26 @@ namespace mercado.nu.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            ApplicationDbContext applicationDbContext,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
         }
+
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -54,20 +60,29 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public Person Person { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
         }
-
+        
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                Guid myGuid = Guid.NewGuid();
+
+                Input.Person.PersonId = myGuid;
+
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Id = myGuid, PersonId = myGuid, Person = Input.Person };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                _applicationDbContext.Add(Input.Person);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
