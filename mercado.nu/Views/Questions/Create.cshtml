@@ -12,37 +12,46 @@
     <div class="col-md-4">
         @if (Model.QuestionTypes==null)
         {
-            <form asp-action="SetOptionsForQuestionType">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Question.ChaptersId" class="control-label"></label>
-                    <select asp-for="Question.ChaptersId" class="form-control" asp-items="Model.Chapters"></select>
-                    <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Question.ActualQuestion" class="control-label"></label>
-                    <input asp-for="Question.ActualQuestion" class="form-control" />
-                    <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="QuestionTypes" class="control-label"></label>
-                    <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
+        <form asp-action="SetOptionsForQuestionType">
 
-                    <span asp-validation-for="QuestionTypes" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
-                </div>
+            <p>@Model.CurrentMarketResearchId</p>
+            <input type="hidden" asp-for="CurrentMarketResearchId" />
 
-            </form>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Question.ChaptersId" class="control-label"></label>
+                <select asp-for="Question.ChaptersId" class="form-control" asp-items="Model.Chapters"></select>
+                <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.ActualQuestion" class="control-label"></label>
+                <input asp-for="Question.ActualQuestion" class="form-control" />
+                <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionTypes" class="control-label"></label>
+                <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
+
+                <span asp-validation-for="QuestionTypes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
+            </div>
+
+        </form>
         }
         else
         {
 
             <form asp-action="CreateQuestionType">
 
+                <p>@Model.CurrentMarketResearchId</p>
+                <input type="hidden" asp-for="CurrentMarketResearchId" />
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<h2>Model.Question.ChaptersId</h2>
+                <h3>Model.Question.ActualQuestion</h3>*@
+                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Question.ChaptersId" class="control-label"></label>
                     <select asp-for="Question.ChaptersId" class="form-control" asp-items="Model.Chapters"></select>
@@ -52,13 +61,13 @@
                     <label asp-for="Question.ActualQuestion" class="control-label"></label>
                     <input asp-for="Question.ActualQuestion" class="form-control" />
                     <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                </div>*@
+                @*<div class="form-group">
                     <label asp-for="QuestionTypes" class="control-label"></label>
                     <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
 
                     <span asp-validation-for="QuestionTypes" class="text-danger"></span>
-                </div>
+                </div>*@
 
                 @switch (Model.QuestionTypes[0].ToString())
                 {
