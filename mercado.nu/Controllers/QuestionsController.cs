@@ -26,19 +26,9 @@ namespace mercado.nu
 
         public IActionResult ShowQuestionsForMarketResearch(Guid marketResearchId)
         {
-            var allQuestionsForMarketResearch = _dataAccessQuestion.GetQuestionsForMarketResearch(marketResearchId);
-            var viewModelAllQuestions = new ViewAllQuestionsForMarketResearchVm();
-            var listOfQuestions = new List<Question>();
-            foreach (var item in allQuestionsForMarketResearch)
-            {
-                foreach (var item2 in item.Question.MarketResearches)
-                {
-                    listOfQuestions.Add(item2.Question);
-                }
-            }
+            var viewModelAllQuestions = GetQuestions(marketResearchId);
 
-            viewModelAllQuestions.Questions = listOfQuestions;
-            return View("Questions/ShowAllQuestionsForMarketResearch", viewModelAllQuestions);
+            return View(viewModelAllQuestions);
         }
 
         // GET: Questions
@@ -304,6 +294,43 @@ namespace mercado.nu
             }
 
             return View("Create", questionToMarketResearchVm);
+        }
+
+        public IActionResult ShowQuestionsForResponder(Responders responders)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var viewModelAllQuestions = GetQuestions(responders.MarketResearchId);
+          
+            return View(viewModelAllQuestions);
+
+        }
+
+        public ViewAllQuestionsForMarketResearchVm GetQuestions(Guid marketReseachId)
+        {
+
+            var allQuestionsForMarketResearch = _dataAccessQuestion.GetQuestionsForMarketResearch(marketReseachId);
+
+            var viewModelAllQuestions = new ViewAllQuestionsForMarketResearchVm();
+            var listOfQuestions = new List<Question>();
+
+            foreach (var item in allQuestionsForMarketResearch)
+            {
+                listOfQuestions.Add(new Question
+                {
+                    ActualQuestion = item.Question.ActualQuestion,
+                    QuestionId = item.Question.QuestionId,
+                    QuestionOptions = item.Question.QuestionOptions,
+                    QuestionType = item.Question.QuestionType
+                });
+            }
+
+            viewModelAllQuestions.Questions = listOfQuestions;
+
+            return viewModelAllQuestions;
         }
     }
 }

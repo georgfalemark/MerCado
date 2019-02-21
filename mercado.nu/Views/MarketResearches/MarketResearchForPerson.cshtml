@@ -1,0 +1,55 @@
+﻿@model mercado.nu.Models.ViewModels.RespondersMarketResearchesVm
+
+
+@foreach (var responder in Model.Responders)
+{
+    <h1>Undersökningar för @responder.PersonId</h1>
+    break;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var responder in Model.Responders)
+            {
+                <th>
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Name);
+                </th>
+            }
+
+            @foreach (var responder in Model.Responders)
+            {
+                <th>
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose);
+                </th>
+            }
+            @foreach (var responder in Model.Responders)
+            {
+                <th>
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate);
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var research in Model.Responders)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelresearch => research.MarketResearchs.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelresearch => research.MarketResearchs.Purpose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
+            </td>
+            <td>
+                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Starta undersökningen</a> |
+                <a>Avböj undersökningen</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

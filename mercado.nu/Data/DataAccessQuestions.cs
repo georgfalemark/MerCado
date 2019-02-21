@@ -38,7 +38,7 @@ namespace mercado.nu.Data
 
         internal List<QuestionToMarketResearch> GetQuestionsForMarketResearch(Guid marketResearchId)
         {
-            var allQuestionsForMarketResearch = _questionContext.GetQuestionToMarketResearches.Include(x => x.MarketResearch).Include(x => x.Question).Where(x => x.MarketResearchId == marketResearchId).ToList();
+            var allQuestionsForMarketResearch = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(y => y.QuestionOptions).ToList();
             return allQuestionsForMarketResearch;
         }
 
@@ -54,6 +54,12 @@ namespace mercado.nu.Data
         {
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
+        }
+
+        internal List<Responders> GetMarketResearchesForPerson(Guid userId)
+        {
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
+            return marketResearchesForPerson;
         }
     }
 }

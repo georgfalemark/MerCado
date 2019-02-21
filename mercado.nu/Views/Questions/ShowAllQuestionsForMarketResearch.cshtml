@@ -1,5 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model mercado.nu.Models.ViewModels.ViewAllQuestionsForMarketResearchVm
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8"><h1>Alla frågor i marknadsundersökningen</h1></div>
+        <div class="col-md-2"></div>
+    </div>
+    @foreach (var question in Model.Questions)
+    {
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"><h3>@question.QuestionId</h3></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"><h4>@question.ActualQuestion</h4></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            @if (question.QuestionType.ToString() == "Graderingsfråga")
+            {
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form>
+                        @foreach (var questionOption in question.QuestionOptions)
+                        {
+                            <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                            <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                        }
+                        <a asp-action="">Ändra frågan</a>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            }
+            else if (question.QuestionType.ToString() == "Flervalsfråga")
+            {
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form>
+                        @foreach (var questionOption in question.QuestionOptions)
+                        {
+
+                            <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                            <input name="question" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
+
+                        }
+                        <a asp-action="">Ändra frågan</a>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            }
+            else if (question.QuestionType.ToString() == "JaNejfråga")
+            {
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form>
+                        @foreach (var questionOption in question.QuestionOptions)
+                        {
+
+                            <label for="@questionOption.QuestionOptionId">Ja</label>
+                            <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="true" />
+                            <label for="@questionOption.QuestionOptionId">Ja</label>
+                            <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="false" />
+
+                        }
+                        <a asp-action="">Ändra frågan</a>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            }
+            else if (question.QuestionType.ToString() == "Textfråga")
+            {
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    @foreach (var questionOption in question.QuestionOptions)
+                    {
+                        <textarea></textarea>
+                    }
+                    <a asp-action="">Ändra frågan</a>
+                </div>
+                <div class="col-md-2"></div>
+            }
+        </div>
+    }
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"><a asp-controller="MarketResearches" asp-action="Index">Tillbaka till undersökningarna</a></div>
+            <div class="col-md-2"></div>
+        </div>
+</div>
+
