@@ -61,5 +61,15 @@ namespace mercado.nu.Data
             var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
             return marketResearchesForPerson;
         }
+
+        internal async Task<int> AddAnswers(List<Answer> listOfAnswers)
+        {
+            foreach (var answer in listOfAnswers)
+            {
+                await _questionContext.AddAsync(answer);
+                var result = await _questionContext.SaveChangesAsync();
+            }
+                return 1;
+        }
     }
 }

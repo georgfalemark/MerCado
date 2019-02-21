@@ -1,20 +1,20 @@
 ﻿@model mercado.nu.Models.ViewModels.ViewAllQuestionsForMarketResearchVm
 
-<form asp-controller="Answers" asp-action="Response">
+<form asp-controller="Answers" asp-action="ResponseAsync">
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8"><h1>Besvara alla frågor och skicka in svaren.</h1></div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2"><input type="hidden" name="marketId" value="@Model.Questions[0].MarketResearches[0].MarketResearchId"/></div>
         </div>
         @{int groupName = 0; }
         @foreach (var question in Model.Questions)
         {
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8"><h3>@question.QuestionId</h3></div>
-                <div class="col-md-2"></div>
-            </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"><h3>@question.QuestionId</h3></div>
+            <div class="col-md-2"><input type="hidden" name="@groupName questionId" value="@question.QuestionId" /></div>
+        </div>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8"><h4>@question.ActualQuestion</h4></div>
@@ -28,8 +28,8 @@
 
                         @foreach (var questionOption in question.QuestionOptions)
                         {
-                            <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
-                            <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                            <label>@questionOption.QuestionOptionHeading</label>
+                            <input name="@groupName"id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
                         }
 
 
@@ -44,7 +44,7 @@
                         @foreach (var questionOption in question.QuestionOptions)
                         {
 
-                            <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                            <label >@questionOption.QuestionOptionHeading</label>
                             <input name="@groupName" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
 
                         }
@@ -59,10 +59,10 @@
                         @foreach (var questionOption in question.QuestionOptions)
                         {
 
-                            <label for="@questionOption.QuestionOptionId">Ja</label>
+                            <label >Ja</label>
                             <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
-                            <label for="@questionOption.QuestionOptionId">Ja</label>
-                            <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
+                            <label >Ja</label>
+                            <input  name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
 
                         }
                     </div>

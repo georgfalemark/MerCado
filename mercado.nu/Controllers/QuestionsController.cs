@@ -324,11 +324,13 @@ namespace mercado.nu
                     ActualQuestion = item.Question.ActualQuestion,
                     QuestionId = item.Question.QuestionId,
                     QuestionOptions = item.Question.QuestionOptions,
-                    QuestionType = item.Question.QuestionType
+                    QuestionType = item.Question.QuestionType,
+                    MarketResearches = new List<QuestionToMarketResearch> { new QuestionToMarketResearch { MarketResearchId = marketReseachId, QuestionId = item.Question.QuestionId } },
                 });
             }
 
             viewModelAllQuestions.Questions = listOfQuestions;
+            
 
             return viewModelAllQuestions;
         }
