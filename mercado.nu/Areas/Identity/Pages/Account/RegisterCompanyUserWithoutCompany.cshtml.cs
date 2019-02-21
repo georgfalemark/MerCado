@@ -13,13 +13,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace mercado.nu.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterCompanyUserModel : PageModel
+    public class RegisterCompanyUserWithoutCompanyModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -28,7 +27,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly AuthService _auth;
 
-        public RegisterCompanyUserModel(
+        public RegisterCompanyUserWithoutCompanyModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -110,30 +109,32 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-
-
-
-
-
                     //if (Input.NewOrganization == true)
                     //{
-                    //    return RedirectToAction("Create", "Organizations");
                     //}
 
 
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+
+
+
+                    return RedirectToAction("Create", "Organizations");
 
 
                     //Kontrollera ifall användare verkligen tillhör företaget!
-                    var xy = Input.Organization.OrganizationId;
-                    Person p1 = _applicationDbContext.Persons.Single(x => x.OrganizationId == xy);
-                    ApplicationUser userEmail = await _userManager.FindByIdAsync(p1.PersonId.ToString());
-                    string email = userEmail.Email;
 
-                    await _emailSender.SendEmailAsync(email, "Confirm your email collugue",
-                        $"Please confirm {user.Email} as your collugue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    return LocalRedirect(returnUrl);
+                    //var xy = Input.Organization.OrganizationId;
+                    //Person p1 = _applicationDbContext.Persons.Single(x => x.OrganizationId == xy);
+                    //ApplicationUser userEmail = await _userManager.FindByIdAsync(p1.PersonId.ToString());
+                    //string email = userEmail.Email;
+
+
+
+
+                    //return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {

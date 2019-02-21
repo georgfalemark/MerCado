@@ -1,5 +1,5 @@
 ﻿@page
-@model RegisterCompanyUserModel
+@model RegisterCompanyUserWithoutCompanyModel
 @{
     ViewData["Title"] = "Register as companyUser";
 }
@@ -16,12 +16,19 @@
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label class="control-label">Vilket företag tillhör du?</label>
                 <select asp-for="Input.Organization.OrganizationId" asp-items="Model.Input.Organizations" class="form-control">
                     <option disabled selected>--- VÄLJ FÖRETAG ---</option>
                 </select>
-            </div>
+            </div>*@
+
+            @*<div class="form-group">
+                    <label class="control-label">Vilket företag tillhör du?</label>
+                    <select asp-items="Model.Input.Organizations" class="form-control">
+                        <option disabled selected>--- VÄLJ FÖRETAG ---</option>
+                    </select>
+                </div>*@
 
             @*<div class="form-group">
                 <label asp-for="Input.NewOrganization" class="control-label"></label>
@@ -73,4 +80,5 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
 
