@@ -109,32 +109,12 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    //if (Input.NewOrganization == true)
-                    //{
-                    //}
-
-
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
-
-
                     return RedirectToAction("Create", "Organizations");
-
-
-                    //Kontrollera ifall användare verkligen tillhör företaget!
-
-
-                    //var xy = Input.Organization.OrganizationId;
-                    //Person p1 = _applicationDbContext.Persons.Single(x => x.OrganizationId == xy);
-                    //ApplicationUser userEmail = await _userManager.FindByIdAsync(p1.PersonId.ToString());
-                    //string email = userEmail.Email;
-
-
-
-
-                    //return LocalRedirect(returnUrl);
+                    
                 }
                 foreach (var error in result.Errors)
                 {

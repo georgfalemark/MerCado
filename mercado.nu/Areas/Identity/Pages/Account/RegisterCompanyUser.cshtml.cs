@@ -69,7 +69,6 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public Person Person { get; set; }
-            //public bool NewOrganization { get; set; }
             public Organization Organization { get; set; }
             public List<SelectListItem> Organizations { get; set; }
         }
@@ -112,25 +111,13 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
 
 
-
-
-
-                    //if (Input.NewOrganization == true)
-                    //{
-                    //    return RedirectToAction("Create", "Organizations");
-                    //}
-
-
-
-
-
                     //Kontrollera ifall användare verkligen tillhör företaget!
                     var xy = Input.Organization.OrganizationId;
                     Person p1 = _applicationDbContext.Persons.Single(x => x.OrganizationId == xy);
                     ApplicationUser userEmail = await _userManager.FindByIdAsync(p1.PersonId.ToString());
                     string email = userEmail.Email;
 
-                    await _emailSender.SendEmailAsync(email, "Confirm your email collugue",
+                    await _emailSender.SendEmailAsync(email, "Confirm your collugue",
                         $"Please confirm {user.Email} as your collugue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     return LocalRedirect(returnUrl);
