@@ -104,7 +104,8 @@ namespace mercado.nu.Controllers
                 _context.Update(person);
 
                 //Går in i AuthService för att lägga till en roll till en viss användare. I detta fall "SuperCompanyUser" till de som registrerar sig som ansvariga för ett företag
-                bool xy = await _auth.AddRole("SuperCompanyUser", person.PersonId.ToString());
+                bool addRole = await _auth.AddRole("SuperCompanyUser");
+                var addRoleToUser = await _auth.AddRoleToUser("SuperCompanyUser", person.PersonId.ToString());
 
 
                 await _context.SaveChangesAsync();

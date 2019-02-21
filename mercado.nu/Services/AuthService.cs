@@ -25,41 +25,32 @@ namespace mercado.nu.Services
 
 
 
-        public async Task<bool> AddRole(string role, string id)
+        public async Task<bool> AddRole(string role)
         {
-            if (role != null)
+            ApplicationRole roleName = new ApplicationRole(role);
+            ApplicationRole checkIfRoleExist = await GetRoles(role);
+
+            if (checkIfRoleExist == null)
             {
-                ApplicationRole roleName = new ApplicationRole(role);
-                //ApplicationRole checkRole = await _roleManager.FindByNameAsync(role);
                 var result = await _roleManager.CreateAsync(roleName);
-
-
-                if (id != null)
-                {
-                    //ApplicationUser user = await _userManager.FindByEmailAsync(email);
-                    ApplicationUser user = await _userManager.FindByIdAsync(id);
-
-                    var addRoleToUser = await _userManager.AddToRoleAsync(user, role);
-                }
             }
-
-
-
-            //else
-            //{
-
-            //    var role = await _roleManager.FindByIdAsync(addrole.RoleInformation.Id);
-            //    IdentityUser identityUser = await _userManager.FindByEmailAsync(addrole.Email);
-            //    var addRoleToUser = await _userManager.AddToRoleAsync(identityUser, role.Name);
-
-            //}
-
             return true;
+        }
 
+
+        public async Task<IdentityResult> AddRoleToUser(string role, string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            return await _userManager.AddToRoleAsync(user, role);
         }
 
 
 
+
+        private async Task<ApplicationRole> GetRoles(string role)
+        {
+            return await _roleManager.FindByNameAsync(role);
+        }
 
     }
 }
