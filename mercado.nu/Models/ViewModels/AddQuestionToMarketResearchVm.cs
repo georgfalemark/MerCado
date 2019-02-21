@@ -20,7 +20,8 @@ namespace mercado.nu.Models.ViewModels
         public int TypeChoice { get; set; }
         [Display(Name = "Binära alternativ")]
         public List<SelectListItem> BinaryChoice { get; set; }
-
+        [Display(Name = "Skriv in svarsalternativ")]
+        public string Alternative { get; set; }
         public List<SelectListItem> SetGradeChoicesList()
         {
             var list = new List<SelectListItem>();

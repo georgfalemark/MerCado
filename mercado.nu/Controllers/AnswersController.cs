@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mercado.nu.Data;
 using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using mercado.nu.Models;
 
 namespace mercado.nu.Controllers
 {
     public class AnswersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly DataAccessQuestions _dataAccessQuestions;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AnswersController(ApplicationDbContext context)
+        public AnswersController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestions, UserManager<ApplicationUser> userManager )
         {
             _context = context;
+            _dataAccessQuestions = dataAccessQuestions;
+            _userManager = userManager;
         }
 
         // GET: Answers
@@ -168,6 +175,28 @@ namespace mercado.nu.Controllers
         private bool AnswerExists(Guid id)
         {
             return _context.Answers.Any(e => e.AnswerId == id);
+        }
+
+        public async Task<IActionResult> ResponseAsync(IFormCollection answer)
+        {
+
+            ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
+            var userId = applicationUser.Id;
+
+            var listOfAnswers = new List<Answer>();
+
+            for (int i = 0; i < (answer.Count - 2)/2; i++)
+            {
+                var answerGuid = Guid.NewGuid();
+                string questionId = $"{i} questionId";
+                string value = $"{i}";
+                listOfAnswers.Add(new Answer { AnswerId = answerGuid, MarketResearchId = Guid.Parse(answer["marketId"]), PersonId = userId, QuestionId = Guid.Parse(answer[questionId]), Value = answer[value] });
+            }
+
+            int result = await _dataAccessQuestions.AddAnswers(listOfAnswers);
+
+            return View();
+
         }
     }
 }
