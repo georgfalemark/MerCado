@@ -108,9 +108,6 @@ namespace mercado.nu.Controllers
                 var addRoleToUser = await _auth.AddRoleToUser("SuperCompanyUser", person.PersonId.ToString());
 
 
-
-
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

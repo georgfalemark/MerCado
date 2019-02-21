@@ -115,8 +115,15 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                         return RedirectToAction("Create", "Organizations");
                     }
 
-                    await _emailSender.SendEmailAsync(Input.Organization.ContactPerson.User.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    //Kontrollera ifall användare verkligen tillhör företaget!
+                    var xy = Input.Organization.OrganizationId;
+                    Person p1 = _applicationDbContext.Persons.Single(x => x.OrganizationId == xy);
+                    ApplicationUser userEmail = await _userManager.FindByIdAsync(p1.PersonId.ToString());
+                    string email = userEmail.Email;
+
+                    await _emailSender.SendEmailAsync(email, "Confirm your email",
+                        $"Please confirm {user.Email} as your collugue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
 
@@ -128,7 +135,6 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                     //    protocol: Request.Scheme);
 
 
-                    //Kontrollera ifall användare verkligen tillhör företaget!
 
 
 
