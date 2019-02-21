@@ -70,17 +70,18 @@ namespace mercado.nu.Data
         }
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
-        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+       
         {
             var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
             return marketResearchesForPerson;
+        }
+        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
             //var question = _questionContext.Questions.SingleAsync(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
-           
             await _questionContext.SaveChangesAsync();
         }
-
         internal async Task<int> AddAnswers(List<Answer> listOfAnswers)
         {
             foreach (var answer in listOfAnswers)
