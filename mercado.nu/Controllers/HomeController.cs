@@ -14,8 +14,7 @@ namespace mercado.nu.Controllers
     {
         public IActionResult Index()
         {
-            return View();
-            
+            return RedirectToAction("/Account/Register", "Identity");
         }
         
         [Authorize]

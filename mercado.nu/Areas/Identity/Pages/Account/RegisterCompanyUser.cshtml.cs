@@ -1,6 +1,7 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using mercado.nu.Data;
@@ -11,12 +12,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace mercado.nu.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterCompanyUserModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,7 +28,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly AuthService _auth;
 
-        public RegisterModel(
+        public RegisterCompanyUserModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -66,11 +69,17 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public Person Person { get; set; }
+            public bool NewOrganization { get; set; }
+            public Organization Organization { get; set; }
+            public List<SelectListItem> Organizations { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            //Denna metod fungerar som denna vy:ns kontroller!
+            Input = new InputModel();
+            var y = _applicationDbContext.Organizations.Select(x => new SelectListItem() { Text = x.Name, Value = x.OrganizationId.ToString() });
+            Input.Organizations = y.ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -87,8 +96,8 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    bool addRole = await _auth.AddRole("User");
-                    var addRoleToUser = await _auth.AddRoleToUser("User", Input.Person.PersonId.ToString());
+                    bool addRole = await _auth.AddRole("CompanyUser");
+                    var addRoleToUser = await _auth.AddRoleToUser("CompanyUser", Input.Person.PersonId.ToString());
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -99,10 +108,34 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    if (Input.NewOrganization == true)
+                    {
+                        return RedirectToAction("Create", "Organizations");
+                    }
+
+                    await _emailSender.SendEmailAsync(Input.Organization.ContactPerson.User.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+
+                    //var code2 = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl2 = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: Request.Scheme);
+
+
+                    //Kontrollera ifall användare verkligen tillhör företaget!
+
+
+
+
+
+
+
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
