@@ -235,22 +235,22 @@ namespace mercado.nu
             return selectChapters;
         }
 
-        public IActionResult SetOptionsForQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        public async Task <IActionResult> SetOptionsForQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
             var vm = new AddQuestionToMarketResearchVm();
             questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
-
+            await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
             return View("Create", questionToMarketResearchVm);
         }
 
         public async Task<IActionResult> CreateQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
         {
-            switch (questionToMarketResearchVm.QuestionTypes.ToString())
+            string qType = questionToMarketResearchVm.QuestionTypes.First().ToString();
+            switch (qType)
             {
                 case "Graderingsfråga" :
                     {
 
-                       var questionGuid = await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
                         
                         for (int i = 0; i < questionToMarketResearchVm.HighGrade; i++)
                         {
@@ -259,7 +259,7 @@ namespace mercado.nu
                             questionOption.QuestionOptionId = Guid.NewGuid();
                             questionOption.Value = (i + 1).ToString();
 
-                            questionOption.QuestionId = questionGuid;
+                            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
                             if (i==0)
                             {
                                 var listitem = questionToMarketResearchVm.GradeChoices[questionToMarketResearchVm.TypeChoice];
@@ -284,15 +284,33 @@ namespace mercado.nu
                     }
                 case "Flervalsfråga":
                     {
+                        string x = questionToMarketResearchVm.Alternative.ToString();
+                        List<string> queOptList = new List<string>();
+                        queOptList.Add(x);
                         if (buttonstate)
                         {
-                        
+
+                            var questionOption = new QuestionOption();
+                            questionOption.QuestionOptionHeading = questionToMarketResearchVm.Alternative.ToString();
+                            questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
+
+                           
+                           await _dataAccessQuestion.AddQuestionOptionForFlerval(questionOption, questionToMarketResearchVm);
+                            questionToMarketResearchVm.QuestionTypes = null;
+
+                            return View("Create", questionToMarketResearchVm);
                         }
                         else
                         {
+
+                            var questionOption = new QuestionOption();
+                            questionOption.QuestionOptionHeading = questionToMarketResearchVm.Alternative.ToString();
+                            questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
+                            await _dataAccessQuestion.AddQuestionOptionForFlerval( questionOption, questionToMarketResearchVm);
+                            ViewData["listOfAlternatives"] = queOptList;
                             return View("Create", questionToMarketResearchVm);
                         }
-                        break;
+                        
                     }
                 case "Textfråga":
                     {

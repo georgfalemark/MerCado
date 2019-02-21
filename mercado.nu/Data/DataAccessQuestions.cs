@@ -42,18 +42,40 @@ namespace mercado.nu.Data
             return allQuestionsForMarketResearch;
         }
 
-        internal async Task<Guid> saveQuestion(AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        internal async Task saveQuestion(AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
-            questionToMarketResearchVm.Question.QuestionId = Guid.NewGuid();
-            _questionContext.Add(questionToMarketResearchVm.Question);
+
+             var marketResearch = _questionContext.MarketResearches.Single(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId);
+
+            var question = questionToMarketResearchVm.Question;
+
+
+            QuestionToMarketResearch questionToMarketResearch = new QuestionToMarketResearch
+            {
+                Question = question,
+                MarketResearch = marketResearch
+            };
+
+            _questionContext.Add(questionToMarketResearch);
             await _questionContext.SaveChangesAsync();
-            return questionToMarketResearchVm.Question.QuestionId;
+           //return questionToMarketResearchVm.Question.QuestionId;
         }
 
         internal async Task AddQuestionOption(QuestionOption questionOption)
         {
+           
+            var qustionOptionList = new List<QuestionOption>();
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
         }
+        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            //var question = _questionContext.Questions.SingleAsync(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
+            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
+            _questionContext.Add(questionOption);
+           
+            await _questionContext.SaveChangesAsync();
+        }
+
     }
 }
