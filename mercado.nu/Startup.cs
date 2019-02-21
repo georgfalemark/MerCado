@@ -6,6 +6,7 @@ using mercado.nu.Data;
 using mercado.nu.Email;
 using mercado.nu.Models;
 using mercado.nu.Models.Entities;
+using mercado.nu.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,6 +45,10 @@ namespace mercado.nu
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+
+            services.AddTransient<UserManager<ApplicationUser>>();
+
+            services.AddTransient<AuthService>();
 
 
             services.AddTransient<IEmailSender, EmailSender>();

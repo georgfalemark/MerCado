@@ -38,7 +38,7 @@ namespace mercado.nu.Data
 
         internal List<QuestionToMarketResearch> GetQuestionsForMarketResearch(Guid marketResearchId)
         {
-            var allQuestionsForMarketResearch = _questionContext.GetQuestionToMarketResearches.Include(x => x.MarketResearch).Include(x => x.Question).Where(x => x.MarketResearchId == marketResearchId).ToList();
+            var allQuestionsForMarketResearch = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(y => y.QuestionOptions).ToList();
             return allQuestionsForMarketResearch;
         }
 
@@ -68,8 +68,12 @@ namespace mercado.nu.Data
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
         }
+
+        internal List<Responders> GetMarketResearchesForPerson(Guid userId)
         internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
+            return marketResearchesForPerson;
             //var question = _questionContext.Questions.SingleAsync(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
@@ -77,5 +81,14 @@ namespace mercado.nu.Data
             await _questionContext.SaveChangesAsync();
         }
 
+        internal async Task<int> AddAnswers(List<Answer> listOfAnswers)
+        {
+            foreach (var answer in listOfAnswers)
+            {
+                await _questionContext.AddAsync(answer);
+                var result = await _questionContext.SaveChangesAsync();
+            }
+                return 1;
+        }
     }
 }
