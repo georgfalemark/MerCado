@@ -55,5 +55,11 @@ namespace mercado.nu.Data
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
         }
+
+        internal List<Responders> GetMarketResearchesForPerson(Guid userId)
+        {
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
+            return marketResearchesForPerson;
+        }
     }
 }

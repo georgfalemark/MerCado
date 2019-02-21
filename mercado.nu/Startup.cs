@@ -46,6 +46,8 @@ namespace mercado.nu
 
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
+            services.AddTransient<UserManager<ApplicationUser>>();
+
             services.AddTransient<AuthService>();
 
             services.AddTransient<IEmailSender, EmailSender>();

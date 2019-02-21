@@ -9,6 +9,7 @@ using mercado.nu.Data;
 using mercado.nu.Models;
 using mercado.nu.Models.ViewModels;
 using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace mercado.nu
 {
@@ -16,12 +17,14 @@ namespace mercado.nu
     {
         private readonly ApplicationDbContext _context;
         private readonly DataAccessQuestions _accessQuestions;
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public MarketResearchesController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestions )
+        public MarketResearchesController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestions, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _accessQuestions = dataAccessQuestions;
+            _userManager = userManager;
         }
 
         //GET: MarketResearches
@@ -169,6 +172,19 @@ namespace mercado.nu
         private bool MarketResearchExists(Guid id)
         {
             return _context.MarketResearches.Any(e => e.MarketResearchId == id);
+        }
+
+        public async Task<IActionResult> MarketResearchForPerson()
+        {
+            ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
+            var userId = applicationUser.Id;
+
+            var marketReaserchesForPerson = _accessQuestions.GetMarketResearchesForPerson(userId);
+
+            var viewModelMarketResearchForPerson = new RespondersMarketResearchesVm();
+            viewModelMarketResearchForPerson.Responders = marketReaserchesForPerson;
+
+            return View(viewModelMarketResearchForPerson);
         }
     }
 }
