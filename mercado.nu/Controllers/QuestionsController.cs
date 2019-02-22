@@ -267,7 +267,8 @@ namespace mercado.nu
 
                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
-                    break;
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        break;
                     }
                 case "Binärfråga":
                     {
@@ -313,8 +314,8 @@ namespace mercado.nu
                     }
                 case "Textfråga":
                     {
-
-                        break;
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        return View("Create", questionToMarketResearchVm);
                     }
                 default:
                     break;

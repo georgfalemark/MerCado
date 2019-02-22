@@ -55,14 +55,21 @@
                 }
                 else if (question.QuestionType == QuestionTypes.Binärfråga)
                 {
+
+
+
                     <div class="col-md-2"></div>
                     <div id="@groupName " class="col-md-8">
                         @foreach (var questionOption in question.QuestionOptions)
                         {
+                            string binaryType = questionOption.ToString();
+                            string[] binaryTypes = binaryType.Split('-');
+                            
 
-                            <label >Ja</label>
+
+                        <label>@binaryTypes[0].Trim()</label>
                             <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
-                            <label >Nej</label>
+                            <label >Ja</label>
                             <input  name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
 
                         }
