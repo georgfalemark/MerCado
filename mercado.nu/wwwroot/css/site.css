@@ -3,6 +3,15 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #FFFDF5;
+}
+
+.navbar{
+    background-color: #56FF81;
+}
+
+.navbar-brand{
+    padding: 5px 16px;
 }
 
 /* Wrapping element */
