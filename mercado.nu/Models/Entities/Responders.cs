@@ -12,5 +12,7 @@ namespace mercado.nu.Models
 
         public Guid MarketResearchId { get; set; }
         public MarketResearch MarketResearchs { get; set; }
+
+        public bool MarketResearchCompleted { get; set; }
     }
 }
