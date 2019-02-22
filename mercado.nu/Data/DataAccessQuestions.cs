@@ -61,27 +61,39 @@ namespace mercado.nu.Data
            //return questionToMarketResearchVm.Question.QuestionId;
         }
 
-        internal async Task AddQuestionOption(QuestionOption questionOption)
+        internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
+            
            
-            var qustionOptionList = new List<QuestionOption>();
+         
+            questionOption.QuestionId= questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
+            await _questionContext.SaveChangesAsync();
+           await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
+        }
+
+        internal async Task SetNumberOnQuestion(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionOption.QuestionId);
+            question.QuestionNumber = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId).Include(x => x.Question).Max(x => x.Question.QuestionNumber) + 1;
+            _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
         }
 
+        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
+            _questionContext.Add(questionOption);
+            await _questionContext.SaveChangesAsync();
+            await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
+        }
+
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
-       
         {
             var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
             return marketResearchesForPerson;
         }
-        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
-        {
-            //var question = _questionContext.Questions.SingleAsync(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
-            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
-            _questionContext.Add(questionOption);
-            await _questionContext.SaveChangesAsync();
-        }
+
         internal async Task<int> AddAnswers(List<Answer> listOfAnswers)
         {
             foreach (var answer in listOfAnswers)
@@ -90,6 +102,12 @@ namespace mercado.nu.Data
                 var result = await _questionContext.SaveChangesAsync();
             }
                 return 1;
+        }
+
+        internal List<Answer> GetAnswersForMarketResearch(Guid marketResearchId)
+        {
+            var questions = _questionContext.Answers.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(x => x.QuestionOptions).ToList();
+            return questions;
         }
     }
 }

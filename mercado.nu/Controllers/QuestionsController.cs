@@ -229,6 +229,7 @@ namespace mercado.nu
         {
             var vm = new AddQuestionToMarketResearchVm();
             questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
+            questionToMarketResearchVm.BinaryChoice = vm.SetBinaryChoiceList();
             await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
             return View("Create", questionToMarketResearchVm);
         }
@@ -240,13 +241,14 @@ namespace mercado.nu
             {
                 case "Graderingsfråga" :
                     {
-
+                        var vm = new AddQuestionToMarketResearchVm();
+                        questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
                         
+
                         for (int i = 0; i < questionToMarketResearchVm.HighGrade; i++)
                         {
 
                             var questionOption = new QuestionOption();
-                            questionOption.QuestionOptionId = Guid.NewGuid();
                             questionOption.Value = (i + 1).ToString();
 
                             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
@@ -263,13 +265,21 @@ namespace mercado.nu
                                 questionOption.QuestionOptionHeading = headingsInArray[1].Trim();
                             }
 
-                           await _dataAccessQuestion.AddQuestionOption(questionOption);
+                           await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
-                    break;
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        break;
                     }
-                case "JaNejfråga":
+                case "Binärfråga":
                     {
-
+                        var vm = new AddQuestionToMarketResearchVm();
+                        questionToMarketResearchVm.BinaryChoice = vm.SetGradeChoicesList();
+                        var questionOption = new QuestionOption();
+                       var bin= questionToMarketResearchVm.BinaryChoice[questionToMarketResearchVm.TypeChoice];
+                        questionOption.QuestionOptionHeading = bin.Text.ToString();
+                        questionOption.Value = bin.Text.ToString();
+                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                        questionToMarketResearchVm.QuestionTypes = null;
                         break;
                     }
                 case "Flervalsfråga":
@@ -304,14 +314,15 @@ namespace mercado.nu
                     }
                 case "Textfråga":
                     {
-
-                        break;
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        return View("Create", questionToMarketResearchVm);
                     }
                 default:
                     break;
             }
 
             return View("Create", questionToMarketResearchVm);
+
         }
 
         public IActionResult ShowQuestionsForResponder(Responders responders)

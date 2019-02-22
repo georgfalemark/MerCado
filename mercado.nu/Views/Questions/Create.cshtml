@@ -10,12 +10,14 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @if (Model.QuestionTypes==null)
+        @if (Model.QuestionTypes == null)
         {
         <form asp-action="SetOptionsForQuestionType">
 
             <p>@Model.CurrentMarketResearchId</p>
             <input type="hidden" asp-for="CurrentMarketResearchId" />
+            <input type="hidden" asp-for="GradeChoices" />
+
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -37,6 +39,7 @@
             <div class="form-group">
                 <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
             </div>
+            
 
         </form>
         }
@@ -51,6 +54,8 @@
             <input type="hidden" asp-for="Question.ActualQuestion" />
             <input type="hidden" asp-for="QuestionTypes" />
             <input type="hidden" asp-for="Question.QuestionId" />
+            <input type="hidden" asp-for="GradeChoices" />
+            <input type="hidden" asp-for="BinaryChoice" />
 
 
 
@@ -59,25 +64,27 @@
                 case "Graderingsfråga":
                     {
                         <div class="form-group">
-                            <label asp-for="HighGrade" class="control-label"></label>
-                            <input asp-for="HighGrade" class="form-control" />
-                            @*  <span asp-validation-for="QU.ActualQuestion" class="text-danger"></span>*@
+                            <div>
+                                <label asp-for="HighGrade" class="control-label"></label>
+                                <input asp-for="HighGrade" class="form-control" />
+                                @*  <span asp-validation-for="QU.ActualQuestion" class="text-danger"></span>*@
 
-                        </div>
-                        <div>
-                            <label asp-for="TypeChoice" class="control-label"></label>
-                            <select asp-for="TypeChoice" class="form-control" asp-items="Model.GradeChoices"></select>
+                            </div>
+                            <div>
+                                <label asp-for="TypeChoice" class="control-label"></label>
+                                <select asp-for="TypeChoice" class="form-control" asp-items="Model.GradeChoices"></select>
+                            </div>
                             <div class="form-group">
                                 <input type="submit" value="Lägg till" class="btn btn-default" />
                             </div>
                         </div>
                         break;
                     }
-                case "JaNejfråga":
+                case "Binärfråga":
                     {
                         <div>
-                            <label asp-for="BinaryChoice" class="control-label"></label>
-                            <select asp-for="BinaryChoice" class="form-control" asp-items="Model.GradeChoices"></select>
+                            <label asp-for="BinChoice" class="control-label"></label>
+                            <select asp-for="TypeChoice" class="form-control" asp-items="Model.BinaryChoice"></select>
                             <div class="form-group">
                                 <input type="submit" value="Lägg till" class="btn btn-default" />
                             </div>
@@ -87,11 +94,11 @@
                 case "Flervalsfråga":
                     {
                         ViewData["Title"] = "Tillagda svarsalternativ";
-                        var x = (List<string>) ViewData["listOfAlternatives"];
-                        if (x!=null)
+                        var x = (List<string>)ViewData["listOfAlternatives"];
+                        if (x != null)
                         {
-                        <h3>@ViewData["Title"]</h3>
-                        <p>@x.Count</p>
+                            <h3>@ViewData["Title"]</h3>
+                            <p>@x.Count</p>
                             foreach (var item in x)
                             {
                                 <p>@item</p>
@@ -110,7 +117,16 @@
                         </div>
                         break;
                     }
-
+                case "Textfråga":
+                    {
+                        <div>
+                            <h2>@Model.Question.ActualQuestion är tillagd</h2>
+                            <div class="form-group">
+                                <input type="submit" value="Lägg till" class="btn btn-default" />
+                            </div>
+                        </div>
+                        break;
+                    }
                 default:
                     break;
 
@@ -124,6 +140,9 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+<div class="form-group">
+    <a asp-action="ShowQuestionsForMarketResearch">Klar med skapandet</a>
 </div>
 
 @section Scripts {
