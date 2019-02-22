@@ -93,5 +93,11 @@ namespace mercado.nu.Data
             }
                 return 1;
         }
+
+        internal List<Answer> GetAnswersForMarketResearch(Guid marketResearchId)
+        {
+            var questions = _questionContext.Answers.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(x => x.QuestionOptions).ToList();
+            return questions;
+        }
     }
 }

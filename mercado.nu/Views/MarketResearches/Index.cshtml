@@ -83,7 +83,8 @@
                 <a asp-action="Details" asp-route-id="@item.MarketResearchId">Detaljer</a> |
                 <a asp-action="Delete" asp-route-id="@item.MarketResearchId">Ta bort undersökning</a> |
                 <a asp-controller="Questions" asp-action="ShowQuestionsForMarketResearch" asp-route-marketResearchId="@item.MarketResearchId">Visa frågor</a> |
-                <a asp-controller="MarketResearches" asp-action="CreateQuestionsToMarketResearch" asp-route-id="@item.MarketResearchId">Lägg till frågor</a>
+                <a asp-controller="MarketResearches" asp-action="CreateQuestionsToMarketResearch" asp-route-id="@item.MarketResearchId">Lägg till frågor</a> |
+                <a asp-controller="Answers" asp-action="Evaluation" asp-route-marketResearchId="@item.MarketResearchId">Utvärdering av undersökning</a> |
             </td>
         </tr>
 }
