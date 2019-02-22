@@ -1,16 +1,18 @@
 ﻿@page
 @model RegisterCompanyUserWithoutCompanyModel
 @{
-    ViewData["Title"] = "Register as companyUser";
+    ViewData["Title"] = "Registrera dig som företagsanvändare";
 }
 
-<h2>@ViewData["Title"]</h2>
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
 
-        <h4>Create a new account.</h4>
+        <h2>@ViewData["Title"]</h2>
+
+        <h4>Skapa ditt nya företagskonto</h4>
         <hr />
 
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">

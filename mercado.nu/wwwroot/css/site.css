@@ -83,6 +83,7 @@ body {
     flex: 1;
 }
 
+/*Sätter färg på footern*/
 .footer-copyright {
     background-color: #403F3E;
     color: white;
@@ -90,5 +91,6 @@ body {
 
 .page-footer {
     background-color: #DAA8E8;
-}
+}
+
 
