@@ -8,7 +8,9 @@ namespace mercado.nu.Models.Evaluations
 {
     public class MultipleChoiceQuestion : BaseQuestion
     {
-        internal List<Group> GetResults(List<Answer> answersForEvaluation)
+        public List<Group> CountListSorted { get; set; }
+
+        internal void GetResults(List<Answer> answersForEvaluation)
         {
             var groups = answersForEvaluation.GroupBy(x => x.Value).ToList();
 
@@ -21,7 +23,7 @@ namespace mercado.nu.Models.Evaluations
             }
 
             var sortList = groupList.OrderBy(x => x.Key).ToList();
-            return sortList;
+            CountListSorted = sortList;
         }
     }
 }
