@@ -13,6 +13,7 @@ namespace mercado.nu.Models.ViewModels
         public Question Question { get; set; }
         public Guid CurrentMarketResearchId { get; set; }
         public List<SelectListItem> GradeChoices { get; set; }
+
         public List<SelectListItem> Chapters { get; set; }
         public List<QuestionTypes> QuestionTypes { get; set; }
         [Display(Name = "Välj maxvärde")]
@@ -20,6 +21,7 @@ namespace mercado.nu.Models.ViewModels
         public int TypeChoice { get; set; }
         [Display(Name = "Binära alternativ")]
         public List<SelectListItem> BinaryChoice { get; set; }
+        public string BinChoice { get; set; }
         [Display(Name = "Skriv in svarsalternativ")]
         public string Alternative { get; set; }
         public List<SelectListItem> SetGradeChoicesList()
@@ -28,6 +30,16 @@ namespace mercado.nu.Models.ViewModels
             list.Add(new SelectListItem { Value= "0", Text="Dålig - Bra" });
             list.Add(new SelectListItem { Value= "1", Text="Aldrig - Alltid" });
             list.Add(new SelectListItem { Value= "2", Text="Instämmer inte - Instämmer" });
+            return list;
+        }
+        public List<SelectListItem> SetBinaryChoiceList()
+        {
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "0", Text = "Dålig - Bra" });
+            list.Add(new SelectListItem { Value = "1", Text = "Aldrig - Alltid" });
+            list.Add(new SelectListItem { Value = "2", Text = "Instämmer inte - Instämmer" });
+            list.Add(new SelectListItem { Value = "3", Text = "Nej - Ja" });
+            list.Add(new SelectListItem { Value = "4", Text = "Falskt - Sant" });
             return list;
         }
     }

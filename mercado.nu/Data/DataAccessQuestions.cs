@@ -61,27 +61,29 @@ namespace mercado.nu.Data
            //return questionToMarketResearchVm.Question.QuestionId;
         }
 
-        internal async Task AddQuestionOption(QuestionOption questionOption)
+        internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
-           
-            var qustionOptionList = new List<QuestionOption>();
+
+            //var qustionOptionList = new List<QuestionOption>(); Kan nog tas bort va?
+            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
+            _questionContext.Add(questionOption);
+            await _questionContext.SaveChangesAsync();
+        }
+
+     
+        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
         }
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
-       
         {
             var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
             return marketResearchesForPerson;
         }
-        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
-        {
-            //var question = _questionContext.Questions.SingleAsync(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
-            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
-            _questionContext.Add(questionOption);
-            await _questionContext.SaveChangesAsync();
-        }
+
         internal async Task<int> AddAnswers(List<Answer> listOfAnswers)
         {
             foreach (var answer in listOfAnswers)
