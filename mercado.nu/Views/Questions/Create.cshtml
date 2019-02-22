@@ -39,6 +39,7 @@
             <div class="form-group">
                 <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
             </div>
+            
 
         </form>
         }
@@ -116,7 +117,16 @@
                         </div>
                         break;
                     }
-
+                case "Textfråga":
+                    {
+                        <div>
+                            <h2>@Model.Question.ActualQuestion är tillagd</h2>
+                            <div class="form-group">
+                                <input type="submit" value="Lägg till" class="btn btn-default" />
+                            </div>
+                        </div>
+                        break;
+                    }
                 default:
                     break;
 
@@ -130,6 +140,9 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+<div class="form-group">
+    <a asp-action="ShowQuestionsForMarketResearch">Klar med skapandet</a>
 </div>
 
 @section Scripts {

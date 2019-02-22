@@ -63,19 +63,29 @@ namespace mercado.nu.Data
 
         internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
-
-            //var qustionOptionList = new List<QuestionOption>(); Kan nog tas bort va?
-            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
+            
+           
+         
+            questionOption.QuestionId= questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
+            await _questionContext.SaveChangesAsync();
+           await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
+        }
+
+        internal async Task SetNumberOnQuestion(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionOption.QuestionId);
+            question.QuestionNumber = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId).Include(x => x.Question).Max(x => x.Question.QuestionNumber) + 1;
+            _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
         }
 
-     
         internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
+            await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
         }
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
