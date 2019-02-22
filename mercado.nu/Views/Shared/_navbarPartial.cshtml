@@ -10,30 +10,34 @@
 
 
 
-    @if (SignInManager.IsSignedIn(User))
+@if (SignInManager.IsSignedIn(User))
+{
+    ApplicationUser user = await UserManager.GetUserAsync(User);
+
+    if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
     {
-        ApplicationUser user = await UserManager.GetUserAsync(User);
+        @*<li>Skapa undersökning</li>
+        <li>Pågående undersökning</li>
+        <li>Gjorda undersökningar undersökning</li>*@
 
-        if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
-        {
-            <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
-            <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
-            <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
-        }
-
-        if (await UserManager.IsInRoleAsync(user, "User"))
-        {
-            <li>
-                <a asp-controller="Home" asp-action="Index">
-                    <span class="fas fa-coins fa-2x"></span>
-                </a>
-            </li>
-        }
+        <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
+        <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
+        <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
     }
-    else
+
+    if (await UserManager.IsInRoleAsync(user, "User"))
     {
-
+        <li>
+            <a asp-controller="Home" asp-action="Index">
+                <span style="font-size: 1.7em" class="fas fa-coins fa-2x"></span>
+            </a>
+        </li>
     }
+}
+else
+{
+
+}
 
 
 

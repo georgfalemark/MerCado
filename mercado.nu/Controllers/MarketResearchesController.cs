@@ -175,6 +175,7 @@ namespace mercado.nu
             return _context.MarketResearches.Any(e => e.MarketResearchId == id);
         }
 
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> MarketResearchForPerson()
         {
             ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);

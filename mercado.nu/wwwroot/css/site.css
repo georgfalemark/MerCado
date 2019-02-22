@@ -7,7 +7,7 @@ body {
 }
 
 .navbar{
-    background-color: #56FF81;
+    background-color: #32E884;
 }
 
 .navbar-brand{
@@ -15,11 +15,7 @@ body {
 }
 
 .btn {
-    background-color: #56FF81;
-}
-
-.fa-2x{
-    font-size: 1.8em;
+    background-color: #32E884;
 }
 
 /* Wrapping element */
