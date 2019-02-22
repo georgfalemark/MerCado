@@ -10,6 +10,7 @@ using mercado.nu.Models;
 using mercado.nu.Models.ViewModels;
 using mercado.nu.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mercado.nu
 {

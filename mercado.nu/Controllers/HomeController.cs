@@ -33,11 +33,11 @@ namespace mercado.nu.Controllers
 
                 if (await _userManager.IsInRoleAsync(user, "CompanyUser") || await _userManager.IsInRoleAsync(user, "SuperCompanyUser"))
                 {
-                    return RedirectToAction("MarketResearchForPerson", "MarketResearches");
+                    return RedirectToAction("Index", "Organizations");
                 }
                 else if (await _userManager.IsInRoleAsync(user, "User"))
                 {
-                    return RedirectToAction("Index", "Organizations");
+                    return RedirectToAction("MarketResearchForPerson", "MarketResearches");
                 }
                 else
                 {

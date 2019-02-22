@@ -9,28 +9,31 @@
 @inject RoleManager<ApplicationRole> RoleManager
 
 
-@if (SignInManager.IsSignedIn(User))
-{
-    ApplicationUser user = await UserManager.GetUserAsync(User);
 
-    if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+    @if (SignInManager.IsSignedIn(User))
     {
-        <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
-        <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
-        <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
-    }
+        ApplicationUser user = await UserManager.GetUserAsync(User);
 
-    if (await UserManager.IsInRoleAsync(user, "User"))
+        if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+        {
+            <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
+            <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
+            <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
+        }
+
+        if (await UserManager.IsInRoleAsync(user, "User"))
+        {
+            <li>
+                <a asp-controller="Home" asp-action="Index">
+                    <span class="fas fa-coins fa-2x"></span>
+                </a>
+            </li>
+        }
+    }
+    else
     {
-        <li><a asp-area="" asp-controller="MarketResearches" asp-action="MarketResearchForPerson">Undersökningar för inloggad</a></li>
+
     }
-
-
-}
-else
-{
-
-}
 
 
 

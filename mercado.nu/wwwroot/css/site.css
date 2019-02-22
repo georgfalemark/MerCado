@@ -18,6 +18,10 @@ body {
     background-color: #56FF81;
 }
 
+.fa-2x{
+    font-size: 1.8em;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
