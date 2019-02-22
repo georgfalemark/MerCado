@@ -10,6 +10,7 @@ using mercado.nu.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using mercado.nu.Models;
+using mercado.nu.Models.Evaluations;
 
 namespace mercado.nu.Controllers
 {
@@ -197,6 +198,16 @@ namespace mercado.nu.Controllers
 
             return View();
 
+        }
+
+        public IActionResult Evaluation(Guid marketResearchId)
+        {
+            List<Answer> answers = _dataAccessQuestions.GetAnswersForMarketResearch(marketResearchId);
+
+            var evaluation = new Evaluation();
+
+            var getEvaluation = evaluation.GetEvaluation(answers);
+            return View();
         }
     }
 }
