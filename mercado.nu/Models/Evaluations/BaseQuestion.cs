@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace mercado.nu.Models.Evaluations
 {
-    public class Group
+    public class BaseQuestion
     {
-        public string Key { get; set; }
-        public int Count { get; set; }
     }
 }

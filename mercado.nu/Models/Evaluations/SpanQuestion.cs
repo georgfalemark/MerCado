@@ -6,9 +6,12 @@ using mercado.nu.Models.Entities;
 
 namespace mercado.nu.Models.Evaluations
 {
-    public class SpanQuestion
+    public class SpanQuestion : BaseQuestion
     {
-        internal object GetResults(List<Answer> answersForEvaluation)
+        public List<Group> CountListSorted { get; set; }
+        public double Average { get; set; }
+
+        internal void GetResults(List<Answer> answersForEvaluation)
         {
             var average = answersForEvaluation.Select(x => int.Parse(x.Value)).Average();
 
@@ -19,11 +22,13 @@ namespace mercado.nu.Models.Evaluations
             foreach (var group in groups)
             {
                 var numbersInGroup = group.Count();
-                groupList.Add(new Group { Key = Convert.ToInt32(group.Key), Count = numbersInGroup});
+                groupList.Add(new Group { Key = group.Key, Count = numbersInGroup});
             }
 
-            groupList.Sort();
-            return 1;
+            var sortlist = groupList.OrderBy(x => x.Key).ToList();
+
+            CountListSorted = sortlist;
+            Average = average;  
         }
     }
 }
