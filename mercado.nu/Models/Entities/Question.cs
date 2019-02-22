@@ -8,6 +8,7 @@ namespace mercado.nu.Models.Entities
     public class Question
     {
         public Guid QuestionId { get; set; }
+        public int QuestionNumber { get; set; }
         public string ActualQuestion { get; set; }
         public Guid ChaptersId { get; set; }
         public Chapters Chapter { get; set; }
