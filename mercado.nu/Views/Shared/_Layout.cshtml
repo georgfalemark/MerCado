@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,6 +20,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </environment>
 </head>
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -30,10 +39,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
-                    <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
-                    <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
-                    <li><a asp-area="" asp-controller="MarketResearches" asp-action="MarketResearchForPerson">Undersökningar för inloggad</a></li>
+                    <partial name="_navbarPartial" />
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

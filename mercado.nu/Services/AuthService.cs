@@ -23,8 +23,6 @@ namespace mercado.nu.Services
             _signInManager = signInManager;
         }
 
-
-
         public async Task<bool> AddRole(string role)
         {
             ApplicationRole roleName = new ApplicationRole(role);
@@ -37,15 +35,11 @@ namespace mercado.nu.Services
             return true;
         }
 
-
         public async Task<IdentityResult> AddRoleToUser(string role, string id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(id);
             return await _userManager.AddToRoleAsync(user, role);
         }
-
-
-
 
         private async Task<ApplicationRole> GetRoles(string role)
         {
