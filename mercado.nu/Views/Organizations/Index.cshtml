@@ -9,8 +9,108 @@
 
 
 <br />
-<h3>Hej @ViewData["Title"]!</h3>
+<h2>Hej @ViewData["Title"]!</h2>
 <br />
+<hr />
+<h4>Antal pågående marknadsundersökningar: xxxx</h4>
+<hr />
+<h4>Antal gjorda marknadsundersökningar: xxxx</h4>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-6 text-center">
+
+
+
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StreetName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StreetName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StreetNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StreetNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.City)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Country)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Country)
+                </dd>
+                
+            </dl>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-6 text-center">
+
+
+
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactPerson)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactPerson.FirstName)
+                    @Html.DisplayFor(model => model.ContactPerson.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PathLogoImage)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PathLogoImage)
+                </dd>
+            </dl>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -76,9 +176,6 @@
                 <td>
                     <img height="40" width="60" src="@Html.DisplayFor(model => model.PathLogoImage)" />
                 </td>
-                <td>
-                    <p>hej</p>
-                </td>
             }
 
         </tr>
@@ -101,10 +198,10 @@
     else
     {
         <p>
-            <a asp-action="Edit" asp-route-id="@Model.OrganizationId" class="btn btn-default" style="width: 250px">Ändra företagsinställningar</a>
+            <a asp-action="Edit" asp-route-id="@Model.OrganizationId" class="btn btn-danger" style="width: 250px;">Ändra företagsinställningar</a>
         </p>
         <p>
-            <a asp-action="Delete" asp-route-id="@Model.OrganizationId" class="btn btn-default" style="width: 250px">Radera företagskonto</a>
+            <a asp-action="Delete" asp-route-id="@Model.OrganizationId" class="btn btn-danger" style="width: 250px">Radera företagskonto</a>
         </p>
     }
 }

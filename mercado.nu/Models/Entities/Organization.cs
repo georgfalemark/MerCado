@@ -27,6 +27,8 @@ namespace mercado.nu.Models
         public string Country { get; set; }
 
         public Guid ContactPersonId { get; set; }
+
+        [Display(Name = "Kontaktperson")]
         public Person ContactPerson { get; set; }
 
         [Display(Name = "Telefonnummer")]
