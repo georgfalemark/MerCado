@@ -12,7 +12,7 @@
     
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8"><h3>@question.QuestionId</h3></div>
+            <div class="col-md-8"><h3>Fråga @question.QuestionNumber</h3></div>
             <div class="col-md-2"></div>
         </div>
         <div class="row">
@@ -66,10 +66,12 @@
                         <form>
                             @foreach (var questionOption in question.QuestionOptions)
                             {
+                                string binaryType = questionOption.QuestionOptionHeading;
+                                string[] binaryTypes = binaryType.Split('-');
 
-                                <label for="@questionOption.QuestionOptionId">Ja</label>
+                                <label>@binaryTypes[0].Trim()</label>
                                 <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="true" />
-                                <label for="@questionOption.QuestionOptionId">Nej</label>
+                                <label>@binaryTypes[1].Trim()</label>
                                 <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="false" />
 
                             }
