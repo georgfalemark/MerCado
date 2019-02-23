@@ -7,34 +7,47 @@ using Microsoft.AspNetCore.Mvc;
 using mercado.nu.Data;
 using mercado.nu.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using mercado.nu.Models.Entities;
 
 namespace mercado.nu.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return RedirectToAction("/Account/Register", "Identity");
-        }
-        
-        [Authorize]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-            return View();
+        public HomeController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
-        public IActionResult Contact()
+        public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = "Your contact page.";
+            if (_signInManager.IsSignedIn(User))
+            {
+                ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+                if (await _userManager.IsInRoleAsync(user, "CompanyUser") || await _userManager.IsInRoleAsync(user, "SuperCompanyUser"))
+                {
+                    return RedirectToAction("Index", "Organizations");
+                }
+                else if (await _userManager.IsInRoleAsync(user, "User"))
+                {
+                    return RedirectToAction("MarketResearchForPerson", "MarketResearches");
+                }
+                else
+                {
+                    return RedirectToAction("/Account/Register", "Identity");
+                }
+            }
+            else
+            {
+                return RedirectToAction("/Account/Register", "Identity");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -10,6 +10,7 @@ using mercado.nu.Models;
 using mercado.nu.Models.ViewModels;
 using mercado.nu.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mercado.nu
 {
@@ -174,6 +175,7 @@ namespace mercado.nu
             return _context.MarketResearches.Any(e => e.MarketResearchId == id);
         }
 
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> MarketResearchForPerson()
         {
             ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);

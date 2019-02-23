@@ -3,6 +3,41 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #FFFDF5;
+}
+
+/*Denna är kopplad till all text*/
+* {
+    font-family: Asap;
+}
+
+/*Detta definierar bakgrundsfärgen på navbaren*/
+.navbar {
+    background-color: #32E884;
+}
+
+/*Padding för loggan*/
+.navbar-brand {
+    padding: 5px 16px;
+}
+
+
+/*De föremål i navbaren som är <a> */
+.nav.navbar-nav li a {
+    color: black;
+    font-size: 1.2em;
+}
+
+/*De föremål i navbaren som är <button> */
+.nav.navbar-nav li button {
+    color: black;
+    font-size: 1.2em;
+    padding: 4px 0px;
+}
+
+/*Styling för en knapp med <a class="btn"> */
+.btn {
+    background-color: #32E884;
 }
 
 /* Wrapping element */
@@ -35,3 +70,27 @@ body {
         display: none;
     }
 }
+
+/*Dessa gör att sidan tar upp 100% och att footern därför stannar längst ner*/
+.Site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/*Dessa gör att sidan tar upp 100% och att footern därför stannar längst ner*/
+.Site-content {
+    flex: 1;
+}
+
+/*Sätter färg på footern*/
+.footer-copyright {
+    background-color: #403F3E;
+    color: white;
+}
+
+.page-footer {
+    background-color: #BFBEB9;
+}
+
+

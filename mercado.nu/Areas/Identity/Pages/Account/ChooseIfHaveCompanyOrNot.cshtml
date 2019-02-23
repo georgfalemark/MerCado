@@ -1,13 +1,20 @@
 ﻿@page
 @model ChooseIfHaveCompanyOrNotModel
 
-    <br />
-    <br />
-    <p>
-        <a asp-area="Identity" asp-page="/Account/RegisterCompanyUser" class="btn btn-default">JAG TILLHÖR ETT FÖRETAG</a>
-    </p>
-    <p>
-        <a asp-area="Identity" asp-page="/Account/RegisterCompanyUserWithoutCompany" class="btn btn-default">JAG BEHÖVER REGGA ETT NYTT FÖRETAG</a>
-    </p>
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <p>
+            <a asp-area="Identity" asp-page="/Account/RegisterCompanyUser" class="btn btn-default" style="height: 500px; width: 400px; padding: 230px 12px; font-size: 22px ">Jag tillhör ett befintligt företag</a>
+        </p>
+    </div>
+    <div class="col-md-6 text-center">
+        <p>
+            <a asp-area="Identity" asp-page="/Account/RegisterCompanyUserWithoutCompany" class="btn btn-default" style="height: 500px; width: 400px; padding: 230px 12px; font-size: 22px ">Jag behöver registrera ett nytt företag</a>
+        </p>
+    </div>
+</div>
 
 
