@@ -9,8 +9,10 @@ namespace mercado.nu.Models.Evaluations
 {
     public class Evaluation
     {
-        internal object GetEvaluation(List<Answer> answers)
+        internal List<BaseQuestion> GetEvaluation(List<Answer> answers)
         {
+            var baseListWithAnswers = new List<BaseQuestion>();
+
             var listofQuestionIds = answers.Select(x => x.QuestionId).Distinct().ToList();
 
             foreach (var questionId in listofQuestionIds)
@@ -23,26 +25,39 @@ namespace mercado.nu.Models.Evaluations
                         {
                             SpanQuestion evaluateAnswers = new SpanQuestion();
                             var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
-                            var result = evaluateAnswers.GetResults(answersForEvaluation);
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     case QuestionTypes.Flervalsfråga:
                         {
+                            MultipleChoiceQuestion evaluateAnswers = new MultipleChoiceQuestion();
+                            var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     case QuestionTypes.Binärfråga:
                         {
+                            BinaryQuestion evaluateAnswers = new BinaryQuestion();
+                            var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     case QuestionTypes.Textfråga:
                         {
+                            TextQuestion evaluateAnswers = new TextQuestion();
+                            var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     default:
                         break;
                 }
             }
-            return 1;
+            return baseListWithAnswers;
         }
     }
 }

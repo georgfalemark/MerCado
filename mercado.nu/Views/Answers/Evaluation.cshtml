@@ -1,5 +1,191 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model mercado.nu.Models.ViewModels.MarketResearchSummeryVm
+@using mercado.nu.Models.Evaluations
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <h2>Utvärdering av undersökning</h2>
+        </div>
+        <div class="col"></div>
+    </div>
+    @foreach (var List in Model.SummaryOfMarketResearch)
+    {
+        if (List is SpanQuestion)
+        {
+
+            SpanQuestion parseList = (SpanQuestion)List;
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h3>Fråga @parseList.QuestionNumber</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h4>@parseList.TheQuestion</h4>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bedömningsskala</th>
+                                <th>Antal</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in parseList.CountListSorted)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Count</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        }
+
+        if (List is BinaryQuestion)
+        {
+
+            BinaryQuestion parseList = (BinaryQuestion)List;
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h3>Fråga @parseList.QuestionNumber</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h4>@parseList.TheQuestion</h4>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bedömningsskala</th>
+                                <th>Antal</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in parseList.CountListSorted)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Count</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        }
+
+        if (List is MultipleChoiceQuestion)
+        {
+
+            MultipleChoiceQuestion parseList = (MultipleChoiceQuestion)List;
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h3>Fråga @parseList.QuestionNumber</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h4>@parseList.TheQuestion</h4>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bedömningsskala</th>
+                                <th>Antal</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in parseList.CountListSorted)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Count</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        }
+
+        if (List is TextQuestion)
+        {
+
+            TextQuestion parseList = (TextQuestion)List;
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h3>Fråga @parseList.QuestionNumber</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h4>@parseList.TheQuestion</h4>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Respondent</th>
+                                <th>Textsvar</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in parseList.TextList)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.TextAnswer</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        }
+
+    }
+</div>

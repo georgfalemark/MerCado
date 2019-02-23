@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace mercado.nu.Models.Evaluations
 {
-    public class TextQestion
+    public class BaseQuestion
     {
     }
 }
