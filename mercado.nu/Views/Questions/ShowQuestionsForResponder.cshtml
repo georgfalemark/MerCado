@@ -13,7 +13,7 @@
         {
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8"><h3>@question.QuestionId</h3></div>
+            <div class="col-md-8"><h3>Fråga @question.QuestionNumber</h3></div>
             <div class="col-md-2"><input type="hidden" name="@groupName questionId" value="@question.QuestionId" /></div>
         </div>
             <div class="row">
@@ -64,10 +64,8 @@
                         {
                             string binaryType = questionOption.ToString();
                             string[] binaryTypes = binaryType.Split('-');
-                            
 
-
-                        <label>@binaryTypes[0].Trim()</label>
+                            <label>@binaryTypes[0].Trim()</label>
                             <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
                             <label>@binaryTypes[1].Trim()</label>
                             <input  name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />

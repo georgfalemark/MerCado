@@ -371,6 +371,7 @@ namespace mercado.nu
                     QuestionId = item.Question.QuestionId,
                     QuestionOptions = item.Question.QuestionOptions,
                     QuestionType = item.Question.QuestionType,
+                    QuestionNumber = item.Question.QuestionNumber,
                     MarketResearches = new List<QuestionToMarketResearch> { new QuestionToMarketResearch { MarketResearchId = marketReseachId, QuestionId = item.Question.QuestionId } },
                 });
             }
