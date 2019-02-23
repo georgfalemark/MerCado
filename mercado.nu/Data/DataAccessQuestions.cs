@@ -61,27 +61,38 @@ namespace mercado.nu.Data
            //return questionToMarketResearchVm.Question.QuestionId;
         }
 
-        internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
         {
+        
             
-           
-         
             questionOption.QuestionId= questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
            await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
         }
-
+        internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
+            //question.QuestionType = QuestionTypes.Textfråga;
+            question.QuestionType = (QuestionTypes)questionType;
+            //question.QuestionType = _questionContext.Questions questionType;
+            _questionContext.Add(question);
+            await _questionContext.SaveChangesAsync();
+        }
         internal async Task SetNumberOnQuestion(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
             var question = _questionContext.Questions.Single(x => x.QuestionId == questionOption.QuestionId);
+            
             question.QuestionNumber = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId).Include(x => x.Question).Max(x => x.Question.QuestionNumber) + 1;
             _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
         }
 
-        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
         {
+
+           
+          
             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();

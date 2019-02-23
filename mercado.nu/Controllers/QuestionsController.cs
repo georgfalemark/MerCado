@@ -236,11 +236,24 @@ namespace mercado.nu
 
         public async Task<IActionResult> CreateQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
         {
+            int questionType;
+
+
+            //var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
+
+            //var selectChapters = GetSelectChapters(listOfChapters);
+
+            //questionToMarketResearchVm.Chapters = selectChapters;
+
+
+
+
             string qType = questionToMarketResearchVm.QuestionTypes.First().ToString();
             switch (qType)
             {
                 case "Graderingsfråga" :
                     {
+                        questionType = 0;
                         var vm = new AddQuestionToMarketResearchVm();
                         questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
                         
@@ -265,25 +278,27 @@ namespace mercado.nu
                                 questionOption.QuestionOptionHeading = headingsInArray[1].Trim();
                             }
 
-                           await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                           await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm, questionType);
                         }
                         questionToMarketResearchVm.QuestionTypes = null;
                         break;
                     }
                 case "Binärfråga":
                     {
+                        questionType = 1;
                         var vm = new AddQuestionToMarketResearchVm();
                         questionToMarketResearchVm.BinaryChoice = vm.SetGradeChoicesList();
                         var questionOption = new QuestionOption();
                        var bin= questionToMarketResearchVm.BinaryChoice[questionToMarketResearchVm.TypeChoice];
                         questionOption.QuestionOptionHeading = bin.Text.ToString();
                         questionOption.Value = bin.Text.ToString();
-                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm, questionType);
                         questionToMarketResearchVm.QuestionTypes = null;
                         break;
                     }
                 case "Flervalsfråga":
                     {
+                        questionType = 2;
                         string x = questionToMarketResearchVm.Alternative.ToString();
                         List<string> queOptList = new List<string>();
                         queOptList.Add(x);
@@ -295,7 +310,7 @@ namespace mercado.nu
                             questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
 
                            
-                           await _dataAccessQuestion.AddQuestionOptionForFlerval(questionOption, questionToMarketResearchVm);
+                           await _dataAccessQuestion.AddQuestionOptionForFlerval(questionOption, questionToMarketResearchVm, questionType);
                             questionToMarketResearchVm.QuestionTypes = null;
 
                             return View("Create", questionToMarketResearchVm);
@@ -306,7 +321,7 @@ namespace mercado.nu
                             var questionOption = new QuestionOption();
                             questionOption.QuestionOptionHeading = questionToMarketResearchVm.Alternative.ToString();
                             questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
-                            await _dataAccessQuestion.AddQuestionOptionForFlerval( questionOption, questionToMarketResearchVm);
+                            await _dataAccessQuestion.AddQuestionOptionForFlerval( questionOption, questionToMarketResearchVm, questionType);
                             ViewData["listOfAlternatives"] = queOptList;
                             return View("Create", questionToMarketResearchVm);
                         }
@@ -314,6 +329,8 @@ namespace mercado.nu
                     }
                 case "Textfråga":
                     {
+                        questionType = 3;
+                        await _dataAccessQuestion.AddQuestionOption(questionToMarketResearchVm, questionType);
                         questionToMarketResearchVm.QuestionTypes = null;
                         return View("Create", questionToMarketResearchVm);
                     }

@@ -62,14 +62,14 @@
                     <div id="@groupName " class="col-md-8">
                         @foreach (var questionOption in question.QuestionOptions)
                         {
-                            string binaryType = questionOption.ToString();
-                            string[] binaryTypes = binaryType.Split('-');
-                            
+                            //string binaryType = questionOption.ToString();
+                            //string[] binaryTypes = binaryType.Split('-');
 
 
-                        <label>@binaryTypes[0].Trim()</label>
+
+                        <label>Ja</label>
                             <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
-                            <label >Ja</label>
+                            <label>Nej</label>
                             <input  name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
 
                         }
