@@ -9,7 +9,7 @@ namespace mercado.nu.Models.Evaluations
 {
     public class Evaluation
     {
-        internal object GetEvaluation(List<Answer> answers)
+        internal List<BaseQuestion> GetEvaluation(List<Answer> answers)
         {
             var baseListWithAnswers = new List<BaseQuestion>();
 
@@ -34,21 +34,30 @@ namespace mercado.nu.Models.Evaluations
                             MultipleChoiceQuestion evaluateAnswers = new MultipleChoiceQuestion();
                             var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
                             evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     case QuestionTypes.Binärfråga:
                         {
+                            BinaryQuestion evaluateAnswers = new BinaryQuestion();
+                            var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     case QuestionTypes.Textfråga:
                         {
+                            TextQuestion evaluateAnswers = new TextQuestion();
+                            var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
+                            evaluateAnswers.GetResults(answersForEvaluation);
+                            baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }
                     default:
                         break;
                 }
             }
-            return 1;
+            return baseListWithAnswers;
         }
     }
 }

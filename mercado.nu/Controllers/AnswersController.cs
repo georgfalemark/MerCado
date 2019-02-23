@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using mercado.nu.Models;
 using mercado.nu.Models.Evaluations;
+using mercado.nu.Models.ViewModels;
 
 namespace mercado.nu.Controllers
 {
@@ -207,7 +208,12 @@ namespace mercado.nu.Controllers
             var evaluation = new Evaluation();
 
             var getEvaluation = evaluation.GetEvaluation(answers);
-            return View();
+
+            var viewModelSummary = new MarketResearchSummeryVm();
+
+            viewModelSummary.SummaryOfMarketResearch = getEvaluation;
+
+            return View(viewModelSummary);
         }
     }
 }

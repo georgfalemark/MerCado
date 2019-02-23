@@ -6,30 +6,29 @@ using mercado.nu.Models.Entities;
 
 namespace mercado.nu.Models.Evaluations
 {
-    public class BinaryQuestion : BaseQuestion
+    public class TextQuestion : BaseQuestion
     {
-        public List<Group> CountListSorted { get; set; }
+        public List<Group> TextList { get; set; }
         public QuestionTypes QuestionType { get; set; }
         public int QuestionNumber { get; set; }
         public string TheQuestion { get; set; }
 
         internal void GetResults(List<Answer> answersForEvaluation)
         {
-            var groups = answersForEvaluation.GroupBy(x => x.Value).ToList();
+            var textAnswers = answersForEvaluation.Select(x => x.Value).ToList();
 
             var questions = answersForEvaluation.Select(x => new { x.Question.ActualQuestion, x.Question.QuestionNumber, x.Question.QuestionType }).Distinct().ToList();
 
-            var groupList = new List<Group>();
+            var textList = new List<Group>();
 
-            foreach (var group in groups)
+            int i = 0;
+
+            foreach (var text in textAnswers)
             {
-                var numbersInGroup = group.Count();
-                groupList.Add(new Group { Key = group.Key, Count = numbersInGroup });
+                textList.Add(new Group { Key = i.ToString(), TextAnswer = text });
             }
-
-            var sortList = groupList.OrderBy(x => x.Key).ToList();
-
-            CountListSorted = sortList;
+            
+            TextList = textList;
             TheQuestion = questions[0].ActualQuestion;
             QuestionNumber = questions[0].QuestionNumber;
             QuestionType = questions[0].QuestionType;
