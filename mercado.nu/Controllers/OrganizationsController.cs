@@ -148,6 +148,14 @@ namespace mercado.nu.Controllers
             {
                 try
                 {
+                    Guid? guidId = null;
+                    if (_signInManager.IsSignedIn(User))
+                    {
+                        var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        guidId = Guid.Parse(userId);
+                    }
+                    organization.ContactPersonId = (Guid)guidId;
+
                     _context.Update(organization);
                     await _context.SaveChangesAsync();
                 }

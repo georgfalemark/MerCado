@@ -4,19 +4,12 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = Model.Name;
 }
 
-@inject SignInManager<ApplicationUser> SignInManager
-@if (SignInManager.IsSignedIn(User))
-{
-    <br />
-    <p>
-        <a asp-action="Create" class="btn btn-default">Registrera företag</a>
-    </p>
-}
 
-<h3>Erat företag</h3>
+<br />
+<h3>@ViewData["Title"]</h3>
 <br />
 <table class="table">
     <thead>
@@ -84,12 +77,34 @@
                     <img height="40" width="60" src="@Html.DisplayFor(model => model.PathLogoImage)" />
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@Model.OrganizationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@Model.OrganizationId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.OrganizationId">Delete</a>
+                    <p>hej</p>
                 </td>
             }
 
         </tr>
     </tbody>
 </table>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@if (SignInManager.IsSignedIn(User))
+{
+    if (Model == null)
+    {
+        <br />
+        <hr />
+        <p>
+            <a asp-action="Create" class="btn btn-default">Registrera företag</a>
+        </p>
+
+
+    }
+    else
+    {
+        <p>
+            <a asp-action="Edit" asp-route-id="@Model.OrganizationId" class="btn btn-default" style="width: 250px">Ändra företagsinställningar</a>
+        </p>
+        <p>
+            <a asp-action="Delete" asp-route-id="@Model.OrganizationId" class="btn btn-default" style="width: 250px">Radera företagskonto</a>
+        </p>
+    }
+}

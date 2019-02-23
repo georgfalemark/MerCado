@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,15 +10,32 @@ namespace mercado.nu.Models
     public class Organization
     {
         public Guid OrganizationId { get; set; }
+
+        [Display(Name = "Företagsnamn")]
         public string Name { get; set; }
+
+        [Display(Name = "Gatuadress")]
         public string StreetName { get; set; }
+
+        [Display(Name = "Gatunummer")]
         public string StreetNumber { get; set; }
+
+        [Display(Name = "Stad")]
         public string City { get; set; }
+
+        [Display(Name = "Land")]
         public string Country { get; set; }
+
         public Guid ContactPersonId { get; set; }
         public Person ContactPerson { get; set; }
+
+        [Display(Name = "Telefonnummer")]
         public int PhoneNumber { get; set; }
+
+        [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Display(Name = "Bildlänk till er logga")]
         public string PathLogoImage { get; set; }
 
         public List<Person> Persons { get; set; }
