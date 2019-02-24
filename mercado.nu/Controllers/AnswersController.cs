@@ -224,11 +224,17 @@ namespace mercado.nu.Controllers
 
             foreach (var item in listOfQuestions)
             {
-                
+                questionList.Add(new SelectListItem
+                {
+                    Text = $"Fråga {item.Question.QuestionNumber.ToString()}. {item.Question.QuestionType}. {item.Question.ActualQuestion}",
+                    Value = item.QuestionId.ToString()
+                });
             }
 
+            var viewModelChoseQuestion = new ChoseQuestionsVm();
+            viewModelChoseQuestion.QuestionList = questionList;
 
-            return View();
+            return View(viewModelChoseQuestion);
         }
     }
 }
