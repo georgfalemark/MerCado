@@ -99,9 +99,7 @@ namespace mercado.nu.Data
         internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
         {
             var question = _questionContext.Questions.Single(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId); //Blir det rätt
-            //question.QuestionType = questionToMarketResearchVm.Question.QuestionType; 
             question.QuestionType = (QuestionTypes)questionType;
-            //question.QuestionType = _questionContext.Questions questionType;
             _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
         }
