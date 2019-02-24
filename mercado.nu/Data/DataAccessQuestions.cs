@@ -32,7 +32,7 @@ namespace mercado.nu.Data
         internal List<Chapters> GetChapters(Guid marketResearchId)
         {
             
-            var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).ToList();
+            var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).Include(x => x.MarketResearch).ToList();
             return chapters;
         }
 
@@ -136,7 +136,7 @@ namespace mercado.nu.Data
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
         {
-            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).Include(x => x.Persons).ToList();
             return marketResearchesForPerson;
         }
 

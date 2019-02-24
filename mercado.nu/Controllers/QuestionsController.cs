@@ -66,6 +66,11 @@ namespace mercado.nu
             var selectChapters = GetSelectChapters(listOfChapters);
 
             addQuestionToMarketResearchVm.Chapters = selectChapters;
+            foreach (var chapter in listOfChapters)
+            {
+                addQuestionToMarketResearchVm.MarketResearchName = chapter.MarketResearch.Name;
+                break;
+            }
 
             return View(addQuestionToMarketResearchVm);
         }

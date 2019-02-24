@@ -215,5 +215,20 @@ namespace mercado.nu.Controllers
 
             return View(viewModelSummary);
         }
+
+        public IActionResult ChoseQuestions(Guid marketResearchId)
+        {
+            var listOfQuestions = _dataAccessQuestions.GetQuestionsForMarketResearch(marketResearchId);
+
+            var questionList = new List<SelectListItem>();
+
+            foreach (var item in listOfQuestions)
+            {
+                
+            }
+
+
+            return View();
+        }
     }
 }
