@@ -9,8 +9,11 @@
         </div>
         <div class="col"></div>
     </div>
+    @{ int tableNumber = 0;}
     @foreach (var List in Model.SummaryOfMarketResearch)
     {
+        string tableName = "table" + tableNumber;
+        string canvasName = "canvas" + tableNumber;
         if (List is SpanQuestion)
         {
 
@@ -33,26 +36,29 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col">
-                    <table>
+                    <table id="@tableName">
                         <thead>
                             <tr>
                                 <th>Bedömningsskala</th>
                                 <th>Antal</th>
                             </tr>
                         </thead>
+                        <tbody>
                         @foreach (var item in parseList.CountListSorted)
                         {
-                            <tbody>
-                                <tr>
-                                    <td>@item.Key</td>
-                                    <td>@item.Count</td>
-                                </tr>
-                            </tbody>
+
+                        <tr>
+                            <td>@item.Key</td>
+                            <td>@item.Count</td>
+                        </tr>
+
                         }
+                        </tbody>
                     </table>
                 </div>
-                <div class="col"></div>
+                <div class="col"><canvas id="@canvasName" width="200" height="100"></canvas></div>
             </div>
+            tableNumber++;
         }
 
         if (List is BinaryQuestion)
@@ -77,26 +83,27 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col">
-                    <table>
+                    <table id="@tableName">
                         <thead>
                             <tr>
                                 <th>Bedömningsskala</th>
                                 <th>Antal</th>
                             </tr>
                         </thead>
+                        <tbody>
                         @foreach (var item in parseList.CountListSorted)
-                        {
-                            <tbody>
+    {
                                 <tr>
                                     <td>@item.Key</td>
                                     <td>@item.Count</td>
                                 </tr>
-                            </tbody>
                         }
+                        </tbody>
                     </table>
                 </div>
-                <div class="col"></div>
+                <div class="col"><canvas id="@canvasName" width="200" height="100"></canvas></div>
             </div>
+            tableNumber++;
         }
 
         if (List is MultipleChoiceQuestion)
@@ -121,26 +128,27 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col">
-                    <table>
+                    <table id="@tableName">
                         <thead>
                             <tr>
                                 <th>Bedömningsskala</th>
                                 <th>Antal</th>
                             </tr>
                         </thead>
+                        <tbody>
                         @foreach (var item in parseList.CountListSorted)
-                        {
-                            <tbody>
+    {
                                 <tr>
                                     <td>@item.Key</td>
                                     <td>@item.Count</td>
                                 </tr>
-                            </tbody>
                         }
+                        </tbody>
                     </table>
                 </div>
-                <div class="col"></div>
+                <div class="col"><canvas id="@canvasName" width="200" height="100"></canvas></div>
             </div>
+            tableNumber++;
         }
 
         if (List is TextQuestion)
@@ -173,7 +181,7 @@
                             </tr>
                         </thead>
                         @foreach (var item in parseList.TextList)
-                        {
+    {
                             <tbody>
                                 <tr>
                                     <td>@item.Key</td>
@@ -189,3 +197,5 @@
 
     }
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script src="~/js/MercadoChart.js"></script>
