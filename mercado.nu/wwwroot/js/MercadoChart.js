@@ -46,7 +46,7 @@ function drawChart(column1, column2, id) {
         data: {
             labels: dataX,
             datasets: [{
-                label: '# of Votes',
+                label: 'Frekvens',
                 data: dataY,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
