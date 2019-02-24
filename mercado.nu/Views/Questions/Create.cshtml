@@ -17,6 +17,8 @@
             <p>@Model.CurrentMarketResearchId</p>
             <input type="hidden" asp-for="CurrentMarketResearchId" />
             <input type="hidden" asp-for="GradeChoices" />
+            <input type="hidden" asp-for="Chapters" />
+
 
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -39,7 +41,7 @@
             <div class="form-group">
                 <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
             </div>
-            
+
 
         </form>
         }
@@ -51,6 +53,7 @@
             <p>@Model.CurrentMarketResearchId</p>
             <input type="hidden" asp-for="CurrentMarketResearchId" />
             <input type="hidden" asp-for="Question.ChaptersId" />
+            <input type="hidden" asp-for="Chapters" />
             <input type="hidden" asp-for="Question.ActualQuestion" />
             <input type="hidden" asp-for="QuestionTypes" />
             <input type="hidden" asp-for="Question.QuestionId" />
@@ -105,16 +108,17 @@
                             }
                         }
 
-                        <div>
-                            <label asp-for="Alternative" class="control-label"></label>
-                            <input asp-for="Alternative" class="form-control" />
-                            <div class="form-group">
-                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till ytterligare" class="btn btn-default" />
-                            </div>
-                        </div>
+                                <div>
+                                    <label asp-for="Alternative" class="control-label"></label>
+                                    <input asp-for="Alternative" class="form-control" />
+                                    <div class="form-group">
+                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till" class="btn btn-default" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
+                                    </div>
+
+                                </div>
                         break;
                     }
                 case "Textfråga":
@@ -122,7 +126,7 @@
                         <div>
                             <h2>@Model.Question.ActualQuestion är tillagd</h2>
                             <div class="form-group">
-                                <input type="submit" value="Lägg till" class="btn btn-default" />
+                                <input type="submit" asp-action="CreateQuestionType" value="Lägg till" class="btn btn-default" />
                             </div>
                         </div>
                         break;

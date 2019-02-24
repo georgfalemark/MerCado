@@ -8,6 +8,8 @@ namespace mercado.nu.Models
 {
     public class MarketResearch
     {
+        private bool onGoing = false;
+
         public Guid MarketResearchId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -19,7 +21,14 @@ namespace mercado.nu.Models
         public DateTime CreationDate { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        //public bool OnGoing { get; set; }
+        public bool OnGoing { get { return onGoing; } set
+            {
+                if ((StartDate > DateTime.Now) && (EndDate < DateTime.Now))
+                {
+                    onGoing = true;
+                }
+            }
+            }
 
         public List<Responders> Responders { get; set; }
 

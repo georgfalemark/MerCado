@@ -71,8 +71,10 @@ namespace mercado.nu
                 marketResearch.MarketResearchId = Guid.NewGuid();
                 _context.Add(marketResearch);
                 await _context.SaveChangesAsync();
+                await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(marketResearch);
         }
 
