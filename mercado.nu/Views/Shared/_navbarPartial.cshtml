@@ -16,9 +16,9 @@
 
     if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
     {
-        @*<li>Skapa undersökning</li>
-        <li>Pågående undersökning</li>
-        <li>Gjorda undersökningar undersökning</li>*@
+        @*<li>Skapa</li>
+        <li>Pågående</li>
+        <li>Tidigare</li>*@
 
         <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
         <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
