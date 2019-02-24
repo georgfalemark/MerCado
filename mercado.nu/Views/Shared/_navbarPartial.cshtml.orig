@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
+@using mercado.nu.Models.Entities
+@using System.Security.Claims;
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<ApplicationRole> RoleManager
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    ApplicationUser user = await UserManager.GetUserAsync(User);
+<<<<<<< HEAD
+
+    if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+    {
+        @*<li>Skapa</li>
+        <li>Pågående</li>
+        <li>Tidigare</li>*@
+
+        <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
+        <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
+    }
+
+=======
+    @*
+        if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+        {
+    *@
+    @*<li>Skapa undersökning</li>
+        <li>Pågående undersökning</li>
+        <li>Gjorda undersökningar undersökning</li>*@
+
+    <li><a asp-controller="Organizations" asp-action="Index">För företag</a></li>
+    <li><a asp-area="" asp-controller="MarketResearches" asp-action="Index">Marknadsundersökningar</a></li>
+    <li><a asp-area="" asp-controller="Questions" asp-action="Index">Frågor?</a></li>
+    @*
+        }
+    *@
+>>>>>>> 961b9f93dec0c9dad82a5f3155bd4f91b66a49c6
+    if (await UserManager.IsInRoleAsync(user, "User"))
+    {
+        <li>
+            <a asp-controller="Home" asp-action="Index">
+                <span style="font-size: 1.7em" class="fas fa-coins fa-2x"></span>
+            </a>
+        </li>
+    }
+}
+else
+{
+
+}
+
+
+

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using mercado.nu.Models;
 using mercado.nu.Models.Evaluations;
+using mercado.nu.Models.ViewModels;
 
 namespace mercado.nu.Controllers
 {
@@ -207,7 +208,33 @@ namespace mercado.nu.Controllers
             var evaluation = new Evaluation();
 
             var getEvaluation = evaluation.GetEvaluation(answers);
-            return View();
+
+            var viewModelSummary = new MarketResearchSummeryVm();
+
+            viewModelSummary.SummaryOfMarketResearch = getEvaluation;
+
+            return View(viewModelSummary);
+        }
+
+        public IActionResult ChoseQuestions(Guid marketResearchId)
+        {
+            var listOfQuestions = _dataAccessQuestions.GetQuestionsForMarketResearch(marketResearchId);
+
+            var questionList = new List<SelectListItem>();
+
+            foreach (var item in listOfQuestions)
+            {
+                questionList.Add(new SelectListItem
+                {
+                    Text = $"Fråga {item.Question.QuestionNumber.ToString()}. {item.Question.QuestionType}. {item.Question.ActualQuestion}",
+                    Value = item.QuestionId.ToString()
+                });
+            }
+
+            var viewModelChoseQuestion = new ChoseQuestionsVm();
+            viewModelChoseQuestion.QuestionList = questionList;
+
+            return View(viewModelChoseQuestion);
         }
     }
 }

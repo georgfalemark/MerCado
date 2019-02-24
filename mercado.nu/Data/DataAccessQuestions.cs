@@ -32,7 +32,7 @@ namespace mercado.nu.Data
         internal List<Chapters> GetChapters(Guid marketResearchId)
         {
             
-            var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).ToList();
+            var chapters = _questionContext.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearchId).Include(x => x.MarketResearch).ToList();
             return chapters;
         }
 
@@ -48,6 +48,7 @@ namespace mercado.nu.Data
              var marketResearch = _questionContext.MarketResearches.Single(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId);
 
             var question = questionToMarketResearchVm.Question;
+            question.QuestionType = questionToMarketResearchVm.QuestionTypes[0];
 
 
             QuestionToMarketResearch questionToMarketResearch = new QuestionToMarketResearch
@@ -63,34 +64,77 @@ namespace mercado.nu.Data
 
         internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
+        
             
-           
-         
             questionOption.QuestionId= questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
-           await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
+          
         }
 
-        internal async Task SetNumberOnQuestion(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        internal async Task GetRespondersToMarketResearch(MarketResearch marketResearch)
         {
-            var question = _questionContext.Questions.Single(x => x.QuestionId == questionOption.QuestionId);
+
+            var responders = _questionContext.Persons.Where(x => 
+            ( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
+            //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
+            //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
+            (marketResearch.OnGoing ==true) &&
+            (marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); //Ska lägga till ålder
+
+            foreach (var responder in responders)
+            {
+                var resp = new Responders();
+                resp.Persons = responder;
+                resp.MarketResearchs = marketResearch;
+                _questionContext.Add(resp);
+              await _questionContext.SaveChangesAsync();
+            }
+             
+
+
+
+        }
+
+        internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId); //Blir det rätt
+            question.QuestionType = (QuestionTypes)questionType;
+            _questionContext.Update(question);
+            await _questionContext.SaveChangesAsync();
+        }
+        internal async Task SetNumberOnQuestion( AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
+            
             question.QuestionNumber = _questionContext.GetQuestionToMarketResearches.Where(x => x.MarketResearchId == questionToMarketResearchVm.CurrentMarketResearchId).Include(x => x.Question).Max(x => x.Question.QuestionNumber) + 1;
+            _questionContext.Update(question);
+            await _questionContext.SaveChangesAsync();
+        }
+
+        internal async Task SetQuestionTypeOnQuestion(AddQuestionToMarketResearchVm questionToMarketResearchVm)
+        {
+            var question = _questionContext.Questions.Single(x => x.QuestionId == questionToMarketResearchVm.Question.QuestionId);
+            question.QuestionType= questionToMarketResearchVm.QuestionTypes.First();
+
             _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
         }
 
         internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
+
+           
+          
             questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
             _questionContext.Add(questionOption);
             await _questionContext.SaveChangesAsync();
-            await SetNumberOnQuestion(questionOption, questionToMarketResearchVm);
+           
         }
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
         {
-            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).ToList();
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).Include(x => x.Persons).ToList();
             return marketResearchesForPerson;
         }
 

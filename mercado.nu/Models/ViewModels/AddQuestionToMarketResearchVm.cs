@@ -42,6 +42,7 @@ namespace mercado.nu.Models.ViewModels
             list.Add(new SelectListItem { Value = "4", Text = "Falskt - Sant" });
             return list;
         }
+        public string MarketResearchName { get; set; }
     }
 
     

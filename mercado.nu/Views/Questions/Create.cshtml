@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Skapa en fråga</h2>
+<h2>Skapa en fråga för undesökning "@Model.MarketResearchName"</h2>
 
-<h4>Question</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,14 +13,15 @@
         {
         <form asp-action="SetOptionsForQuestionType">
 
-            <p>@Model.CurrentMarketResearchId</p>
             <input type="hidden" asp-for="CurrentMarketResearchId" />
             <input type="hidden" asp-for="GradeChoices" />
+            <input type="hidden" asp-for="Chapters" />
+
 
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Question.ChaptersId" class="control-label"></label>
+                <label asp-for="Question.Chapter" class="control-label"></label>
                 <select asp-for="Question.ChaptersId" class="form-control" asp-items="Model.Chapters"></select>
                 <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
             </div>
@@ -31,7 +31,7 @@
                 <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuestionTypes" class="control-label"></label>
+                <label asp-for="Question.QuestionType" class="control-label"></label>
                 <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
 
                 <span asp-validation-for="QuestionTypes" class="text-danger"></span>
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
             </div>
-            
+
 
         </form>
         }
@@ -51,6 +51,7 @@
             <p>@Model.CurrentMarketResearchId</p>
             <input type="hidden" asp-for="CurrentMarketResearchId" />
             <input type="hidden" asp-for="Question.ChaptersId" />
+            <input type="hidden" asp-for="Chapters" />
             <input type="hidden" asp-for="Question.ActualQuestion" />
             <input type="hidden" asp-for="QuestionTypes" />
             <input type="hidden" asp-for="Question.QuestionId" />
@@ -105,16 +106,17 @@
                             }
                         }
 
-                        <div>
-                            <label asp-for="Alternative" class="control-label"></label>
-                            <input asp-for="Alternative" class="form-control" />
-                            <div class="form-group">
-                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till ytterligare" class="btn btn-default" />
-                            </div>
-                        </div>
+                                <div>
+                                    <label asp-for="Alternative" class="control-label"></label>
+                                    <input asp-for="Alternative" class="form-control" />
+                                    <div class="form-group">
+                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till" class="btn btn-default" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
+                                    </div>
+
+                                </div>
                         break;
                     }
                 case "Textfråga":
@@ -122,7 +124,7 @@
                         <div>
                             <h2>@Model.Question.ActualQuestion är tillagd</h2>
                             <div class="form-group">
-                                <input type="submit" value="Lägg till" class="btn btn-default" />
+                                <input type="submit" asp-action="CreateQuestionType" value="Lägg till" class="btn btn-default" />
                             </div>
                         </div>
                         break;

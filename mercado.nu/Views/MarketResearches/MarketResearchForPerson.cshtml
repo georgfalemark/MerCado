@@ -3,7 +3,7 @@
 
 @foreach (var responder in Model.Responders)
 {
-    <h1>Undersökningar för @responder.PersonId</h1>
+    <h1>Undersökningar för @responder.Persons.FirstName @responder.Persons.LastName</h1>
     break;
 }
 
@@ -13,21 +13,15 @@
             @foreach (var responder in Model.Responders)
             {
                 <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Name);
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Name)
                 </th>
-            }
-
-            @foreach (var responder in Model.Responders)
-            {
                 <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose);
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose)
                 </th>
-            }
-            @foreach (var responder in Model.Responders)
-            {
                 <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate);
+                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate)
                 </th>
+                break;
             }
             <th></th>
         </tr>
@@ -46,7 +40,7 @@
                 @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
             </td>
             <td>
-                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Starta undersökningen</a> |
+                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Genomför undersökningen</a> |
                 <a>Avböj undersökningen</a>
             </td>
         </tr>

@@ -71,8 +71,10 @@ namespace mercado.nu
                 marketResearch.MarketResearchId = Guid.NewGuid();
                 _context.Add(marketResearch);
                 await _context.SaveChangesAsync();
+                await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(marketResearch);
         }
 
@@ -89,6 +91,25 @@ namespace mercado.nu
             return RedirectToAction("Create", "Questions", questionToMarketResearch);
         }
 
+        public async Task<IActionResult> CreateQuestionsToMarketResearchDirectly([Bind("MarketResearchId,Name,Description,Purpose,MinAge,MaxAge,Gender,Area,CreationDate,StartDate,EndDate")] MarketResearch marketResearch)
+        {
+            if (ModelState.IsValid)
+            {
+                marketResearch.MarketResearchId = Guid.NewGuid();
+                _context.Add(marketResearch);
+                await _context.SaveChangesAsync();
+                await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
+               
+            }
+
+            var questionToMarketResearch = new AddQuestionToMarketResearchVm
+            {
+              
+                CurrentMarketResearchId = marketResearch.MarketResearchId
+            };
+
+            return RedirectToAction("Create", "Questions", questionToMarketResearch);
+        }
 
         // GET: MarketResearches/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -175,7 +196,7 @@ namespace mercado.nu
             return _context.MarketResearches.Any(e => e.MarketResearchId == id);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public async Task<IActionResult> MarketResearchForPerson()
         {
             ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);

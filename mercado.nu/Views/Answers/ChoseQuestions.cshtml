@@ -1,0 +1,29 @@
+﻿@model mercado.nu.Models.ViewModels.ChoseQuestionsVm
+
+
+<h1>Välj frågor som ska undersökas</h1>
+<div class="container">
+    <form>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4">
+                <label></label>
+                <select asp-for="Question.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
+            </div>
+            <div class="col-4">
+                <label></label>
+                <select asp-for="Question.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4">
+                <button>Jämför</button>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </form>
+</div>

@@ -16,22 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Purpose)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MinAge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxAge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Area)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
@@ -52,22 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Purpose)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinAge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxAge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Area)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
@@ -85,6 +55,7 @@
                 <a asp-controller="Questions" asp-action="ShowQuestionsForMarketResearch" asp-route-marketResearchId="@item.MarketResearchId">Visa frågor</a> |
                 <a asp-controller="MarketResearches" asp-action="CreateQuestionsToMarketResearch" asp-route-id="@item.MarketResearchId">Lägg till frågor</a> |
                 <a asp-controller="Answers" asp-action="Evaluation" asp-route-marketResearchId="@item.MarketResearchId">Utvärdering av undersökning</a> |
+                <a asp-controller="Answers" asp-action="ChoseQuestions" asp-route-marketResearchId="@item.MarketResearchId">Undersök samband</a> |
             </td>
         </tr>
 }
