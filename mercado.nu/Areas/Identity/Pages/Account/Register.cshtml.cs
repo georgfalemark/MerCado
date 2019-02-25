@@ -62,20 +62,38 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Lösenord")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Bekräfta lösenord")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             public Person Person { get; set; }
-            //public List<SelectListItem> Genders { get; set; }
+            public List<SelectListItem> Genders { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
+
+            Input = new InputModel();
+            string[] arr = Enum.GetNames(typeof(Gender));
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var item in arr)
+            {
+                var y = new SelectListItem() { Text = item, Value = item };
+                list.Add(y);
+            }
+            Input.Genders = list;
+
+
+
+
+            //Input.Genders = new SelectListItem() { Text = Enum.GetNames(typeof(Gender)) }(Enum.GetValues(typeof(Gender)), Enum.GetNames(typeof(Gender)))
+
+
             ReturnUrl = returnUrl;
         }
 
