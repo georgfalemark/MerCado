@@ -5,8 +5,13 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+
+
 @if (SignInManager.IsSignedIn(User))
 {
+
+    //ApplicationUser user = await UserManager.GetUserAsync(User);
+
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
