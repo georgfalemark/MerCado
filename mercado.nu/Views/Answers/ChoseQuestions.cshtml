@@ -3,16 +3,16 @@
 
 <h1>Välj frågor som ska undersökas</h1>
 <div class="container">
-    <form>
+    <form asp-action="ShowQuestionComparison">
         <div class="row">
             <div class="col-2"></div>
             <div class="col-4">
                 <label></label>
-                <select asp-for="Question.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
+                <select asp-for="QuestionOne.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
             <div class="col-4">
                 <label></label>
-                <select asp-for="Question.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
+                <select asp-for="QuestionTwo.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
             <div class="col-2"></div>
         </div>

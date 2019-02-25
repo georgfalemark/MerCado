@@ -236,5 +236,95 @@ namespace mercado.nu.Controllers
 
             return View(viewModelChoseQuestion);
         }
+
+        public IActionResult ShowQuestionComparison(ChoseQuestionsVm choseQuestions)
+        {
+            var questionOneData = _dataAccessQuestions.GetDataForQuestion(choseQuestions.QuestionOne);
+            var questionTwoData = _dataAccessQuestions.GetDataForQuestion(choseQuestions.QuestionTwo);
+            
+            var questionHeadingsOne = _dataAccessQuestions.GetHeadings(choseQuestions.QuestionOne);
+            var questionHeadingsTwo = _dataAccessQuestions.GetHeadings(choseQuestions.QuestionTwo);
+
+            ShowQuestionComparisonVm viewModelShowComparison = new ShowQuestionComparisonVm();
+            bool[] binaryOptions = { true, false };
+
+            List<List<int>> dataForTable = new List<List<int>>();
+
+            if (questionOneData[0] == QuestionTypes.Binärfråga)
+            {
+                
+                foreach (bool optionOne in binaryOptions)
+                {
+                        string[] headingsOne = questionHeadingsOne[0].Split('-');
+
+                    if (questionTwoData[0] == QuestionTypes.Binärfråga)
+                    {
+                        
+                        string[] headingsTwo = questionHeadingsTwo[0].Split('-');
+
+                        List<int> arrayList = new List<int>();
+                        foreach (bool optionTwo in binaryOptions)
+                        {
+                            int numberOfAnswers = _dataAccessQuestions.CalculateAnswers(choseQuestions, optionOne.ToString(), optionTwo.ToString());
+                            arrayList.Add(numberOfAnswers);
+                        }
+                        viewModelShowComparison.HeadingsVertical = headingsOne;
+                        viewModelShowComparison.HeadingsHorizontal = headingsTwo;
+                        dataForTable.Add(arrayList);
+                    }
+                    else
+                    {
+                        List<int> arrayList = new List<int>();
+                        foreach (string headingTwo in questionHeadingsTwo)
+                        {
+                            int numberOfAnswers = _dataAccessQuestions.CalculateAnswers(choseQuestions, optionOne.ToString(), headingTwo);
+                            arrayList.Add(numberOfAnswers);
+                        }
+                        viewModelShowComparison.HeadingsVertical = headingsOne;
+                        viewModelShowComparison.HeadingsHorizontal = questionHeadingsTwo.ToArray();
+                        dataForTable.Add(arrayList);
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (string headingOne in questionHeadingsOne)
+                {
+
+                    if (questionTwoData[0] == QuestionTypes.Binärfråga)
+                    {
+                        string[] headingsTwo = questionHeadingsTwo[0].Split('-');
+
+                        List<int> arrayList = new List<int>();
+                        foreach (bool optionTwo in binaryOptions)
+                        {
+                            int numberOfAnswers = _dataAccessQuestions.CalculateAnswers(choseQuestions, headingOne, optionTwo.ToString());
+                            arrayList.Add(numberOfAnswers);
+                        }
+                        viewModelShowComparison.HeadingsVertical = questionHeadingsOne.ToArray();
+                        viewModelShowComparison.HeadingsHorizontal = headingsTwo;
+                        dataForTable.Add(arrayList);
+                    }
+                    else
+                    {
+                        List<int> arrayList = new List<int>();
+
+                        foreach (string headingTwo in questionHeadingsTwo)
+                        {
+                            int numberOfAnswers = _dataAccessQuestions.CalculateAnswers(choseQuestions, headingOne, headingTwo);
+                            arrayList.Add(numberOfAnswers);
+                        }
+                        viewModelShowComparison.HeadingsVertical = questionHeadingsOne.ToArray();
+                        viewModelShowComparison.HeadingsHorizontal = questionHeadingsTwo.ToArray();
+                        dataForTable.Add(arrayList);
+                    }
+                }
+            }
+
+            viewModelShowComparison.DataArrayForComparison = dataForTable;
+
+            return View(viewModelShowComparison);
+        }
     }
 }

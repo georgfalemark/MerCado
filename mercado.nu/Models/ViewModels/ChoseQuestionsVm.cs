@@ -10,6 +10,7 @@ namespace mercado.nu.Models.ViewModels
     public class ChoseQuestionsVm
     {
         public List<SelectListItem> QuestionList { get; set; }
-        public Question Question { get; set; }
+        public Question QuestionOne { get; set; }
+        public Question QuestionTwo { get; set; }
     }
 }
