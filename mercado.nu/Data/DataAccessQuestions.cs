@@ -67,11 +67,14 @@ namespace mercado.nu.Data
         internal async Task SetMarketResearchToPersonAndOrganizationAndSave(MarketResearch marketResearch, Guid userId)
         {
             var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
-            
+            var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
+
             person.MarketResearches.Add(marketResearch);
-           
+            organization.MarketResearches.Add(marketResearch);
+
             _questionContext.Update(person);
-           
+            _questionContext.Update(organization);
+
             await _questionContext.SaveChangesAsync();
         }
 
