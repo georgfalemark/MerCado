@@ -61,7 +61,7 @@
                     <div id="@groupName " class="col-md-8">
                         @foreach (var questionOption in question.QuestionOptions)
                         {
-                            string binaryType = questionOption.ToString();
+                            string binaryType = questionOption.QuestionOptionHeading;
                             string[] binaryTypes = binaryType.Split('-');
 
                             <label>@binaryTypes[0].Trim()</label>
