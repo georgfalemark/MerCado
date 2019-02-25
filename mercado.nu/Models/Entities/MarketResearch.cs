@@ -14,12 +14,13 @@ namespace mercado.nu.Models
         public Guid MarketResearchId { get; set; }
         [Display(Name = "Undersökning")]
         public string Name { get; set; }
+        [Display(Name = "Beskrivning")]
         public string Description { get; set; }
         [Display(Name = "Undersökningens syfte")]
         public string Purpose { get; set; }
-        [Display(Name = "Lägstaålder")]
+        [Display(Name = "Lägsta ålder")]
         public int MinAge { get; set; }
-        [Display(Name = "Högstaålder")]
+        [Display(Name = "Högsta ålder")]
         public int MaxAge { get; set; }
         [Display(Name = "Kön")]
         public Gender Gender { get; set; }

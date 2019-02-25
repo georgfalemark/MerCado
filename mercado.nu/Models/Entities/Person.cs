@@ -11,6 +11,9 @@ namespace mercado.nu.Models
 {
     public class Person
     {
+
+        //private bool age;
+
         public Guid PersonId { get; set; }
 
         [Display(Name = "Förnamn")]
@@ -18,6 +21,16 @@ namespace mercado.nu.Models
 
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
+
+        //[Display(Name = "Ålder")]
+        //public int Age
+        //{
+        //    get { return age; }
+        //    set
+        //    {
+        //            age = int.Parse(DateTime.Now-Age);
+        //    }
+        //}
 
         [Display(Name = "Kön")]
         public Gender Gender { get; set; }
