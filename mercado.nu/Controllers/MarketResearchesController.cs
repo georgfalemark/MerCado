@@ -11,6 +11,7 @@ using mercado.nu.Models.ViewModels;
 using mercado.nu.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace mercado.nu
 {
@@ -68,9 +69,10 @@ namespace mercado.nu
         {
             if (ModelState.IsValid)
             {
-                marketResearch.MarketResearchId = Guid.NewGuid();
-                _context.Add(marketResearch);
-                await _context.SaveChangesAsync();
+                ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
+                var userId = applicationUser.Id;
+                
+                await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
                 return RedirectToAction(nameof(Index));
             }

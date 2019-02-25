@@ -345,7 +345,11 @@ namespace mercado.nu
                         //if (buttonstate)
                         //{
                             await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
-                            questionToMarketResearchVm.QuestionTypes = null;
+                        var questionOption = new QuestionOption();
+                        questionOption.QuestionOptionHeading = "Text";
+                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+
+                        questionToMarketResearchVm.QuestionTypes = null;
                             return View("Create", questionToMarketResearchVm);
                         //}
                         //else

@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace mercado.nu.Data
 {
@@ -59,8 +61,24 @@ namespace mercado.nu.Data
 
             _questionContext.Add(questionToMarketResearch);
             await _questionContext.SaveChangesAsync();
-           //return questionToMarketResearchVm.Question.QuestionId;
+       
         }
+
+        internal async Task SetMarketResearchToPersonAndOrganizationAndSave(MarketResearch marketResearch, Guid userId)
+        {
+            var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
+            var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
+
+            person.MarketResearches.Add(marketResearch);
+            organization.MarketResearches.Add(marketResearch);
+
+            _questionContext.Update(person);
+            _questionContext.Update(organization);
+
+            await _questionContext.SaveChangesAsync();
+        }
+
+  
 
         internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
