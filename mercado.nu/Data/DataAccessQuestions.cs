@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace mercado.nu.Data
 {
@@ -59,8 +61,27 @@ namespace mercado.nu.Data
 
             _questionContext.Add(questionToMarketResearch);
             await _questionContext.SaveChangesAsync();
-           //return questionToMarketResearchVm.Question.QuestionId;
+       
         }
+
+        internal async Task SetMarketResearchToPersonAndOrganizationAndSave(MarketResearch marketResearch, Guid userId)
+        {
+            var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
+            var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
+            if (marketResearch.StartDate>=DateTime.Now&& marketResearch.EndDate <= DateTime.Now)
+            {
+                marketResearch.OnGoing = true;
+            }
+            person.MarketResearches.Add(marketResearch);
+            organization.MarketResearches.Add(marketResearch);
+
+            _questionContext.Update(person);
+            _questionContext.Update(organization);
+
+            await _questionContext.SaveChangesAsync();
+        }
+
+  
 
         internal async Task AddQuestionOption(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
         {
@@ -162,6 +183,27 @@ namespace mercado.nu.Data
         {
             var questions = _questionContext.Answers.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(x => x.QuestionOptions).ToList();
             return questions;
+        }
+
+        internal List<QuestionTypes> GetDataForQuestion(Question question)
+        {
+            var data = _questionContext.Questions.Where(x => x.QuestionId == question.QuestionId).Select(x => x.QuestionType).ToList();
+            return data;
+        }
+
+        internal List<string> GetHeadings(Question questionOne)
+        {
+            var headings = _questionContext.QuestionOptions.Where(x => x.QuestionId == questionOne.QuestionId).Select(x => x.Value).ToList();
+            return headings;
+        }
+
+        internal int CalculateAnswers(ChoseQuestionsVm choseQuestions, string optionOne, string optionTwo)
+        {
+            var numberOfTwo = _questionContext.Answers.Where(x => x.Value == optionTwo && x.QuestionId == choseQuestions.QuestionTwo.QuestionId).Select(x => x.PersonId).ToList();
+            var numberofOne = _questionContext.Answers.Where(x => x.Value == optionOne && x.QuestionId == choseQuestions.QuestionOne.QuestionId).Select(x => x.PersonId).ToList();
+            var compareLists = numberOfTwo.Intersect(numberofOne).Count();
+
+            return compareLists;
         }
     }
 }
