@@ -76,23 +76,17 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
-
             Input = new InputModel();
-            string[] arr = Enum.GetNames(typeof(Gender));
 
+            string[] arr = Enum.GetNames(typeof(Gender));
             List<SelectListItem> list = new List<SelectListItem>();
+
             foreach (var item in arr)
             {
                 var y = new SelectListItem() { Text = item, Value = item };
                 list.Add(y);
             }
             Input.Genders = list;
-
-
-
-
-            //Input.Genders = new SelectListItem() { Text = Enum.GetNames(typeof(Gender)) }(Enum.GetValues(typeof(Gender)), Enum.GetNames(typeof(Gender)))
-
 
             ReturnUrl = returnUrl;
         }
