@@ -68,7 +68,10 @@ namespace mercado.nu.Data
         {
             var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
             var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
-
+            if (marketResearch.StartDate>=DateTime.Now&& marketResearch.EndDate <= DateTime.Now)
+            {
+                marketResearch.OnGoing = true;
+            }
             person.MarketResearches.Add(marketResearch);
             organization.MarketResearches.Add(marketResearch);
 
