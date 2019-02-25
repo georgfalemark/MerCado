@@ -31,14 +31,17 @@ namespace mercado.nu.Models
         public DateTime StartDate { get; set; }
         [Display(Name = "Planerat slutdatum")]
         public DateTime EndDate { get; set; }
-        public bool OnGoing { get { return onGoing; } set
+        public bool OnGoing
+        {
+            get { return onGoing; }
+            set
             {
                 if ((StartDate > DateTime.Now) && (EndDate < DateTime.Now))
                 {
                     onGoing = true;
                 }
             }
-            }
+        }
 
         public List<Responders> Responders { get; set; }
 
