@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using mercado.nu.Data;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace mercado.nu.Areas.Identity.Pages.Account
@@ -69,6 +71,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public Person Person { get; set; }
+            //public List<SelectListItem> Genders { get; set; }
         }
 
         public void OnGet(string returnUrl = null)

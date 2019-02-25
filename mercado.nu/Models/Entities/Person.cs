@@ -22,6 +22,9 @@ namespace mercado.nu.Models
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
+        [Display(Name = "Födelsedag")]
+        public DateTime BirthDay { get; set; }
+
         //[Display(Name = "Ålder")]
         //public int Age
         //{
