@@ -242,11 +242,11 @@ namespace mercado.nu
         public async Task<IActionResult> CreateQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
         {
             
-            //var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
+            var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
             //questionToMarketResearchVm.Chapters = listOfChapters;
-            //var selectChapters = GetSelectChapters(listOfChapters);
+            var selectChapters = GetSelectChapters(listOfChapters);
 
-            //questionToMarketResearchVm.Chapters = selectChapters;
+            questionToMarketResearchVm.Chapters = selectChapters;
 
 
 
