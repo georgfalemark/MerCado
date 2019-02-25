@@ -51,9 +51,5 @@ namespace mercado.nu.Models
 
         public List<Answer> Answers { get; set; }
 
-
-
-
-
     }
 }

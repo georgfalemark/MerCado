@@ -153,5 +153,26 @@ namespace mercado.nu.Data
             var questions = _questionContext.Answers.Where(x => x.MarketResearchId == marketResearchId).Include(x => x.Question).ThenInclude(x => x.QuestionOptions).ToList();
             return questions;
         }
+
+        internal List<QuestionTypes> GetDataForQuestion(Question question)
+        {
+            var data = _questionContext.Questions.Where(x => x.QuestionId == question.QuestionId).Select(x => x.QuestionType).ToList();
+            return data;
+        }
+
+        internal List<string> GetHeadings(Question questionOne)
+        {
+            var headings = _questionContext.QuestionOptions.Where(x => x.QuestionId == questionOne.QuestionId).Select(x => x.Value).ToList();
+            return headings;
+        }
+
+        internal int CalculateAnswers(ChoseQuestionsVm choseQuestions, string optionOne, string optionTwo)
+        {
+            var numberOfTwo = _questionContext.Answers.Where(x => x.Value == optionTwo && x.QuestionId == choseQuestions.QuestionTwo.QuestionId).Select(x => x.PersonId).ToList();
+            var numberofOne = _questionContext.Answers.Where(x => x.Value == optionOne && x.QuestionId == choseQuestions.QuestionOne.QuestionId).Select(x => x.PersonId).ToList();
+            var compareLists = numberOfTwo.Intersect(numberofOne).Count();
+
+            return compareLists;
+        }
     }
 }
