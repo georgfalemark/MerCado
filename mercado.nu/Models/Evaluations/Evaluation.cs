@@ -9,7 +9,7 @@ namespace mercado.nu.Models.Evaluations
 {
     public class Evaluation
     {
-        internal List<BaseQuestion> GetEvaluation(List<Answer> answers)
+        internal List<BaseQuestion> GetEvaluation(List<Answer> answers, List<List<string>> listValueTypes)
         {
             var baseListWithAnswers = new List<BaseQuestion>();
 
@@ -32,8 +32,20 @@ namespace mercado.nu.Models.Evaluations
                     case QuestionTypes.Flervalsfråga:
                         {
                             MultipleChoiceQuestion evaluateAnswers = new MultipleChoiceQuestion();
+                            List<string> valueTypes = new List<string>();
+
+                            foreach (var item in listValueTypes)
+                            {
+                                if (item.Contains(questionId.ToString()))
+                                {
+                                    valueTypes = item;
+                                    break;
+                                }
+                                
+                            }
+
                             var answersForEvaluation = answers.Where(x => x.QuestionId == questionId).ToList();
-                            evaluateAnswers.GetResults(answersForEvaluation);
+                            evaluateAnswers.GetResults(answersForEvaluation, valueTypes);
                             baseListWithAnswers.Add(evaluateAnswers);
                             break;
                         }

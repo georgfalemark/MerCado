@@ -173,8 +173,22 @@ namespace mercado.nu.Data
         {
             foreach (var answer in listOfAnswers)
             {
-                await _questionContext.AddAsync(answer);
-                var result = await _questionContext.SaveChangesAsync();
+                //var questionType = _questionContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == answer.QuestionId).Select(x => x.Question.QuestionType).ToList();
+                //if(questionType[0] == QuestionTypes.Flervalsfråga)
+                //{
+                //    string[] splitValue = answer.Value.Split(',');
+                //    for (int i = 0; i < splitValue.Length; i++)
+                //    {
+                //        answer.Value = splitValue[i];
+                //        await _questionContext.AddAsync(answer);
+                //        var result = await _questionContext.SaveChangesAsync();
+                //    }
+                //}
+                //else
+                //{
+                    await _questionContext.AddAsync(answer);
+                    var result = await _questionContext.SaveChangesAsync();
+                //}
             }
                 return 1;
         }
