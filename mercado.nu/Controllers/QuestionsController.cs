@@ -241,9 +241,7 @@ namespace mercado.nu
 
         public async Task<IActionResult> CreateQuestionType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
         {
-            int questionType;
-
-
+            
             //var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
             //questionToMarketResearchVm.Chapters = listOfChapters;
             //var selectChapters = GetSelectChapters(listOfChapters);
@@ -344,12 +342,21 @@ namespace mercado.nu
                     }
                 case "Textfråga":
                     {
-                        questionType = 3;
+                        //if (buttonstate)
+                        //{
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                            questionToMarketResearchVm.QuestionTypes = null;
+                            return View("Create", questionToMarketResearchVm);
+                        //}
+                        //else
+                        //{
+                        //    await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        //    questionToMarketResearchVm.QuestionTypes = null;
+                        //    return View("Create", questionToMarketResearchVm);
+                        //}
                         //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
-                        await _dataAccessQuestion.AddQuestionOption(questionToMarketResearchVm, questionType);
-                        await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
-                        questionToMarketResearchVm.QuestionTypes = null;
-                        return View("Create", questionToMarketResearchVm);
+                        //await _dataAccessQuestion.AddQuestionOption(questionToMarketResearchVm, questionType);
+                     
                     }
                 default:
                     break;

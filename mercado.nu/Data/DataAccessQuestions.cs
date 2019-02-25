@@ -87,14 +87,24 @@ namespace mercado.nu.Data
                 var resp = new Responders();
                 resp.Persons = responder;
                 resp.MarketResearchs = marketResearch;
+                resp.MarketResearchCompleted = false;
                 _questionContext.Add(resp);
               await _questionContext.SaveChangesAsync();
             }
-             
-
-
-
         }
+
+        //internal Task GetRespondersToMarketResearchFromRegistredUser(Guid id)
+        //{
+        //    var respondent = _questionContext.Persons.FirstAsync(x => x.PersonId == id);
+
+        //    var responders=_questionContext.MarketResearches.WhereAsync(x =>
+        //    (_questionContext.MarketResearches.Gender == null || marketResearch.Gender == x.Gender) &&
+        //    //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
+        //    //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
+        //    (marketResearch.OnGoing == true) &&
+        //    (marketResearch.OnGoing == true) &&
+        //    (marketResearch.Area == null || marketResearch.Area == x.City)).ToList();
+        //}
 
         internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
         {

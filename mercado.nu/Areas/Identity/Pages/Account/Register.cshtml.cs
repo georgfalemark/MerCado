@@ -24,6 +24,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailSender _emailSender;
         private readonly AuthService _auth;
+        private readonly DataAccessQuestions _dataAccessQuestions;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -31,7 +32,8 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             ApplicationDbContext applicationDbContext,
             IEmailSender emailSender,
-            AuthService auth)
+            AuthService auth,
+             DataAccessQuestions dataAccessQuestions)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +41,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
             _auth = auth;
+            _dataAccessQuestions = dataAccessQuestions;
         }
 
 
@@ -91,7 +94,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
                     var addRoleToUser = await _auth.AddRoleToUser("User", Input.Person.PersonId.ToString());
 
                     _logger.LogInformation("User created a new account with password.");
-
+                    //await _dataAccessQuestions.GetRespondersToMarketResearchFromRegistredUser(user.Id); //Kan man göra såhär?
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
