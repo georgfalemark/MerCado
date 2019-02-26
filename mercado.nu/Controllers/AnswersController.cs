@@ -192,7 +192,7 @@ namespace mercado.nu.Controllers
                 var answerGuid = Guid.NewGuid();
                 string questionId = $"{i} questionId";
                 string value = $"{i}";
-                listOfAnswers.Add(new Answer { AnswerId = answerGuid, MarketResearchId = Guid.Parse(answer["marketId"]), PersonId = userId, QuestionId = Guid.Parse(answer[questionId]), Value = answer[value] });
+                listOfAnswers.Add(new Answer { AnswerId = answerGuid, MarketResearchId = Guid.Parse(answer["marketId"]), PersonId = userId, QuestionId = Guid.Parse(answer[questionId]), Value = answer[value],  });
             }
 
             int result = await _dataAccessQuestions.AddAnswers(listOfAnswers);

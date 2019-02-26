@@ -235,7 +235,11 @@ namespace mercado.nu
             var vm = new AddQuestionToMarketResearchVm();
             questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
             questionToMarketResearchVm.BinaryChoice = vm.SetBinaryChoiceList();
+
+
             await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
+
+            questionToMarketResearchVm.Question.ActualQuestion = "";
             
             return View("Create", questionToMarketResearchVm);
         }
