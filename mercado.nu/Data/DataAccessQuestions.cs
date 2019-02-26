@@ -102,7 +102,7 @@ namespace mercado.nu.Data
             //( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
             (marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
             (marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
-            /*(marketResearch.OnGoing == true) &&*/ x.OrganizationId==null).ToList(); //&&
+            (marketResearch.OnGoing == true) && x.OrganizationId==null).ToList(); //&&
             //(marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); 
                 
             if (responders.Count < marketResearch.NumberOfResponders)
@@ -124,16 +124,12 @@ namespace mercado.nu.Data
                 {
                     for (int i = 0; i < missingResponders; i++)
                     {
-                        respondersToFill = _questionContext.Persons.OrderBy(r => Guid.NewGuid()).Take(missingResponders).ToList();
-
+                        respondersToFill = _questionContext.Persons.Where(x=>x.OrganizationId==null).OrderBy(r => Guid.NewGuid()).Take(missingResponders).ToList();
                     }
 
                     foreach (var filInResponder in respondersToFill)
                     {
-                        if (filInResponder.OrganizationId == null)
-                        {
                             responders.Add(filInResponder);
-                        }
                     }
                 }
                     foreach (var responder in responders)
