@@ -3,27 +3,24 @@
 
 <h1>Välj frågor som ska undersökas</h1>
 <div class="container">
-    <form asp-action="ShowQuestionComparison">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4">
+    
+    <div class="row">
+        <div class="col"></div>
+        <form asp-action="ShowQuestionComparison">
+            <div class="col-lg-3">
                 <label></label>
                 <select asp-for="QuestionOne.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
-            <div class="col-4">
+            <div class="col-lg-3">
                 <label></label>
                 <select asp-for="QuestionTwo.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
-            <div class="col-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4">
+            <div class="col-lg-1">
                 <button>Jämför</button>
             </div>
-            <div class="col-4">
-            </div>
-            <div class="col-2"></div>
+        </form>
+        <div class="col-lg-5">
+            <iframe src='https://webchat.botframework.com/embed/TobbePerssonBot?s=C0-Atoz1WKM.xBD_q_9QQY2ToWOx5Q_PInLUG_W8N56o75CLXG0KL7A' style='min-width: 100px; width: 25%; min-height: 200px;'></iframe>
         </div>
-    </form>
+    </div>
 </div>
