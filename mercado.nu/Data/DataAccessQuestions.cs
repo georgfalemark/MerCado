@@ -68,10 +68,11 @@ namespace mercado.nu.Data
         {
             var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
             var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
-            if (marketResearch.StartDate>=DateTime.Now && marketResearch.EndDate <= DateTime.Now)
-            {
-                marketResearch.OnGoing = true;
-            }
+
+            //if (marketResearch.StartDate>=DateTime.Now && marketResearch.EndDate <= DateTime.Now)  Sätter detta redan i klassen nu
+            //{
+            //    marketResearch.OnGoing = true;
+            //}
             person.MarketResearches.Add(marketResearch);
             organization.MarketResearches.Add(marketResearch);
 
@@ -95,23 +96,89 @@ namespace mercado.nu.Data
 
         internal async Task GetRespondersToMarketResearch(MarketResearch marketResearch)
         {
+            List<Person> respondersToFill=new List<Person>();
 
-            var responders = _questionContext.Persons.Where(x => 
-            ( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
-            //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
-            //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
-            (marketResearch.OnGoing ==true) &&
-            (marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); //Ska lägga till ålder
-
-            foreach (var responder in responders)
+            var responders = _questionContext.Persons.Where(x =>
+            //( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
+            (marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
+            (marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
+            /*(marketResearch.OnGoing == true) &&*/ x.OrganizationId==null).ToList(); //&&
+            //(marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); 
+                
+            if (responders.Count < marketResearch.NumberOfResponders)
             {
-                var resp = new Responders();
-                resp.Persons = responder;
-                resp.MarketResearchs = marketResearch;
-                resp.MarketResearchCompleted = false;
-                _questionContext.Add(resp);
-              await _questionContext.SaveChangesAsync();
+                int missingResponders = marketResearch.NumberOfResponders - responders.Count;
+
+                if (_questionContext.Persons.ToList().Count < missingResponders)
+                {
+                    respondersToFill = _questionContext.Persons.ToList();
+                    foreach (var resp in respondersToFill)
+                    {
+                        if (resp.OrganizationId==null)
+                        {
+                        responders.Add(resp);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < missingResponders; i++)
+                    {
+                        respondersToFill = _questionContext.Persons.OrderBy(r => Guid.NewGuid()).Take(missingResponders).ToList();
+
+                    }
+
+                    foreach (var filInResponder in respondersToFill)
+                    {
+                        if (filInResponder.OrganizationId == null)
+                        {
+                            responders.Add(filInResponder);
+                        }
+                    }
+                }
+                    foreach (var responder in responders)
+                    {
+                        var resp = new Responders();
+                        resp.Persons = responder;
+                        resp.MarketResearchs = marketResearch;
+                        resp.MarketResearchCompleted = false;
+                        _questionContext.Add(resp);
+                        await _questionContext.SaveChangesAsync();
+                    }
+
             }
+            else if (responders.Count == marketResearch.NumberOfResponders)
+            {
+                foreach (var responder in responders)
+                {
+                    var resp = new Responders();
+                    resp.Persons = responder;
+                    resp.MarketResearchs = marketResearch;
+                    resp.MarketResearchCompleted = false;
+                    _questionContext.Add(resp);
+                    await _questionContext.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < marketResearch.NumberOfResponders; i++)
+                {
+                  var  respondersToAdd = responders.OrderBy(r => Guid.NewGuid()).Take(marketResearch.NumberOfResponders).ToList();
+                    foreach (var responder in respondersToAdd)
+                    {
+                        var resp = new Responders();
+                        resp.Persons = responder;
+                        resp.MarketResearchs = marketResearch;
+                        resp.MarketResearchCompleted = false;
+                        _questionContext.Add(resp);
+                        await _questionContext.SaveChangesAsync();
+                    }
+                }
+
+
+            }
+
+          
         }
 
         //internal async Task GetRespondersToMarketResearchFromRegistredUser(Guid id)

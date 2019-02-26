@@ -65,7 +65,7 @@ namespace mercado.nu
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MarketResearchId,Name,Description,Purpose,MinAge,MaxAge,Gender,Area,CreationDate,StartDate,EndDate")] MarketResearch marketResearch)
+        public async Task<IActionResult> Create([Bind("MarketResearchId,Name,Description,Purpose,MinAge,MaxAge,Gender,Area,CreationDate,StartDate,EndDate, NumberOfResponders, OnGoing")] MarketResearch marketResearch)
         {
             if (ModelState.IsValid)
             {

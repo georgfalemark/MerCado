@@ -34,17 +34,25 @@ namespace mercado.nu.Models
         public DateTime EndDate { get; set; }
         public bool OnGoing
         {
-            get { return onGoing; }
-            set
-            {
-                if ((StartDate > DateTime.Now) && (EndDate < DateTime.Now))
+            get {
+
+                if ((StartDate < DateTime.Now) && (EndDate > DateTime.Now))
                 {
                     onGoing = true;
                 }
+                else
+                {
+                    onGoing = false;
+                }
+                return onGoing;
             }
+           
         }
 
         public List<Responders> Responders { get; set; }
+
+        [Display(Name = "Hur många ska den skickas ut till?")]
+        public int NumberOfResponders { get; set; }
 
         public List<Chapters> Chapters { get; set; }
 
