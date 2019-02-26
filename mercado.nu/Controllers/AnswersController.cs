@@ -205,9 +205,20 @@ namespace mercado.nu.Controllers
         {
             List<Answer> answers = _dataAccessQuestions.GetAnswersForMarketResearch(marketResearchId);
 
+            var listMultiQuestionId = answers.Where(x => x.Question.QuestionType == QuestionTypes.Flervalsfråga).Select(x => x.QuestionId).ToList();
+
+            var listValueTypes = new List<List<string>>();
+
+            foreach (var multiquestion in listMultiQuestionId)
+            {
+                var valueTypes = _context.QuestionOptions.Where(x => x.QuestionId == multiquestion).Select(x => x.Value).ToList();
+                valueTypes.Add(multiquestion.ToString());
+                listValueTypes.Add(valueTypes);
+            }
+
             var evaluation = new Evaluation();
 
-            var getEvaluation = evaluation.GetEvaluation(answers);
+            var getEvaluation = evaluation.GetEvaluation(answers, listValueTypes);
 
             var viewModelSummary = new MarketResearchSummeryVm();
 

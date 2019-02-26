@@ -5,6 +5,11 @@
 }
 
 
+
+
+
+
+
 <div class="row">
     <div class="col-md-6">
 
@@ -27,11 +32,53 @@
                 <input asp-for="Input.Person.LastName" class="form-control" />
                 <span asp-validation-for="Input.Person.LastName" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <label asp-for="Input.Person.Gender"></label>
-                <input asp-for="Input.Person.Gender" class="form-control" />
-                <span asp-validation-for="Input.Person.Gender" class="text-danger"></span>
+                <label asp-for="Input.Person.BirthDay"></label>
+                <input asp-for="Input.Person.BirthDay" class="form-control" />
+                <span asp-validation-for="Input.Person.BirthDay" class="text-danger"></span>
             </div>
+
+
+
+            @*<div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.Person.BirthDay.Year"></label>
+                    <input asp-for="Input.Person.BirthDay.Year" class="form-control" />
+                    <span asp-validation-for="Input.Person.BirthDay.Year" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.Person.BirthDay.Month"></label>
+                    <input asp-for="Input.Person.BirthDay.Month" class="form-control" />
+                    <span asp-validation-for="Input.Person.BirthDay.Month" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.Person.BirthDay.Day"></label>
+                    <input asp-for="Input.Person.BirthDay.Day" class="form-control" />
+                    <span asp-validation-for="Input.Person.BirthDay.Day" class="text-danger"></span>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+            
+
+
+            <div class="form-group">
+                <label class="control-label">Vilket företag tillhör du?</label>
+                <select asp-for="Input.Person.Gender" asp-items="Model.Input.Genders" class="form-control">
+                    <option disabled selected>--- VÄLJ KÖN ---</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Input.Person.Street"></label>
                 <input asp-for="Input.Person.Street" class="form-control" />
