@@ -68,7 +68,7 @@ namespace mercado.nu.Data
         {
             var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
             var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
-            if (marketResearch.StartDate>=DateTime.Now&& marketResearch.EndDate <= DateTime.Now)
+            if (marketResearch.StartDate>=DateTime.Now && marketResearch.EndDate <= DateTime.Now)
             {
                 marketResearch.OnGoing = true;
             }
@@ -114,17 +114,17 @@ namespace mercado.nu.Data
             }
         }
 
-        //internal Task GetRespondersToMarketResearchFromRegistredUser(Guid id)
+        //internal async Task GetRespondersToMarketResearchFromRegistredUser(Guid id)
         //{
         //    var respondent = _questionContext.Persons.FirstAsync(x => x.PersonId == id);
 
-        //    var responders=_questionContext.MarketResearches.WhereAsync(x =>
-        //    (_questionContext.MarketResearches.Gender == null || marketResearch.Gender == x.Gender) &&
-        //    //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
-        //    //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
-        //    (marketResearch.OnGoing == true) &&
-        //    (marketResearch.OnGoing == true) &&
-        //    (marketResearch.Area == null || marketResearch.Area == x.City)).ToList();
+        //    var responders = _questionContext.MarketResearches.Include(x=>x.) Where(x =>
+        //      (_questionContext.MarketResearches.Gender == null || marketResearch.Gender == x.Gender) &&
+        //      ( marketResearch.MinAge == null || respondent.Age > x.Age) &&
+        //      ( marketResearch.MaxAge == null || respondent.Age < x.Age) &&
+        //      (marketResearch.OnGoing == true) &&
+        //      (marketResearch.OnGoing == true) &&
+        //      (marketResearch.Area == null || marketResearch.Area == x.City)).ToList();
         //}
 
         internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
@@ -150,6 +150,7 @@ namespace mercado.nu.Data
 
             _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
+           
         }
 
         internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)

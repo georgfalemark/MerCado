@@ -236,6 +236,7 @@ namespace mercado.nu
             questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
             questionToMarketResearchVm.BinaryChoice = vm.SetBinaryChoiceList();
             await _dataAccessQuestion.saveQuestion(questionToMarketResearchVm);
+            
             return View("Create", questionToMarketResearchVm);
         }
 
@@ -243,7 +244,6 @@ namespace mercado.nu
         {
             
             var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
-            //questionToMarketResearchVm.Chapters = listOfChapters;
             var selectChapters = GetSelectChapters(listOfChapters);
 
             questionToMarketResearchVm.Chapters = selectChapters;
@@ -284,8 +284,8 @@ namespace mercado.nu
                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
                             await _dataAccessQuestion.SetNumberOnQuestion( questionToMarketResearchVm);
-                            //await _dataAccessQuestion.SetQuestionTypeOnQuestion( questionToMarketResearchVm);
                         questionToMarketResearchVm.QuestionTypes = null;
+                        ModelState.Clear();
                         break;
                     }
                 case "Binärfråga":
@@ -301,6 +301,7 @@ namespace mercado.nu
                         await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                        //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
                         questionToMarketResearchVm.QuestionTypes = null;
+                      
                         break;
                     }
                 case "Flervalsfråga":
@@ -320,8 +321,8 @@ namespace mercado.nu
                            //await _dataAccessQuestion.AddQuestionOptionForFlerval(questionOption, questionToMarketResearchVm);
                            
                             questionToMarketResearchVm.QuestionTypes = null;
-
-                        await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                            ModelState.Clear();
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
 
                         }
                         else
@@ -350,7 +351,9 @@ namespace mercado.nu
                         await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
 
                         questionToMarketResearchVm.QuestionTypes = null;
-                            return View("Create", questionToMarketResearchVm);
+                        questionToMarketResearchVm.Question.ActualQuestion = null;
+                        ModelState.Clear();
+                        return View("Create", questionToMarketResearchVm);
                         //}
                         //else
                         //{
@@ -365,7 +368,7 @@ namespace mercado.nu
                 default:
                     break;
             }
-
+           
             return View("Create", questionToMarketResearchVm);
 
         }
