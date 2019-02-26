@@ -48,6 +48,7 @@ namespace mercado.nu
 
             var question = await _context.Questions
                 .Include(q => q.Chapter)
+                .Include(x => x.QuestionOptions)
                 .FirstOrDefaultAsync(m => m.QuestionId == id);
             if (question == null)
             {
@@ -95,7 +96,7 @@ namespace mercado.nu
         }
 
         // GET: Questions/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
@@ -103,12 +104,18 @@ namespace mercado.nu
             }
 
             var question = await _context.Questions.FindAsync(id);
+            var marketResearch = _context.GetQuestionToMarketResearches.Where(x => x.QuestionId == id).Select(x => x.MarketResearchId).ToList();
+            
             if (question == null)
             {
                 return NotFound();
             }
-            ViewData["ChaptersId"] = new SelectList(_context.Chapters, "ChaptersId", "Name", question.ChaptersId);
-            return View(question);
+            var viewModelEdit = new AddQuestionToMarketResearchVm();
+            viewModelEdit.Question = question;
+            viewModelEdit.CurrentMarketResearchId = marketResearch[0];
+            viewModelEdit.Question.QuestionId = id;
+            ViewData["ChaptersId"] = new SelectList(_context.Chapters.Where(x => x.MarketResearch.MarketResearchId == marketResearch[0]), "ChaptersId", "Name", question.ChaptersId);
+            return View(viewModelEdit);
         }
 
         // POST: Questions/Edit/5
@@ -411,6 +418,23 @@ namespace mercado.nu
             
 
             return viewModelAllQuestions;
+        }
+
+        public async Task<IActionResult> UpdateQuestion(AddQuestionToMarketResearchVm addQuestionToMarketResearch)
+        {
+            var listQuestionOption = _context.QuestionOptions.Where(x => x.QuestionId == addQuestionToMarketResearch.Question.QuestionId).ToList();
+
+            _context.RemoveRange(listQuestionOption);
+
+            var vm = new AddQuestionToMarketResearchVm();
+            addQuestionToMarketResearch.GradeChoices = vm.SetGradeChoicesList();
+            addQuestionToMarketResearch.BinaryChoice = vm.SetBinaryChoiceList();
+            addQuestionToMarketResearch.Question.QuestionType = addQuestionToMarketResearch.QuestionTypes[0];
+            _context.Update(addQuestionToMarketResearch.Question);
+            await _context.SaveChangesAsync();
+
+            return View("Create", addQuestionToMarketResearch);
+
         }
     }
 }
