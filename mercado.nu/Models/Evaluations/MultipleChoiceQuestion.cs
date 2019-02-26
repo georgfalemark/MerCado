@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using mercado.nu.Data;
 using mercado.nu.Models.Entities;
 
 namespace mercado.nu.Models.Evaluations
@@ -13,19 +14,31 @@ namespace mercado.nu.Models.Evaluations
         public int QuestionNumber { get; set; }
         public string TheQuestion { get; set; }
 
-        internal void GetResults(List<Answer> answersForEvaluation)
+        internal void GetResults(List<Answer> answersForEvaluation, List<string> valueTypes)
         {
-            var groups = answersForEvaluation.GroupBy(x => x.Value).ToList();
 
-            var questions = answersForEvaluation.Select(x => new { x.Question.ActualQuestion, x.Question.QuestionNumber, x.Question.QuestionType }).Distinct().ToList();
+            List<string> listOfAnswers = new List<string>();
+
+            foreach (var answer in answersForEvaluation)
+            {
+                var value = answer.Value.Split(',');
+                foreach (var newValue in value)
+                {
+                    listOfAnswers.Add(newValue);
+                }
+            }
 
             var groupList = new List<Group>();
 
-            foreach (var group in groups)
+            valueTypes.RemoveAt(valueTypes.Count - 1);
+
+            foreach (var value in valueTypes)
             {
-                var numbersInGroup = group.Count();
-                groupList.Add(new Group { Key = group.Key, Count = numbersInGroup });
+                var count = listOfAnswers.Where(x => x == value).Count();
+                groupList.Add(new Group { Key = value, Count = count });
             }
+
+            var questions = answersForEvaluation.Select(x => new { x.Question.ActualQuestion, x.Question.QuestionNumber, x.Question.QuestionType }).Distinct().ToList();
 
             var sortList = groupList.OrderBy(x => x.Key).ToList();
 

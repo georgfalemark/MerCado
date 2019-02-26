@@ -68,10 +68,11 @@ namespace mercado.nu.Data
         {
             var person =await _questionContext.Persons.Include(x=>x.MarketResearches).FirstAsync(x => x.PersonId == userId);
             var organization =await _questionContext.Organizations.Include(x=>x.MarketResearches).FirstAsync(x => x.OrganizationId == person.OrganizationId);
-            if (marketResearch.StartDate>=DateTime.Now&& marketResearch.EndDate <= DateTime.Now)
-            {
-                marketResearch.OnGoing = true;
-            }
+
+            //if (marketResearch.StartDate>=DateTime.Now && marketResearch.EndDate <= DateTime.Now)  Sätter detta redan i klassen nu
+            //{
+            //    marketResearch.OnGoing = true;
+            //}
             person.MarketResearches.Add(marketResearch);
             organization.MarketResearches.Add(marketResearch);
 
@@ -95,36 +96,98 @@ namespace mercado.nu.Data
 
         internal async Task GetRespondersToMarketResearch(MarketResearch marketResearch)
         {
+            List<Person> respondersToFill=new List<Person>();
 
-            var responders = _questionContext.Persons.Where(x => 
-            ( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
-            //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
-            //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
-            (marketResearch.OnGoing ==true) &&
-            (marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); //Ska lägga till ålder
-
-            foreach (var responder in responders)
+            var responders = _questionContext.Persons.Where(x =>
+            //( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
+            (marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
+            (marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
+            (marketResearch.OnGoing == true) && x.OrganizationId==null).ToList(); //&&
+            //(marketResearch.Area == null || marketResearch.Area == x.City)).ToList(); 
+                
+            if (responders.Count < marketResearch.NumberOfResponders)
             {
-                var resp = new Responders();
-                resp.Persons = responder;
-                resp.MarketResearchs = marketResearch;
-                resp.MarketResearchCompleted = false;
-                _questionContext.Add(resp);
-              await _questionContext.SaveChangesAsync();
+                int missingResponders = marketResearch.NumberOfResponders - responders.Count;
+
+                if (_questionContext.Persons.ToList().Count < missingResponders)
+                {
+                    respondersToFill = _questionContext.Persons.ToList();
+                    foreach (var resp in respondersToFill)
+                    {
+                        if (resp.OrganizationId==null)
+                        {
+                        responders.Add(resp);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < missingResponders; i++)
+                    {
+                        respondersToFill = _questionContext.Persons.Where(x=>x.OrganizationId==null).OrderBy(r => Guid.NewGuid()).Take(missingResponders).ToList();
+                    }
+
+                    foreach (var filInResponder in respondersToFill)
+                    {
+                            responders.Add(filInResponder);
+                    }
+                }
+                    foreach (var responder in responders)
+                    {
+                        var resp = new Responders();
+                        resp.Persons = responder;
+                        resp.MarketResearchs = marketResearch;
+                        resp.MarketResearchCompleted = false;
+                        _questionContext.Add(resp);
+                        await _questionContext.SaveChangesAsync();
+                    }
+
             }
+            else if (responders.Count == marketResearch.NumberOfResponders)
+            {
+                foreach (var responder in responders)
+                {
+                    var resp = new Responders();
+                    resp.Persons = responder;
+                    resp.MarketResearchs = marketResearch;
+                    resp.MarketResearchCompleted = false;
+                    _questionContext.Add(resp);
+                    await _questionContext.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < marketResearch.NumberOfResponders; i++)
+                {
+                  var  respondersToAdd = responders.OrderBy(r => Guid.NewGuid()).Take(marketResearch.NumberOfResponders).ToList();
+                    foreach (var responder in respondersToAdd)
+                    {
+                        var resp = new Responders();
+                        resp.Persons = responder;
+                        resp.MarketResearchs = marketResearch;
+                        resp.MarketResearchCompleted = false;
+                        _questionContext.Add(resp);
+                        await _questionContext.SaveChangesAsync();
+                    }
+                }
+
+
+            }
+
+          
         }
 
-        //internal Task GetRespondersToMarketResearchFromRegistredUser(Guid id)
+        //internal async Task GetRespondersToMarketResearchFromRegistredUser(Guid id)
         //{
         //    var respondent = _questionContext.Persons.FirstAsync(x => x.PersonId == id);
 
-        //    var responders=_questionContext.MarketResearches.WhereAsync(x =>
-        //    (_questionContext.MarketResearches.Gender == null || marketResearch.Gender == x.Gender) &&
-        //    //( marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
-        //    //( marketResearch.MaxAge == null || marketResearch.MaxAge > x.Age) &&
-        //    (marketResearch.OnGoing == true) &&
-        //    (marketResearch.OnGoing == true) &&
-        //    (marketResearch.Area == null || marketResearch.Area == x.City)).ToList();
+        //    var responders = _questionContext.MarketResearches.Include(x=>x.) Where(x =>
+        //      (_questionContext.MarketResearches.Gender == null || marketResearch.Gender == x.Gender) &&
+        //      ( marketResearch.MinAge == null || respondent.Age > x.Age) &&
+        //      ( marketResearch.MaxAge == null || respondent.Age < x.Age) &&
+        //      (marketResearch.OnGoing == true) &&
+        //      (marketResearch.OnGoing == true) &&
+        //      (marketResearch.Area == null || marketResearch.Area == x.City)).ToList();
         //}
 
         internal async Task AddQuestionOption(AddQuestionToMarketResearchVm questionToMarketResearchVm, int questionType)
@@ -150,6 +213,7 @@ namespace mercado.nu.Data
 
             _questionContext.Update(question);
             await _questionContext.SaveChangesAsync();
+           
         }
 
         internal async Task AddQuestionOptionForFlerval(QuestionOption questionOption, AddQuestionToMarketResearchVm questionToMarketResearchVm)
@@ -173,8 +237,22 @@ namespace mercado.nu.Data
         {
             foreach (var answer in listOfAnswers)
             {
-                await _questionContext.AddAsync(answer);
-                var result = await _questionContext.SaveChangesAsync();
+                //var questionType = _questionContext.Answers.Include(x => x.Question).Where(x => x.QuestionId == answer.QuestionId).Select(x => x.Question.QuestionType).ToList();
+                //if(questionType[0] == QuestionTypes.Flervalsfråga)
+                //{
+                //    string[] splitValue = answer.Value.Split(',');
+                //    for (int i = 0; i < splitValue.Length; i++)
+                //    {
+                //        answer.Value = splitValue[i];
+                //        await _questionContext.AddAsync(answer);
+                //        var result = await _questionContext.SaveChangesAsync();
+                //    }
+                //}
+                //else
+                //{
+                    await _questionContext.AddAsync(answer);
+                    var result = await _questionContext.SaveChangesAsync();
+                //}
             }
                 return 1;
         }

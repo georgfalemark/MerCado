@@ -1,7 +1,9 @@
-﻿@model mercado.nu.Models.Entities.Question
+﻿@model mercado.nu.Models.ViewModels.AddQuestionToMarketResearchVm
+@using mercado.nu.Models.Entities
 
 @{
-    ViewData["Title"] = "Edit";
+    var chapterId = ViewData["ChaptersId"] as SelectList;
+    ViewData["Title"] = "Create";
 }
 
 <h2>Edit</h2>
@@ -10,28 +12,144 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        @if (Model.QuestionTypes == null)
+        {
+        <form asp-action="UpdateQuestion">
+
+            <input type="hidden" asp-for="CurrentMarketResearchId" />
+            <input type="hidden" asp-for="Question.QuestionId" />
+            <input type="hidden" asp-for="GradeChoices" />
+            <input type="hidden" asp-for="@chapterId" />
+            <input type="hidden" asp-for="Question.QuestionNumber" />
+
+
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="QuestionId" />
             <div class="form-group">
-                <label asp-for="ActualQuestion" class="control-label"></label>
-                <input asp-for="ActualQuestion" class="form-control" />
-                <span asp-validation-for="ActualQuestion" class="text-danger"></span>
+                <label asp-for="Question.Chapter" class="control-label"></label>
+                <select asp-for="Question.ChaptersId" class="form-control" asp-items="@chapterId"></select>
+                <a asp-controller="Questions" asp-action="AddChapter" asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Lägg till nytt avsnitt</a>
             </div>
             <div class="form-group">
-                <label asp-for="ChaptersId" class="control-label"></label>
-                <select asp-for="ChaptersId" class="form-control" asp-items="ViewBag.ChaptersId"></select>
-                <span asp-validation-for="ChaptersId" class="text-danger"></span>
+                <label asp-for="Question.ActualQuestion" class="control-label"></label>
+                <input asp-for="Question.ActualQuestion" class="form-control" />
+                <span asp-validation-for="Question.ActualQuestion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="Question.QuestionType" class="control-label"></label>
+                <select asp-for="QuestionTypes" asp-items="Html.GetEnumSelectList<QuestionTypes>()" class="form-control"></select>
+
+                <span asp-validation-for="QuestionTypes" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input type="submit" value="Skapa frågetyp" class="btn btn-default" />
+            </div>
+
+
         </form>
+        }
+        else
+        {
+
+            <form asp-action="CreateQuestionType">
+
+                <p>@Model.CurrentMarketResearchId</p>
+                <input type="hidden" asp-for="CurrentMarketResearchId" />
+                <input type="hidden" asp-for="Question.ChaptersId" />
+                <input type="hidden" asp-for="Chapters" />
+                <input type="hidden" asp-for="Question.ActualQuestion" />
+                <input type="hidden" asp-for="QuestionTypes" />
+                <input type="hidden" asp-for="Question.QuestionId" />
+                <input type="hidden" asp-for="GradeChoices" />
+                <input type="hidden" asp-for="BinaryChoice" />
+
+
+
+                @switch (Model.QuestionTypes[0].ToString())
+                {
+                    case "Graderingsfråga":
+                        {
+                            <div class="form-group">
+                                <div>
+                                    <label asp-for="HighGrade" class="control-label"></label>
+                                    <input asp-for="HighGrade" class="form-control" />
+                                    @*  <span asp-validation-for="QU.ActualQuestion" class="text-danger"></span>*@
+
+                                </div>
+                                <div>
+                                    <label asp-for="TypeChoice" class="control-label"></label>
+                                    <select asp-for="TypeChoice" class="form-control" asp-items="Model.GradeChoices"></select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Lägg till" class="btn btn-default" />
+                                </div>
+                            </div>
+                            break;
+                        }
+                    case "Binärfråga":
+                        {
+                            <div>
+                                <label asp-for="BinChoice" class="control-label"></label>
+                                <select asp-for="TypeChoice" class="form-control" asp-items="Model.BinaryChoice"></select>
+                                <div class="form-group">
+                                    <input type="submit" value="Lägg till" class="btn btn-default" />
+                                </div>
+                            </div>
+                            break;
+                        }
+                    case "Flervalsfråga":
+                        {
+                            ViewData["Title"] = "Tillagda svarsalternativ";
+                            var x = (List<string>)ViewData["listOfAlternatives"];
+                            if (x != null)
+                            {
+                                <h3>@ViewData["Title"]</h3>
+                                <p>@x.Count</p>
+                                foreach (var item in x)
+                                {
+                                    <p>@item</p>
+                                }
+                            }
+
+                            <div>
+                                <label asp-for="Alternative" class="control-label"></label>
+                                <input asp-for="Alternative" class="form-control" />
+                                <div class="form-group">
+                                    <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till" class="btn btn-default" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
+                                </div>
+
+                            </div>
+                            break;
+                        }
+                    case "Textfråga":
+                        {
+                            <div>
+                                <h2>@Model.Question.ActualQuestion </h2>
+                                <div class="form-group">
+                                    <input type="submit" asp-action="CreateQuestionType" value="Lägg till frågan" class="btn btn-default" />
+                                </div>
+                            </div>
+                            break;
+                        }
+                    default:
+                        break;
+
+                }
+
+
+            </form>
+        }
     </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+<div class="form-group">
+    <a asp-action="ShowQuestionsForMarketResearch">Klar med skapandet</a>
 </div>
 
 @section Scripts {

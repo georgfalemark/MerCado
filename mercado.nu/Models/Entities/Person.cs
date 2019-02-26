@@ -12,7 +12,7 @@ namespace mercado.nu.Models
     public class Person
     {
 
-        //private bool age;
+        
 
         public Guid PersonId { get; set; }
 
@@ -25,15 +25,15 @@ namespace mercado.nu.Models
         [Display(Name = "Födelsedag")]
         public DateTime BirthDay { get; set; }
 
-        //[Display(Name = "Ålder")]
-        //public int Age
-        //{
-        //    get { return age; }
-        //    set
-        //    {
-        //            age = int.Parse(DateTime.Now-Age);
-        //    }
-        //}
+
+        public int Age
+        {
+            get {
+                 int age = DateTime.Now.Year - BirthDay.Year;
+                return age;
+            }
+            
+        }
 
         [Display(Name = "Kön")]
         public Gender Gender { get; set; }
