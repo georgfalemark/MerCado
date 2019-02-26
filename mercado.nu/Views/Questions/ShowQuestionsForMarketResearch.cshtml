@@ -34,7 +34,7 @@
                                     <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
                                     <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
                                 }
-                                <a class="card-link" asp-action="">Ändra frågan</a>
+                                    <a asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
                             </form>
                         </div>
 
@@ -54,7 +54,7 @@
                                 <input name="question" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
 
                             }
-                            <a asp-action="">Ändra frågan</a>
+                            <a asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
                         </form>
                     </div>
                     <div class="col-md-2"></div>
@@ -75,7 +75,7 @@
                                 <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="false" />
 
                             }
-                            <a asp-action="">Ändra frågan</a>
+                            <a asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
                         </form>
                     </div>
                     <div class="col-md-2"></div>
@@ -88,7 +88,7 @@
                         {
                             <textarea></textarea>
                         }
-                        <a asp-action="">Ändra frågan</a>
+                        <a asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
                     </div>
                     <div class="col-md-2"></div>
                     }

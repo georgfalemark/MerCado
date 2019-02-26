@@ -294,7 +294,12 @@ namespace mercado.nu
 
                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
+                        
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        {
                             await _dataAccessQuestion.SetNumberOnQuestion( questionToMarketResearchVm);
+                        }
+
                         questionToMarketResearchVm.QuestionTypes = null;
                         ModelState.Clear();
                         break;
@@ -309,8 +314,11 @@ namespace mercado.nu
                         questionOption.QuestionOptionHeading = bin.Text.ToString();
                         questionOption.Value = bin.Text.ToString();
                         await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
-                        await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
-                       //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        }
+                        //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
                         questionToMarketResearchVm.QuestionTypes = null;
                       
                         break;
@@ -333,7 +341,10 @@ namespace mercado.nu
                            
                             questionToMarketResearchVm.QuestionTypes = null;
                             ModelState.Clear();
-                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                            if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                            {
+                                await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                            }
 
                         }
                         else
@@ -356,7 +367,10 @@ namespace mercado.nu
                     {
                         //if (buttonstate)
                         //{
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        {
                             await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        }
                         var questionOption = new QuestionOption();
                         questionOption.QuestionOptionHeading = "Text";
                         await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
