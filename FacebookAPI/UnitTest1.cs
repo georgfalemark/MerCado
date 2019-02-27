@@ -3,24 +3,12 @@ using mercado.nu.Models.Evaluations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace FacebookAPI
+namespace Tester
 {
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void Get_Info_From_Facebook_User()
-        {
-            FacebookService facebookService = new FacebookService();
-
-
-            //Här snappar vi VEM det är!
-
-
-
-
-            var result = facebookService.GetInfoFromFaceBookUser("Nån jäkla personnyckel");//.Result;
-        }
+        
 
         [TestMethod]
         public void Split_Multi_Value_Answers_To_List()
@@ -175,5 +163,12 @@ namespace FacebookAPI
                 Assert.AreEqual(expected[i], result[i]);
             }
         }
+
+
+
+
+
+
+
     }
 }
