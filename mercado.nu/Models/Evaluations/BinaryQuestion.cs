@@ -36,7 +36,14 @@ namespace mercado.nu.Models.Evaluations
             foreach (var group in groups)
             {
                 var numbersInGroup = group.Count();
-                groupList.Add(new Group { Key = group.Key, Count = numbersInGroup });
+                if(group.Key == "true")
+                {
+                    groupList.Add(new Group { Key = valueString[1], Count = numbersInGroup });
+                }
+                if(group.Key == "false")
+                {
+                    groupList.Add(new Group { Key = valueString[0], Count = numbersInGroup });
+                }
             }
 
             var sortList = groupList.OrderBy(x => x.Key).ToList();
