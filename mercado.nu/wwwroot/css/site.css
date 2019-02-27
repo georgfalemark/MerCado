@@ -18,12 +18,12 @@ body {
 
 /*Detta definierar bakgrundsfärgen på navbaren*/
 .navbar {
-    background-color: #32E884;
+    background-color: transparent;
 }
 
 /*Padding för loggan*/
 .navbar-brand {
-    padding: 5px 16px;
+    padding: 22px 16px;
 }
 
 
