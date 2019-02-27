@@ -26,8 +26,13 @@ namespace mercado.nu.Models
         public Gender Gender { get; set; }
         [Display(Name = "Område")]
         public string Area { get; set; }
-        [Display(Name = "Undersökning skapad")]
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate
+        { get
+            {
+                DateTime creationDate = DateTime.Now;
+                return creationDate.Date;
+            }
+        }
         [Display(Name = "Planerat startdatum")]
         public DateTime StartDate { get; set; }
         [Display(Name = "Planerat slutdatum")]

@@ -97,7 +97,10 @@ namespace mercado.nu.Data
         internal async Task GetRespondersToMarketResearch(MarketResearch marketResearch)
         {
             List<Person> respondersToFill=new List<Person>();
+            if (_questionContext.Persons.ToList().Count!=0)
+            {
 
+            
             var responders = _questionContext.Persons.Where(x =>
             //( marketResearch.Gender == null || marketResearch.Gender == x.Gender) &&
             (marketResearch.MinAge == null || marketResearch.MinAge < x.Age) &&
@@ -174,7 +177,8 @@ namespace mercado.nu.Data
 
             }
 
-          
+            }
+
         }
 
         //internal async Task GetRespondersToMarketResearchFromRegistredUser(Guid id)

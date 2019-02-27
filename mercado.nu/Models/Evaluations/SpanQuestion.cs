@@ -21,6 +21,15 @@ namespace mercado.nu.Models.Evaluations
 
             var questions = answersForEvaluation.Select(x => new { x.Question.ActualQuestion, x.Question.QuestionNumber, x.Question.QuestionType }).Distinct().ToList();
 
+            var valuesForTable = answersForEvaluation.Select(x => x.Question.QuestionOptions.Select(y => y.Value)).ToList();
+
+            var itemList = new List<string>();
+
+            foreach (var item in valuesForTable)
+            {
+                itemList = item.ToList();
+            }
+
             var groups = answersForEvaluation.GroupBy(x => x.Value).ToList();
 
             var groupList = new List<Group>();
@@ -29,6 +38,23 @@ namespace mercado.nu.Models.Evaluations
             {
                 var numbersInGroup = group.Count();
                 groupList.Add(new Group { Key = group.Key, Count = numbersInGroup});
+            }
+
+            var listKey = new List<string>();
+
+            foreach (var item in groupList)
+            {
+                listKey.Add(item.Key);
+
+            }
+
+            foreach (var item in itemList)
+            {
+                bool present = listKey.Contains(item);
+                if (!present)
+                {
+                    groupList.Add(new Group { Key = item, Count = 0 });
+                }
             }
 
             var sortlist = groupList.OrderBy(x => x.Key).ToList();

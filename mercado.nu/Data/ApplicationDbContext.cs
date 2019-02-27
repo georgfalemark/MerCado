@@ -22,6 +22,7 @@ namespace mercado.nu.Data
         public DbSet<QuestionOption> QuestionOptions { get; set; }
         public DbSet<QuestionToMarketResearch> GetQuestionToMarketResearches { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet <Content> Contents { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
