@@ -76,10 +76,7 @@ namespace mercado.nu
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            //app.UseAuthentication();
-            //app.UseFacebookAuthentication(
-            //    appId:"",
-            //    appSecret: "");
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
