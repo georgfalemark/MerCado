@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>5520fcd5-9207-4145-9a68-70e6dd5e1478</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,13 @@
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
