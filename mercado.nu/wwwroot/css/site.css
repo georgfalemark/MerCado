@@ -3,12 +3,9 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-<<<<<<< HEAD
     background-image: url(../Content/background7.jpg)
-=======
     /*background-color: #FFFDF5;*/
-    background-image: url('../content/pexels-photo.png');
->>>>>>> 482601a7252f1c09019bbc0bf4a550b0c7a91034
+    /*background-image: url('../content/pexels-photo.png');*/
 }
 
 /*Denna är kopplad till all text*/
@@ -44,6 +41,18 @@ body {
 .btn {
     background-color: #32E884;
 }
+
+    /*Styling för logga-ut knappen*/
+    .btn.btn-link.navbar-btn.navbar-link {
+        background-color: transparent;
+    }
+
+
+#settings:hover {
+    background-color: transparent;
+}
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -97,5 +106,3 @@ body {
 .page-footer {
     background-color: #BFBEB9;
 }
-
-
