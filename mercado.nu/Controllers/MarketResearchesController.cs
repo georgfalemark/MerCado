@@ -93,11 +93,17 @@ namespace mercado.nu
             return RedirectToAction("Create", "Questions", questionToMarketResearch);
         }
 
-        public async Task<IActionResult> CreateQuestionsToMarketResearchDirectly([Bind("MarketResearchId,Name,Description,Purpose,MinAge,MaxAge,Gender,Area,CreationDate,StartDate,EndDate")] MarketResearch marketResearch)
+        public async Task<IActionResult> CreateQuestionsToMarketResearchDirectly([Bind("MarketResearchId,Name,Description,Purpose,MinAge,MaxAge,Gender,Area,CreationDate,StartDate,EndDate,NumberOfResponders, OnGoing")] MarketResearch marketResearch)
         {
             if (ModelState.IsValid)
             {
                 marketResearch.MarketResearchId = Guid.NewGuid();
+
+                ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
+                var userId = applicationUser.Id;
+
+                await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
+
                 _context.Add(marketResearch);
                 await _context.SaveChangesAsync();
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
