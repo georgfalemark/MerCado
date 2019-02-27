@@ -16,16 +16,60 @@
     if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
     {
 
+        <br />
+        <br />
+        <br />
 
+        <div class="row text-center">
+            <div class="col-lg-6">
+                <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Skapa undersökning</a>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Pågående undersökningar</a>
+            </div>
+        </div>
 
+        <br />
+        <br />
+        <br />
+
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Tidigare undersökningar</a>
+            </div>
+            <div class="col-lg-4">
+                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Undersökningsbiblioteket</a>
+            </div>
+            <div class="col-lg-4">
+                <a asp-controller="Organizaions" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Ert företag</a>
+            </div>
+        </div>
     }
 
     if (await UserManager.IsInRoleAsync(user, "User"))
     {
 
+        <br />
+        <br />
+        <br />
 
+        <div class="row text-center">
+            <div class="col-lg-6">
+                <a asp-controller="MarketResearches" asp-action="MarketResearchForPerson" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Tillgängliga undersökningar för mig</a>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Mina tidigare undersökningar</a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="text-center">
+            <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Alla undersökningar</a>
+        </div>
     }
-
 
 }
 else
@@ -58,6 +102,4 @@ else
             <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
         </div>
     </div>
-
-
 }
