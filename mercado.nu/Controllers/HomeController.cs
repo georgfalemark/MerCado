@@ -27,27 +27,28 @@ namespace mercado.nu.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                ApplicationUser user = await _userManager.GetUserAsync(User);
+            //if (_signInManager.IsSignedIn(User))
+            //{
+            //    ApplicationUser user = await _userManager.GetUserAsync(User);
 
-                if (await _userManager.IsInRoleAsync(user, "CompanyUser") || await _userManager.IsInRoleAsync(user, "SuperCompanyUser"))
-                {
-                    return RedirectToAction("Index", "Organizations");
-                }
-                else if (await _userManager.IsInRoleAsync(user, "User"))
-                {
-                    return RedirectToAction("MarketResearchForPerson", "MarketResearches");
-                }
-                else
-                {
-                    return RedirectToAction("/Account/Register", "Identity");
-                }
-            }
-            else
-            {
-                return RedirectToAction("/Account/Register", "Identity");
-            }
+            //    if (await _userManager.IsInRoleAsync(user, "CompanyUser") || await _userManager.IsInRoleAsync(user, "SuperCompanyUser"))
+            //    {
+            //        return RedirectToAction("Index", "Organizations");
+            //    }
+            //    else if (await _userManager.IsInRoleAsync(user, "User"))
+            //    {
+            //        return RedirectToAction("MarketResearchForPerson", "MarketResearches");
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("/Account/Register", "Identity");
+            //    }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("/Account/Register", "Identity");
+            //}
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
