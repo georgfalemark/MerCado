@@ -23,6 +23,30 @@
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.City"></label>
+                <input asp-for="Input.Person.City" class="form-control" />
+                <span asp-validation-for="Input.Person.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.BirthDay"></label>
+                <input asp-for="Input.Person.BirthDay" class="form-control" />
+                <span asp-validation-for="Input.Person.BirthDay" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Kön</label>
+                <select asp-for="Input.Person.Gender" asp-items="Model.Input.Genders" class="form-control">
+                    <option disabled selected>--- VÄLJ KÖN ---</option>
+                </select>
+            </div>
+
+            @*<div class="form-group">
+                <label asp-for="Input.Person.Gender"></label>
+                <input asp-for="Input.Person.Gender" class="form-control" />
+                <span asp-validation-for="Input.Person.Gender" class="text-danger"></span>
+            </div>*@
+            
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>

@@ -5,10 +5,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using mercado.nu.Models;
+using mercado.nu.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace mercado.nu.Areas.Identity.Pages.Account
@@ -19,15 +21,18 @@ namespace mercado.nu.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly AuthService _auth;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            ILogger<ExternalLoginModel> logger)
+            ILogger<ExternalLoginModel> logger,
+            AuthService auth)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _auth = auth;
         }
 
         [BindProperty]
@@ -45,6 +50,27 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            public Person Person { get; set; }
+
+            public List<SelectListItem> Genders
+            {
+                get
+                {
+                    string[] arr = Enum.GetNames(typeof(Gender));
+                    List<SelectListItem> list = new List<SelectListItem>();
+
+                    foreach (var item in arr)
+                    {
+                        var y = new SelectListItem() { Text = item, Value = item };
+                        list.Add(y);
+                    }
+                    return list;
+                }
+                set
+                {
+                }
+            }
         }
 
         public IActionResult OnGetAsync()
@@ -62,11 +88,12 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -76,7 +103,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -115,10 +142,25 @@ namespace mercado.nu.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+
+                Guid myGuid = Guid.NewGuid();
+                Input.Person.PersonId = myGuid;
+
+                //fyll på med personINFO här!!
+                string name = info.Principal.Identity.Name;
+                string[] first_last_name = name.Split(' ');
+
+                Input.Person.FirstName = first_last_name[0];
+                Input.Person.LastName = first_last_name[1];
+
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Id = myGuid, PersonId = myGuid, Person = Input.Person };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+
+                    bool addRole = await _auth.AddRole("User");
+                    var addRoleToUser = await _auth.AddRoleToUser("User", Input.Person.PersonId.ToString());
+
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {

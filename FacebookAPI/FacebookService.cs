@@ -21,6 +21,11 @@ namespace FacebookAPI
             }
         }
 
+
+
+
+        //Denna kommer vi förmodligen inte använda, vi 
+        //ska ju inte lägga ut nått på Facebook från appen
         private async Task<string> Post(string url)
         {
             using (HttpClient client = new HttpClient())
@@ -33,6 +38,24 @@ namespace FacebookAPI
                 return await content.ReadAsStringAsync();
             }
         }
+
+
+        internal async Task GetInfoFromFaceBookUser(string somePersonKey)
+        {
+            string page = "blabla"; //och stoppa in nyckeln
+            var result = await Get(page);
+
+            //nytt konto
+            //ny person
+            //Gav kön, plats, ålder! 
+
+
+            throw new NotImplementedException();
+        }
+
+
+        
+
 
     }
 }
