@@ -29,8 +29,8 @@ namespace mercado.nu.Models
         public int Age
         {
             get {
-                 int age = DateTime.Now.Year - BirthDay.Year;
-                return age;
+                     int age = DateTime.Now.Year - BirthDay.Year;
+                    return age;
             }
             
         }
