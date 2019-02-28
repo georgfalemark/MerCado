@@ -34,7 +34,7 @@ else
                                 @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate)
+                                @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.EndDate)
                             </th>
                             break;
                         }
@@ -52,7 +52,7 @@ else
                                 @Html.DisplayFor(modelresearch => research.MarketResearchs.Purpose)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
+                                @Html.DisplayFor(modelresearch => research.MarketResearchs.EndDate)
                             </td>
                             <td>
                                 <a class="btn btn-primary" asp-controller="Answers" asp-action="Evaluation" asp-route-marketResearchId="@research.MarketResearchId">Utvärdering av undersökning</a>
