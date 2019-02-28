@@ -10,17 +10,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
 
-    //ApplicationUser user = await UserManager.GetUserAsync(User);
-
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" id="settings">
                     <span style="font-size: 1.7em" class="fas fa-cog fa-2x"></span>
                 </a>
-            </li>
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hej @UserManager.GetUserName(User)!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Logga ut</button>
@@ -30,8 +25,8 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    @*<ul class="nav navbar-nav navbar-right">
         <li><a asp-area="Identity" asp-page="/Account/Register">Registera dig</a></li>
         <li><a asp-area="Identity" asp-page="/Account/Login">Logga in</a></li>
-    </ul>
+    </ul>*@
 }
