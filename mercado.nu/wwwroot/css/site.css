@@ -3,12 +3,10 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-<<<<<<< HEAD
-    background-image: url(../Content/background7.jpg)
-=======
+
     /*background-color: #FFFDF5;*/
-    background-image: url('../content/pexels-photo.png');
->>>>>>> 482601a7252f1c09019bbc0bf4a550b0c7a91034
+    background-image: url('../content/background7.jpg');
+
 }
 
 /*Denna är kopplad till all text*/
@@ -42,7 +40,7 @@ body {
 
 /*Styling för en knapp med <a class="btn"> */
 .btn {
-    background-color: #32E884;
+    background-color: #000000;
 }
 
 /* Wrapping element */
