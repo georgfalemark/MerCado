@@ -197,6 +197,12 @@ namespace mercado.nu.Controllers
 
             int result = await _dataAccessQuestions.AddAnswers(listOfAnswers);
 
+
+            Responders responders = _context.Responders.SingleOrDefault(x => x.MarketResearchId == listOfAnswers[0].MarketResearchId);
+            responders.MarketResearchCompleted = true;
+            _context.Responders.Update(responders);
+            await _context.SaveChangesAsync();
+
             return View();
 
         }

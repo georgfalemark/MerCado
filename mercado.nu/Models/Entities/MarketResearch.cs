@@ -12,20 +12,28 @@ namespace mercado.nu.Models
         private bool onGoing = false;
 
         public Guid MarketResearchId { get; set; }
+
         [Display(Name = "Undersökning")]
         public string Name { get; set; }
+
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
+
         [Display(Name = "Undersökningens syfte")]
         public string Purpose { get; set; }
+
         [Display(Name = "Lägsta ålder")]
         public int MinAge { get; set; }
+
         [Display(Name = "Högsta ålder")]
         public int MaxAge { get; set; }
+
         [Display(Name = "Kön")]
         public Gender Gender { get; set; }
+
         [Display(Name = "Område")]
         public string Area { get; set; }
+
         public DateTime CreationDate
         { get
             {
@@ -35,6 +43,7 @@ namespace mercado.nu.Models
         }
         [Display(Name = "Planerat startdatum")]
         public DateTime StartDate { get; set; }
+
         [Display(Name = "Planerat slutdatum")]
         public DateTime EndDate { get; set; }
         public bool OnGoing
@@ -64,6 +73,8 @@ namespace mercado.nu.Models
         public List<QuestionToMarketResearch> Questions { get; set; }
 
         public List<Answer> Answers { get; set; }
+
+        public Organization Organization { get; set; }
 
     }
 }

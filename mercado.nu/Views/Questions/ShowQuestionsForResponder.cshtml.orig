@@ -24,11 +24,19 @@
                                    
                                    <div id="@groupName">
 
-                        @foreach (var questionOption in question.QuestionOptions)
-                        {
-                            <label>@questionOption.QuestionOptionHeading</label>
-                            <input name="@groupName"id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
-                        }
+<<<<<<< HEAD
+                                       @foreach (var questionOption in question.QuestionOptions)
+                                       {
+                                           <label>@questionOption.QuestionOptionHeading</label>
+                                           <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                                       }
+=======
+                                @foreach (var questionOption in question.QuestionOptions)
+                                {
+                                    <label>@questionOption.QuestionOptionHeading</label>
+                                    <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                                }
+>>>>>>> d1d4b44e94f993c280197d3e2ba3f23b3ec5cbf5
 
 
                                    </div>
