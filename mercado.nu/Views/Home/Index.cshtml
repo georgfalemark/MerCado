@@ -16,16 +16,12 @@
     if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
     {
 
-        <br />
-        <br />
-        <br />
-
-        <div class="row text-center">
-            <div class="col-lg-6 d-flex align-items-stretch">
-                <div class="card card-image " style="background-image: url(Content/research.png);">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-image" style="background-image: url(Content/research.png);">
 
                     <!-- Content -->
-                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div class="text-black text-center align-items-center rgba-black-strong py-5 px-4">
                         <div>
                             <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Skapa</h5>
                             <h3 class="card-title pt-2"><strong>Skapa undersökning</strong></h3>
@@ -35,51 +31,31 @@
                             <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
                         </div>
                     </div>
-
                 </div>
-                @*<a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default">< <img src="~/Content/open-book.png" /></a>  @*Skapa undersökning*@
             </div>
-            <div class="col-lg-6 d-flex align-items-stretch">
-                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+
+            <div class="col-md-4 offset-md-4">
+                <div class="card card-image navcard" style="background-image: url(Content/open-book.png);">
 
                     <!-- Content -->
-                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div class="text-black text-center align-items-center rgba-black-strong py-5 px-4">
                         <div>
-                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Pågående</h5>
+                            <h5 class="white-text"><i class="fas fa-chart-chart"></i> Pågående</h5>
                             <h3 class="card-title pt-2"><strong>Pågående undersökningar</strong></h3>
                             <p>
                                 Ta en kik på vilka undersökningar ni har igång just nu.
                             </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                            <p>sss</p>
+                            <a asp-controller="MarketResearches" asp-action="GetMarketResearchesWithStatusOngoing" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
                         </div>
                     </div>
 
                 </div>
-               @* <a class="btn btn-default"><img src="~/Content/open-book.png" /></a>  @*Pågående undersökningar*@
             </div>
         </div>
+        <div class="row">
 
-        <br />
-        <br />
-        <br />
-
-        <div class="container row text-center" >
-            <div class="col-lg-4 d-flex align-items-stretch">
-                <div class="card card-image" style="background-image: url(Content/open-book.png); ">
-
-                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                        <div>
-                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Undersökningsbiblioteket</h5>
-                            <h3 class="card-title pt-2"><strong>Undersökningsbiblioteket</strong></h3>
-                            <p>
-                                Funderingar på att skapa en marknadsundersökning? Kanske finns en liknanade redan! Ta del av andras marknadsundersökningar i undersökningsbiblioteket.
-                            </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="col-md-3 offset-md-3">
                 <div class="card card-image navcard" style="background-image: url(Content/open-book.png);">
                     <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                         <div>
@@ -88,12 +64,15 @@
                             <p>
                                 Se era redan genomförda undersökningar och ta del av sammanstälningar av resultaten.
                             </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                            <a asp-controller="MarketResearches" asp-action="GetMarketResearchesWithStatusOld" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 d-flex align-items-stretch">
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
                 <div class="card card-image" style="background-image: url(Content/open-book.png);">
 
                     <!-- Content -->
@@ -104,17 +83,94 @@
                             <p>
                                 Ert företag. Här finns grejer.
                             </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                            <a asp-controller="Organizations" asp-action="Index" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Ert företag</h5>
+                            <h3 class="card-title pt-2"><strong>Ert företag</strong></h3>
+                            <p>
+                                Ert företag. Här finns grejer.
+                            </p>
+                            <a asp-controller="Organizations" asp-action="Index" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+
+
+
+
     }
 
     if (await UserManager.IsInRoleAsync(user, "User"))
     {
 
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4 ml-auto">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Ert företag</h5>
+                            <h3 class="card-title pt-2"><strong>Ert företag</strong></h3>
+                            <p>
+                                Ert företag. Här finns grejer.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="MarketResearchForPerson" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i>Mina marknadsundersöknningar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 ml-md-auto">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Redan gjorda</h5>
+                            <h3 class="card-title pt-2"><strong>Redan gjorda</strong></h3>
+                            <p>
+                                Se dina redan gjorda marknadsundersökningar din filidutt.   
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="MarketResearchForPerson" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i>Mina tidigare undersökningar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto</div>
+        </div>
+        <div class="row">
+            <div class="col-auto mr-auto">
+                <div class="card card-image" style="background-image: url(Content/research.png);">
+
+                    <!-- Content -->
+                    <div class="text-black text-center align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Alla</h5>
+                            <h3 class="card-title pt-2"><strong>Alla  undersökningar</strong></h3>
+                            <p>
+                               Alla jävla undersökningar
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Alla undersökningar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">.col-auto</div>
+        </div>
         <br />
         <br />
         <br />
@@ -165,7 +221,7 @@ else
             <a asp-controller="About" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Om oss</a>
         </div>
         <div class="col-lg-4">
-            <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot"  class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
+            <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
         </div>
     </div>
 }
