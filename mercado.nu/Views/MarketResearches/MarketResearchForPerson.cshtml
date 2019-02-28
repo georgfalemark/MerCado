@@ -6,44 +6,47 @@
     <h1>Undersökningar för @responder.Persons.FirstName @responder.Persons.LastName</h1>
     break;
 }
-
-<table class="table">
-    <thead>
-        <tr>
-            @foreach (var responder in Model.Responders)
-            {
-                <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate)
-                </th>
-                break;
-            }
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var research in Model.Responders)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelresearch => research.MarketResearchs.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelresearch => research.MarketResearchs.Purpose)
-            </td>
-            <td>
-                @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
-            </td>
-            <td>
-                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Genomför undersökningen</a> |
-                <a>Avböj undersökningen</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        @foreach (var responder in Model.Responders)
+                        {
+                            <th>
+                                @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.Purpose)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(modelresponder => responder.MarketResearchs.StartDate)
+                            </th>
+                            break;
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var research in Model.Responders)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelresearch => research.MarketResearchs.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelresearch => research.MarketResearchs.Purpose)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
+                            </td>
+                            <td>
+                                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Genomför undersökningen</a> |
+                                <a>Avböj undersökningen</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

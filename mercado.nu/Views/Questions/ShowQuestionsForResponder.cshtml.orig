@@ -2,110 +2,123 @@
 @using mercado.nu.Models.Entities
 
 <form asp-controller="Answers" asp-action="ResponseAsync">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8"><h1>Besvara alla frågor och skicka in svaren.</h1></div>
-            <div class="col-md-2"><input type="hidden" name="marketId" value="@Model.Questions[0].MarketResearches[0].MarketResearchId"/></div>
-        </div>
+    
+        
+            
+            <h1>Besvara alla frågor och skicka in svaren.</h1>
+            <input type="hidden" name="marketId" value="@Model.Questions[0].MarketResearches[0].MarketResearchId" />
+        
         @{int groupName = 0; }
         @foreach (var question in Model.Questions)
         {
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8"><h3>Fråga @question.QuestionNumber</h3></div>
-            <div class="col-md-2"><input type="hidden" name="@groupName questionId" value="@question.QuestionId" /></div>
-        </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8"><h4>@question.ActualQuestion</h4></div>
-                <div class="col-md-2"></div>
-            </div>
-            <div class="row">
-                @if (question.QuestionType == QuestionTypes.Graderingsfråga)
-                {
-                    <div class="col-md-2"></div>
-                    <div id="@groupName" class="col-md-8">
+        <div class="card bg-light mb-3" style="max-width: 45rem;">
+                <div class="card-header">Fråga @question.QuestionNumber</div>
+            <div class="card-body text-dark">
+                    <input type="hidden" name="@groupName questionId" value="@question.QuestionId" />
+                   <h4 class="card-title">@question.ActualQuestion</h4>
+                   
+                       @if (question.QuestionType == QuestionTypes.Graderingsfråga)
+                       {
+                           <div class="card">
+                               <div class="card-body">
+                                   
+                                   <div id="@groupName">
 
-                        @foreach (var questionOption in question.QuestionOptions)
-                        {
-                            <label>@questionOption.QuestionOptionHeading</label>
-                            <input name="@groupName"id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
-                        }
-
-
-                    </div>
-                    <div class="col-md-2"></div>
-                    groupName = groupName + 1;
-                }
-                else if (question.QuestionType == QuestionTypes.Flervalsfråga)
-                {
-                    <div class="col-md-2"></div>
-                    <div id="@groupName" class="col-md-8">
-                        @foreach (var questionOption in question.QuestionOptions)
-                        {
-
-                            <label >@questionOption.QuestionOptionHeading</label>
-                            <input name="@groupName" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
-
-                        }
-                    </div>
-                    <div class="col-md-2"></div>
-                    groupName = groupName + 1;
-                }
-                else if (question.QuestionType == QuestionTypes.Binärfråga)
-                {
-
-
-                    <div class="col-md-2"></div>
-                    <div id="@groupName " class="col-md-8">
-                        @foreach (var questionOption in question.QuestionOptions)
-                        {
-                            string binaryType = questionOption.QuestionOptionHeading;
-                            string[] binaryTypes = binaryType.Split('-');
-
-                            <label>@binaryTypes[0].Trim()</label>
-                            <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
-                            <label>@binaryTypes[1].Trim()</label>
-                            <input  name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
-
-                        }
-                    </div>
-                    <div class="col-md-2"></div>
-                    groupName = groupName + 1;
-                }
-                else if (question.QuestionType == QuestionTypes.Textfråga)
-                {
-                    <div class="col-md-2"></div>
-                    <div id="@groupName" class="col-md-8">
-                        @foreach (var questionOption in question.QuestionOptions)
-                        {
-                            <textarea name="@groupName"></textarea>
-                        }
-
-                    </div>
 <<<<<<< HEAD
-                </div>
-        }
-    
+                                       @foreach (var questionOption in question.QuestionOptions)
+                                       {
+                                           <label>@questionOption.QuestionOptionHeading</label>
+                                           <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                                       }
 =======
-                    <div class="col-md-2"></div>
-                    groupName = groupName + 1;
-                }
+                                @foreach (var questionOption in question.QuestionOptions)
+                                {
+                                    <label>@questionOption.QuestionOptionHeading</label>
+                                    <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                                }
+>>>>>>> d1d4b44e94f993c280197d3e2ba3f23b3ec5cbf5
+
+
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                           groupName = groupName + 1;
+                       }
+                       else if (question.QuestionType == QuestionTypes.Flervalsfråga)
+                       {
+                           <div class="card">
+                               <div class="card-body">
+
+                                   
+                                   <div id="@groupName" >
+                                       @foreach (var questionOption in question.QuestionOptions)
+                                       {
+
+                                           <label>@questionOption.QuestionOptionHeading</label>
+                                           <input name="@groupName" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
+
+                                       }
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                           groupName = groupName + 1;
+                       }
+                       else if (question.QuestionType == QuestionTypes.Binärfråga)
+                       {
+
+                           <div class="card">
+                               <div class="card-body">
+                                   
+                                   <div id="@groupName ">
+                                       @foreach (var questionOption in question.QuestionOptions)
+                                       {
+                                           string binaryType = questionOption.QuestionOptionHeading;
+                                           string[] binaryTypes = binaryType.Split('-');
+
+                                           <label>@binaryTypes[0].Trim()</label>
+                                           <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="true" />
+                                           <label>@binaryTypes[1].Trim()</label>
+                                           <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="false" />
+
+                                       }
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                           groupName = groupName + 1;
+                       }
+                       else if (question.QuestionType == QuestionTypes.Textfråga)
+                       {
+                           <div class="card">
+                               <div class="card-body">
+                                   
+                                   <div id="@groupName">
+                                       @foreach (var questionOption in question.QuestionOptions)
+                                       {
+                                           <textarea name="@groupName"></textarea>
+                                       }
+
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                           groupName = groupName + 1;
+                       }
+                   
             </div>
-        }
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8"><button>Skicka in svar</button></div>
-            <div class="col-md-2"></div>
         </div>
-    </div>
->>>>>>> 1556a67236031a8e221704856e4975dd4f70cc7a
+        }
+        
+            <button class="btn btn-primary">Skicka in svar</button>
+            
+   
 </form>
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8"><a asp-controller="MarketResearches" asp-action="MarketResearchForPerson">Tillbaka till dina undersökningarna</a></div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4"><a asp-controller="MarketResearches" asp-action="MarketResearchForPerson">Tillbaka till dina undersökningarna</a></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
 </div>
 
 
