@@ -13,8 +13,6 @@
 <div class="row">
     <div class="col-md-6">
 
-        <br /><br /><br /><br /><br /><p>info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info info </p>
-        <br />
     </div>
     <div class="col-md-6">
         <h2>@ViewData["Title"]</h2>
@@ -36,41 +34,9 @@
 
             <div class="form-group">
                 <label asp-for="Input.Person.BirthDay"></label>
-                <input asp-for="Input.Person.BirthDay" class="form-control" />
+                <input asp-for="Input.Person.BirthDay" type="date" class="form-control" />
                 <span asp-validation-for="Input.Person.BirthDay" class="text-danger"></span>
             </div>
-
-
-
-            @*<div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="Input.Person.BirthDay.Year"></label>
-                    <input asp-for="Input.Person.BirthDay.Year" class="form-control" />
-                    <span asp-validation-for="Input.Person.BirthDay.Year" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="Input.Person.BirthDay.Month"></label>
-                    <input asp-for="Input.Person.BirthDay.Month" class="form-control" />
-                    <span asp-validation-for="Input.Person.BirthDay.Month" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="Input.Person.BirthDay.Day"></label>
-                    <input asp-for="Input.Person.BirthDay.Day" class="form-control" />
-                    <span asp-validation-for="Input.Person.BirthDay.Day" class="text-danger"></span>
-                </div>
-            </div>
-        </div>*@
-    
-
-
-
-            
-
 
             <div class="form-group">
                 <label class="control-label">Kön</label>
@@ -119,7 +85,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Skapa nytt konto</button>
+            <button type="submit" class="btn btn-primary">Skapa nytt konto</button>
         </form>
 
         <hr />

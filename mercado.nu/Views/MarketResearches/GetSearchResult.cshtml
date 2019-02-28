@@ -1,11 +1,13 @@
 ﻿@model mercado.nu.Models.ViewModels.SearchFunctionVm
 
 
-
+@if (Model == null)
+{
+    <h5>Ingen sökträff</h5>
+}
 
 @if (Model?.Organizations == null)
 {
-    <h5>Hittade inget sådant företag</h5>
 }
 else
 {
@@ -16,11 +18,8 @@ else
 }
 
 
-
-
 @if (Model?.MarketResearches == null)
 {
-    <h5>Hittade ingen sådan marknadsundersökning</h5>
 }
 else
 {
@@ -31,11 +30,8 @@ else
 }
 
 
-
-
 @if (Model?.Questions == null)
 {
-    <h5>Hittade ingen sådan fråga</h5>
 }
 else
 {
@@ -46,32 +42,5 @@ else
 }
 
 
-
-
-
-
-
-
-
 <a asp-controller="MarketResearches" class="btn btn-primary" asp-action="SearchFor">Gå tillbaka</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
