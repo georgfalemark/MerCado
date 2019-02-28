@@ -27,11 +27,11 @@
                     <div class="col-md-2"></div>
                     <div id="@groupName" class="col-md-8">
 
-                                @foreach (var questionOption in question.QuestionOptions)
-                                {
-                                    <label>@questionOption.QuestionOptionHeading</label>
-                                    <input name="@groupName" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
-                                }
+                        @foreach (var questionOption in question.QuestionOptions)
+                        {
+                            <label>@questionOption.QuestionOptionHeading</label>
+                            <input name="@groupName"id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                        }
 
 
                     </div>
@@ -84,6 +84,11 @@
                         }
 
                     </div>
+<<<<<<< HEAD
+                </div>
+        }
+    
+=======
                     <div class="col-md-2"></div>
                     groupName = groupName + 1;
                 }
@@ -95,6 +100,7 @@
             <div class="col-md-2"></div>
         </div>
     </div>
+>>>>>>> 1556a67236031a8e221704856e4975dd4f70cc7a
 </form>
 <div class="row">
     <div class="col-md-2"></div>
