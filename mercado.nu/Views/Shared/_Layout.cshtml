@@ -44,17 +44,17 @@
 
 
         @*NY TOMARE NAVBAR*@
-        <nav class="navbar navbar-fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="color: black; font-size: 32px">
                         MercaDo
                     </a>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="navbar navbar-expand-lg navbar-fixed-top">
                     <partial name="_LoginPartial" />
                 </div>
             </div>
