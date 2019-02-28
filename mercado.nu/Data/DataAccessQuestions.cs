@@ -233,7 +233,7 @@ namespace mercado.nu.Data
 
         internal List<Responders> GetMarketResearchesForPerson(Guid userId)
         {
-            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId).Include(x => x.MarketResearchs).Include(x => x.Persons).ToList();
+            var marketResearchesForPerson = _questionContext.Responders.Where(x => x.PersonId == userId && x.MarketResearchCompleted == false).Include(x => x.MarketResearchs).Include(x => x.Persons).ToList();
             return marketResearchesForPerson;
         }
 
