@@ -294,10 +294,10 @@ namespace mercado.nu
 
                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
+                            await _dataAccessQuestion.SetNumberOnQuestion( questionToMarketResearchVm);
                         
                         if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
                         {
-                            await _dataAccessQuestion.SetNumberOnQuestion( questionToMarketResearchVm);
                         }
 
                         questionToMarketResearchVm.QuestionTypes = null;
@@ -314,9 +314,9 @@ namespace mercado.nu
                         questionOption.QuestionOptionHeading = bin.Text.ToString();
                         questionOption.Value = bin.Text.ToString();
                         await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                         if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
                         {
-                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                         }
                         //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
                         questionToMarketResearchVm.QuestionTypes = null;
@@ -341,9 +341,9 @@ namespace mercado.nu
                            
                             questionToMarketResearchVm.QuestionTypes = null;
                             ModelState.Clear();
+                                await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                             if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
                             {
-                                await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                             }
 
                         }
