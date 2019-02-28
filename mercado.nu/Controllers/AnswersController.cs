@@ -198,7 +198,7 @@ namespace mercado.nu.Controllers
             int result = await _dataAccessQuestions.AddAnswers(listOfAnswers);
 
 
-            Responders responders = _context.Responders.SingleOrDefault(x => x.MarketResearchId == listOfAnswers[0].MarketResearchId);
+            Responders responders = _context.Responders.SingleOrDefault(x => x.MarketResearchId == listOfAnswers[0].MarketResearchId && x.PersonId == listOfAnswers[0].PersonId);
             responders.MarketResearchCompleted = true;
             _context.Responders.Update(responders);
             await _context.SaveChangesAsync();

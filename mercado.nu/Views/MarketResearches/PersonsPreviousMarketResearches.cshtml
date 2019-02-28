@@ -1,10 +1,10 @@
 ﻿@model mercado.nu.Models.ViewModels.RespondersMarketResearchesVm
 
-@{ 
+@{
     var message = ViewData["Inga undersökningar"] as string;
 }
 
-@if(Model.Responders.Count == 0)
+@if (Model.Responders.Count == 0)
 {
 
     <h3>@message</h3>
@@ -15,11 +15,11 @@ else
 {
 
 
-@foreach (var responder in Model.Responders)
-{
-    <h1>Undersökningar för @responder.Persons.FirstName @responder.Persons.LastName</h1>
-    break;
-}
+    @foreach (var responder in Model.Responders)
+    {
+        <h1>Undersökningar för @responder.Persons.FirstName @responder.Persons.LastName</h1>
+        break;
+    }
     <div class="card">
         <div class="card-body">
             <table class="table">
@@ -55,8 +55,7 @@ else
                                 @Html.DisplayFor(modelresearch => research.MarketResearchs.StartDate)
                             </td>
                             <td>
-                                <a asp-controller="Questions" asp-action="ShowQuestionsForResponder" asp-route-marketResearchId="@research.MarketResearchId">Genomför undersökningen</a> |
-                                <a>Avböj undersökningen</a>
+                                <a class="btn btn-primary" asp-controller="Answers" asp-action="Evaluation" asp-route-marketResearchId="@research.MarketResearchId">Utvärdering av undersökning</a>
                             </td>
                         </tr>
                     }

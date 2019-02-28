@@ -6,13 +6,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static mercado.nu.MarketResearchesController;
 
 namespace mercado.nu.Models
 {
     public class Person
     {
-
-        
 
         public Guid PersonId { get; set; }
 
