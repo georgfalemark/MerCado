@@ -273,7 +273,7 @@ namespace mercado.nu
 
                 await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
 
-                _context.Add(marketResearch);
+                //_context.Add(marketResearch);
                 await _context.SaveChangesAsync();
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
 
