@@ -20,21 +20,72 @@ namespace mercado.nu
         private readonly ApplicationDbContext _context;
         private readonly DataAccessQuestions _accessQuestions;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public MarketResearchesController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestions, UserManager<ApplicationUser> userManager)
+        public MarketResearchesController(ApplicationDbContext context, DataAccessQuestions dataAccessQuestions, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _accessQuestions = dataAccessQuestions;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         //GET: MarketResearches
         public async Task<IActionResult> Index()
         {
-
             return View(await _context.MarketResearches.ToListAsync());
         }
+
+        //GET: Pågående undersökningar för en viss organisation
+        public async Task<IActionResult> GetMarketResearchesWithStatusOngoing()
+        {
+            Guid? guidId = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                guidId = Guid.Parse(userId);
+            }
+
+            Guid? organizationID = null;
+            foreach (var item in _context.Persons)
+            {
+                if (item.PersonId == guidId)
+                {
+                    organizationID = item.OrganizationId;
+                }
+            }
+
+            List<MarketResearch> marketResearches = await _context.MarketResearches.Where(x => x.Organization.OrganizationId == organizationID && x.OnGoing == true).ToListAsync();
+
+            return View(marketResearches);
+        }
+
+        //GET: Tidigare undersökningar för en viss organisation
+        public async Task<IActionResult> GetMarketResearchesWithStatusOld()
+        {
+            Guid? guidId = null;
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                guidId = Guid.Parse(userId);
+            }
+
+            Guid? organizationID = null;
+            foreach (var item in _context.Persons)
+            {
+                if (item.PersonId == guidId)
+                {
+                    organizationID = item.OrganizationId;
+                }
+            }
+
+            List<MarketResearch> marketResearches = await _context.MarketResearches.Where(x => x.Organization.OrganizationId == organizationID && x.OnGoing == false).ToListAsync();
+
+            return View(marketResearches);
+        }
+
+
 
         // GET: MarketResearches/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -71,7 +122,7 @@ namespace mercado.nu
             {
                 ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
                 var userId = applicationUser.Id;
-                
+
                 await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
                 return RedirectToAction(nameof(Index));
@@ -89,7 +140,7 @@ namespace mercado.nu
                 //QuestionTypes = _context.QuestionTypes.Select(x=>x).ToList(),
                 CurrentMarketResearchId = id
             };
-            
+
             return RedirectToAction("Create", "Questions", questionToMarketResearch);
         }
 
@@ -107,12 +158,12 @@ namespace mercado.nu
                 _context.Add(marketResearch);
                 await _context.SaveChangesAsync();
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
-               
+
             }
 
             var questionToMarketResearch = new AddQuestionToMarketResearchVm
             {
-              
+
                 CurrentMarketResearchId = marketResearch.MarketResearchId
             };
 
