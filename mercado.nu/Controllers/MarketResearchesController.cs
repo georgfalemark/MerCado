@@ -244,7 +244,7 @@ namespace mercado.nu
 
                 await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetMarketResearchesWithStatusOngoing));
             }
 
             return View(marketResearch);
