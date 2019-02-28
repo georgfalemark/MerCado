@@ -129,19 +129,44 @@ namespace mercado.nu
 
             if (search.SearchAlternative == "Marknadsundersökning")
             {
-                var marketResearchContainsThis = _context.MarketResearches.Where(x => x.Name.Contains($"{searchWord}")).ToList();
-                var marketResearches = _context.MarketResearches.Where(x => x.Name.ToLower() == searchWord).ToList();
+                var marketresearch_Direct_Name = _context.MarketResearches.Where(x => x.Name.ToLower() == searchWord).ToList();
+                var marketresearch_Contains_This = _context.MarketResearches.Where(x => x.Name.Contains($"{searchWord}")).ToList();
 
+                if (marketresearch_Direct_Name.Count() > 0)
+                {
+                    searchFunctionVm.MarketResearches = marketresearch_Direct_Name;
+                }
+                else if (marketresearch_Contains_This.Count() > 0)
+                {
+                    searchFunctionVm.MarketResearches = marketresearch_Contains_This;
+                }
+                else
+                {
+                    return View();
+                }
 
-
-
-
-                searchFunctionVm.MarketResearches = marketResearches;
-
+                return View(searchFunctionVm);
 
             }
             else if (search.SearchAlternative == "Fråga")
             {
+                var question_Direct_Name = _context.Questions.Where(x => x.ActualQuestion.ToLower() == searchWord).ToList();
+                var question_Contains_This = _context.Questions.Where(x => x.ActualQuestion.Contains($"{searchWord}")).ToList();
+
+                if (question_Direct_Name.Count() > 0)
+                {
+                    searchFunctionVm.Questions = question_Direct_Name;
+                }
+                else if (question_Contains_This.Count() > 0)
+                {
+                    searchFunctionVm.Questions = question_Contains_This;
+                }
+                else
+                {
+                    return View();
+                }
+
+                return View(searchFunctionVm);
 
             }
             else if (search.SearchAlternative == "Organisation")
