@@ -12,6 +12,7 @@ using mercado.nu.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 namespace mercado.nu
 {
@@ -85,6 +86,98 @@ namespace mercado.nu
             return View(marketResearches);
         }
 
+
+        public class Search
+        {
+            [Display(Name = "Sökord")]
+            public string SearchPhrase { get; set; }
+
+            public string SearchAlternative { get; set; }
+            public List<SelectListItem> SearchAlternatives { get; set; }
+        }
+
+        enum WhatToSearchFor
+        {
+            Organisation, Marknadsundersökning, Fråga
+        };
+
+
+        //En sökvy där man söker på något. 
+        public IActionResult SearchFor()
+        {
+            var search = new Search();
+
+            string[] arr = Enum.GetNames(typeof(WhatToSearchFor));
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var item in arr)
+            {
+                var y = new SelectListItem() { Text = item, Value = item };
+                list.Add(y);
+            }
+
+            search.SearchAlternatives = list;
+
+            return View(search);
+        }
+
+        //En vy för sökresultat
+        public async Task<IActionResult> GetSearchResult(Search search)
+        {
+            var searchFunctionVm = new SearchFunctionVm();
+            string searchWord = search.SearchPhrase.ToLower();
+
+            if (search.SearchAlternative == "Marknadsundersökning")
+            {
+                var marketResearchContainsThis = _context.MarketResearches.Where(x => x.Name.Contains($"{searchWord}")).ToList();
+                var marketResearches = _context.MarketResearches.Where(x => x.Name.ToLower() == searchWord).ToList();
+
+
+
+
+
+                searchFunctionVm.MarketResearches = marketResearches;
+
+
+            }
+            else if (search.SearchAlternative == "Fråga")
+            {
+
+            }
+            else if (search.SearchAlternative == "Organisation")
+            {
+                var organizations_Direct_Name = _context.Organizations.Where(x => x.Name.ToLower() == searchWord).ToList();
+                var organization_Contains_This = _context.Organizations.Where(x => x.Name.Contains($"{searchWord}")).ToList();
+
+                if (organizations_Direct_Name.Count() > 0)
+                {
+                    searchFunctionVm.Organizations = organizations_Direct_Name;
+                }
+                else if (organization_Contains_This.Count() > 0)
+                {
+                    searchFunctionVm.Organizations = organization_Contains_This;
+                }
+                else
+                {
+                    return View();
+                }
+
+                return View(searchFunctionVm);
+
+            }
+            else
+            {
+                return View();
+            }
+
+
+            throw new Exception();
+
+
+
+
+
+        }
 
 
         // GET: MarketResearches/Details/5
