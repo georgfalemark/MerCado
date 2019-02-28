@@ -89,6 +89,7 @@ namespace mercado.nu
 
         public class Search
         {
+            [Required(ErrorMessage = "Du måste söka på något")]
             [Display(Name = "Sökord")]
             public string SearchPhrase { get; set; }
 
@@ -273,9 +274,9 @@ namespace mercado.nu
 
                 await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
 
-                _context.Add(marketResearch);
-                await _context.SaveChangesAsync();
+              
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
+                await _context.SaveChangesAsync();
 
             }
 

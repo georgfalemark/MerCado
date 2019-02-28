@@ -19,7 +19,7 @@
 
 
 <hr />
-<h4>Antal pågående marknadsundersökningar: xxxx</h4>
+<h4>Antal pågående marknadsundersökningar: @Model.MarketResearches.Where(x => x.OnGoing == true).Count()</h4>
 <hr />
 <h4>Antal gjorda marknadsundersökningar: xxxx</h4>
 <hr />
