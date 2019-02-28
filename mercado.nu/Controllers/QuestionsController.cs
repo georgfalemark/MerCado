@@ -354,7 +354,7 @@ namespace mercado.nu
                             questionOption.QuestionOptionHeading = questionToMarketResearchVm.Alternative.ToString();
                             questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
                             await _dataAccessQuestion.AddQuestionOptionForFlerval( questionOption, questionToMarketResearchVm);
-                            ViewData["listOfAlternatives"] = queOptList;
+                            questionToMarketResearchVm.TypeOptions = queOptList;
                            
                           
                         }
