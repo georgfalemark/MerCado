@@ -5,18 +5,17 @@
 <div class="container">
     
     <div class="row">
-        <div class="col"></div>
         <form asp-action="ShowQuestionComparison">
-            <div class="col-lg-3">
+            <div class="form-group">
                 <label></label>
                 <select asp-for="QuestionOne.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
-            <div class="col-lg-3">
+            <div class="form-group">
                 <label></label>
                 <select asp-for="QuestionTwo.QuestionId" asp-items="Model.QuestionList" class="form-control"></select>
             </div>
-            <div class="col-lg-1">
-                <button>Jämför</button>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Jämför</button>
             </div>
         </form>
     </div>

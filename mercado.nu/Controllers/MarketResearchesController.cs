@@ -355,11 +355,37 @@ namespace mercado.nu
             var userId = applicationUser.Id;
 
             var marketReaserchesForPerson = _accessQuestions.GetMarketResearchesForPerson(userId);
+            
 
             var viewModelMarketResearchForPerson = new RespondersMarketResearchesVm();
             viewModelMarketResearchForPerson.Responders = marketReaserchesForPerson;
+            if(marketReaserchesForPerson.Count == 0)
+            {
+                ViewData["Inga undersökningar"] = "Det finns inga aktiva undersökningar för dig.";
+                return View(viewModelMarketResearchForPerson);
+            }
 
             return View(viewModelMarketResearchForPerson);
+        }
+
+        public async Task<IActionResult> PersonsPreviousMarketResearches()
+        {
+            ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
+            var userId = applicationUser.Id;
+
+            var getPrevoiusMarketResearches = _context.Responders.Where(x => x.PersonId == userId && x.MarketResearchCompleted == true).Include(x => x.MarketResearchs).ToList();
+
+
+            var viewModel = new RespondersMarketResearchesVm();
+            viewModel.Responders = getPrevoiusMarketResearches;
+
+            if (getPrevoiusMarketResearches.Count == 0)
+            {
+                ViewData["Inga undersökningar"] = "Det finns inga aktiva undersökningar för dig.";
+                return View(viewModel);
+            }
+
+            return View(viewModel);
         }
     }
 }
