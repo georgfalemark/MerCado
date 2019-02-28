@@ -89,6 +89,7 @@ namespace mercado.nu
 
         public class Search
         {
+            [Required(ErrorMessage = "Du måste söka på något")]
             [Display(Name = "Sökord")]
             public string SearchPhrase { get; set; }
 
