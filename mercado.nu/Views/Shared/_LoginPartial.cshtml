@@ -13,7 +13,7 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" id="settings">
                     <span style="font-size: 1.7em" class="fas fa-cog fa-2x"></span>
                 </a>
             </li>

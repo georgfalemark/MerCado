@@ -22,25 +22,10 @@
 
         <div class="row text-center">
             <div class="col-lg-6">
-                <div class="card card-image" style="background-image: url(Content/open-book.png);">
-
-                    <!-- Content -->
-                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                        <div>
-                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Skapa</h5>
-                            <h3 class="card-title pt-2"><strong>Skapa undersökning</strong></h3>
-                            <p>
-                                Ta första steget mot att få reda på vad folk tycker genom att skapa en undersökning.
-                            </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink"><i class="fas fa-clone left"></i> Skapa undersökning</a>
-                        </div>
-                    </div>
-
-                </div>
-                @*<a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default">< <img src="~/Content/open-book.png" /></a>  @*Skapa undersökning*@
+                <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Skapa undersökning</a>
             </div>
             <div class="col-lg-6">
-                <a class="btn btn-default"><img src="~/Content/open-book.png" /></a>  @*Pågående undersökningar*@
+                <a class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Pågående undersökningar</a>
             </div>
         </div>
 
@@ -50,7 +35,7 @@
 
         <div class="row text-center">
             <div class="col-lg-4">
-                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">  <img src="~/Content/open-book.png)" /></a>
+                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Tidigare undersökningar</a>
             </div>
             <div class="col-lg-4">
                 <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Undersökningsbiblioteket</a>
@@ -114,8 +99,11 @@ else
             <a asp-controller="About" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Om oss</a>
         </div>
         <div class="col-lg-4">
-            <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot"  class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
+            <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
         </div>
     </div>
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1a7494b284c880026e6829196eab46ac25f9f2dc

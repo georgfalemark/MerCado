@@ -10,82 +10,65 @@
     <input class="btn btn-primary" type="button" onclick="@("location.href='"+ Url.Action("Create","MarketResearches")+ "'")" value="Skapa ny undersökning" />
 
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Purpose)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Purpose)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OnGoing)
-                </td>
-                <td>
-                    <button class="btn btn-primary"><a asp-action="Details" asp-route-id="@item.MarketResearchId">Detaljer</a></button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<main class="container" role="main">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Purpose)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Purpose)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OnGoing)
+                        </td>
+                        <td>
+                            <button class="btn btn-primary"><a asp-action="Details" asp-route-id="@item.MarketResearchId">Detaljer</a></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</main>
+    <div class="p-3 mb-2 bg-light text-dark">
 <a asp-controller="Home" asp-action="Index">Tillbaka till förstasidan</a>
-
-<div class="container-fluid">
-
-
-    <div class="row">
-        <div class="col col-6">
-
-        </div>
-
-        <div class="col col-6">
-
-        </div>
     </div>
 
-    <div class="row">
-        <div class="col col-6">
 
-        </div>
-        <div class="col col-6">
-
-        </div>
-    </div>
-</div>
-             
             
           
 

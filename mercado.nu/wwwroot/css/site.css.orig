@@ -3,9 +3,16 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+<<<<<<< HEAD
+
+    /*background-color: #FFFDF5;*/
+    background-image: url('../content/background7.jpg');
+
+=======
     background-image: url(../Content/background7.jpg)
     /*background-color: #FFFDF5;*/
     /*background-image: url('../content/pexels-photo.png');*/
+>>>>>>> 1a7494b284c880026e6829196eab46ac25f9f2dc
 }
 
 /*Denna är kopplad till all text*/
