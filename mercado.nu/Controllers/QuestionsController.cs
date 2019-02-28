@@ -294,11 +294,11 @@ namespace mercado.nu
 
                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
                         }
-                            await _dataAccessQuestion.SetNumberOnQuestion( questionToMarketResearchVm);
-                        
-                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
                         {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                         }
+
 
                         questionToMarketResearchVm.QuestionTypes = null;
                         ModelState.Clear();
@@ -314,9 +314,9 @@ namespace mercado.nu
                         questionOption.QuestionOptionHeading = bin.Text.ToString();
                         questionOption.Value = bin.Text.ToString();
                         await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
-                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
-                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
                         {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                         }
                         //await _dataAccessQuestion.SetQuestionTypeOnQuestion(questionToMarketResearchVm);
                         questionToMarketResearchVm.QuestionTypes = null;
@@ -341,10 +341,10 @@ namespace mercado.nu
                            
                             questionToMarketResearchVm.QuestionTypes = null;
                             ModelState.Clear();
+                                if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
+                                {
                                 await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
-                            if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
-                            {
-                            }
+                                }
 
                         }
                         else
@@ -367,7 +367,7 @@ namespace mercado.nu
                     {
                         //if (buttonstate)
                         //{
-                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()))
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString())|| questionToMarketResearchVm.Question.QuestionNumber==0)
                         {
                             await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
                         }
