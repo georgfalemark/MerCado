@@ -398,7 +398,7 @@ namespace mercado.nu
             ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
             var userId = applicationUser.Id;
 
-            var getPrevoiusMarketResearches = _context.Responders.Where(x => x.PersonId == userId && x.MarketResearchCompleted == true).Include(x => x.MarketResearchs).ToList();
+            var getPrevoiusMarketResearches = _context.Responders.Where(x => x.PersonId == userId && x.MarketResearchCompleted == true).Include(x => x.MarketResearchs).Include(x => x.Persons).ToList();
 
 
             var viewModel = new RespondersMarketResearchesVm();
