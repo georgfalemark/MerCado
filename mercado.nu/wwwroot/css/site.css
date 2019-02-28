@@ -67,6 +67,12 @@ body {
     line-height: 1.4;
 }
 
+/*Denna är kopplad till navigeringskorten*/
+.navcard {
+    opacity: 0.7
+}
+
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;

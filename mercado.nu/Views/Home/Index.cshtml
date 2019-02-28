@@ -21,26 +21,41 @@
         <br />
 
         <div class="row text-center">
-            <div class="col-lg-6">
-                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+            <div class="col-lg-6 d-flex align-items-stretch">
+                <div class="card card-image " style="background-image: url(Content/research.png);">
 
                     <!-- Content -->
-                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                         <div>
                             <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Skapa</h5>
                             <h3 class="card-title pt-2"><strong>Skapa undersökning</strong></h3>
                             <p>
                                 Ta första steget mot att få reda på vad folk tycker genom att skapa en undersökning.
                             </p>
-                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
                         </div>
                     </div>
 
                 </div>
                 @*<a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default">< <img src="~/Content/open-book.png" /></a>  @*Skapa undersökning*@
             </div>
-            <div class="col-lg-6">
-                <a class="btn btn-default"><img src="~/Content/open-book.png" /></a>  @*Pågående undersökningar*@
+            <div class="col-lg-6 d-flex align-items-stretch">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+
+                    <!-- Content -->
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Pågående</h5>
+                            <h3 class="card-title pt-2"><strong>Pågående undersökningar</strong></h3>
+                            <p>
+                                Ta en kik på vilka undersökningar ni har igång just nu.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                        </div>
+                    </div>
+
+                </div>
+               @* <a class="btn btn-default"><img src="~/Content/open-book.png" /></a>  @*Pågående undersökningar*@
             </div>
         </div>
 
@@ -48,15 +63,51 @@
         <br />
         <br />
 
-        <div class="row text-center">
-            <div class="col-lg-4">
-                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">  <img src="~/Content/open-book.png)" /></a>
+        <div class="container row text-center" >
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card card-image" style="background-image: url(Content/open-book.png); ">
+
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Undersökningsbiblioteket</h5>
+                            <h3 class="card-title pt-2"><strong>Undersökningsbiblioteket</strong></h3>
+                            <p>
+                                Funderingar på att skapa en marknadsundersökning? Kanske finns en liknanade redan! Ta del av andras marknadsundersökningar i undersökningsbiblioteket.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Undersökningsbiblioteket</a>
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card card-image navcard" style="background-image: url(Content/open-book.png);">
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Genomförda undersökningar</h5>
+                            <h3 class="card-title pt-2"><strong>Genomförda undersökningar</strong></h3>
+                            <p>
+                                Se era redan genomförda undersökningar och ta del av sammanstälningar av resultaten.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <a asp-controller="Organizaions" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Ert företag</a>
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+
+                    <!-- Content -->
+                    <div class="text-black text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fas fa-chart-chart"></i> Ert företag</h5>
+                            <h3 class="card-title pt-2"><strong>Ert företag</strong></h3>
+                            <p>
+                                Ert företag. Här finns grejer.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-pink btn-rounded"><i class="fas fa-clone left"></i> Skapa undersökning</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     }
