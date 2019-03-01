@@ -11,10 +11,52 @@
 }
 else
 {
-    @foreach (var item in Model.Organizations)
-    {
-        <p>@item.Name</p>
-    }
+
+    <main class="container" role="main">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+
+                    @foreach (var item in Model.Organizations)
+                    {
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.MarketResearches)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.City)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Country)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @item.MarketResearches.Count()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country)
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </main>
 }
 
 
@@ -23,10 +65,49 @@ else
 }
 else
 {
-    @foreach (var item in Model.MarketResearches)
-    {
-        <p>@item.Name</p>
-    }
+    <main class="container" role="main">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+
+                    @foreach (var item in Model.MarketResearches)
+                    {
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.CreationDate)
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OnGoing)
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.MarketResearchId">Detaljer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </main>
 }
 
 
@@ -35,10 +116,46 @@ else
 }
 else
 {
-    @foreach (var item in Model.Questions)
-    {
-        <p>@item.ActualQuestion</p>
-    }
+    <main class="container" role="main">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+
+                    @foreach (var item in Model.Questions)
+                    {
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.ActualQuestion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Answers)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.QuestionType)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActualQuestion)
+                                </td>
+                                <td>
+                                    @item.Answers.Count()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuestionType)
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </main>
+
 }
 
 
