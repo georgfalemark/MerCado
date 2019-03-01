@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace mercado.nu
 {
@@ -233,6 +234,11 @@ namespace mercado.nu
         {
             if (ModelState.IsValid)
             {
+                if (marketResearch.StartDate > marketResearch.EndDate)
+                {
+                    ModelState.AddModelError("Kallee","Slutdatum tidigare än startdatum går inte");
+                    return View(marketResearch);
+                }
                 ApplicationUser applicationUser = await _userManager.GetUserAsync(HttpContext.User);
                 var userId = applicationUser.Id;
 
@@ -240,6 +246,7 @@ namespace mercado.nu
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
                 return RedirectToAction(nameof(GetMarketResearchesWithStatusOngoing));
             }
+           
 
             return View(marketResearch);
         }
