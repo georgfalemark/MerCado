@@ -563,7 +563,7 @@ namespace mercado.nu
             //return RedirectToAction("ShowQuestionsForMarketResearch", questionToMarketResearchVm.CurrentMarketResearchId);
             //return Redirect("ShowQuestionsForMarketResearch", "Questions", questionToMarketResearchVm);
             //return View("ShowQuestionsForMarketResearch", questionToMarketResearchVm);
-            return RedirectToAction("ShowQuestionsForMarketResearch", new { Guid = questionToMarketResearchVm.CurrentMarketResearchId });
+            return RedirectToAction("ShowQuestionsForMarketResearch", new { marketResearchId = questionToMarketResearchVm.CurrentMarketResearchId });
         }
     }
 }

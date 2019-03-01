@@ -12,26 +12,35 @@ namespace mercado.nu.Models
         private bool onGoing = false;
 
         public Guid MarketResearchId { get; set; }
-
+        [Required(ErrorMessage = "Du måste skriva in ett förnamn")]
         [Display(Name = "Undersökning")]
         public string Name { get; set; }
 
         [Display(Name = "Beskrivning")]
+        [Required(ErrorMessage = "Du måste skriva in ett efternamn")]
         public string Description { get; set; }
 
         [Display(Name = "Undersökningens syfte")]
+        [Required(ErrorMessage = "Du måste skriva in syfte")]
         public string Purpose { get; set; }
 
         [Display(Name = "Lägsta ålder")]
+        [Required(ErrorMessage = "Du måste skriva in ålder")]
         public int MinAge { get; set; }
 
         [Display(Name = "Högsta ålder")]
+        [Required(ErrorMessage = "Du måste skriva in ålder")]
+
         public int MaxAge { get; set; }
 
         [Display(Name = "Kön")]
+        [Required(ErrorMessage = "Du måste skriva in kön")]
+
         public Gender Gender { get; set; }
 
         [Display(Name = "Område")]
+        [Required(ErrorMessage = "Du måste skriva in ett vart respondenterna bor")]
+
         public string Area { get; set; }
 
         public DateTime CreationDate
@@ -42,9 +51,11 @@ namespace mercado.nu.Models
             }
         }
         [Display(Name = "Planerat startdatum")]
+        [Required(ErrorMessage = "Skriv in när undersökningen skall starta")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "Planerat slutdatum")]
+        [Required(ErrorMessage = "Skriv in när undersökningen skall sluta")]
         public DateTime EndDate { get; set; }
         public bool OnGoing
         {
@@ -66,6 +77,7 @@ namespace mercado.nu.Models
         public List<Responders> Responders { get; set; }
 
         [Display(Name = "Hur många ska den skickas ut till?")]
+        [Required(ErrorMessage = "Skriv in hur många som undersökningen skall skickas ut till")]
         public int NumberOfResponders { get; set; }
 
         public List<Chapters> Chapters { get; set; }
