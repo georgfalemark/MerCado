@@ -196,13 +196,7 @@ namespace mercado.nu
                 return View();
             }
 
-
             throw new Exception();
-
-
-
-
-
         }
 
 
