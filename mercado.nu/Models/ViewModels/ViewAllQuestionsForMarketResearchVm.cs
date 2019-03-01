@@ -9,5 +9,6 @@ namespace mercado.nu.Models.ViewModels
     public class ViewAllQuestionsForMarketResearchVm
     {
         public List<Question> Questions { get; set; }
+        public Guid CurrentMarketResearchId { get; set; }
     }
 }
