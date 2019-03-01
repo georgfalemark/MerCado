@@ -203,7 +203,11 @@ namespace mercado.nu.Controllers
             _context.Responders.Update(responders);
             await _context.SaveChangesAsync();
 
-            return View();
+            var thankyouVm = new ThankYouResponderVm();
+            //thankyouVm.Organization= await _context.Organizations.Include(x=>x.MarketResearches).SingleAsync(x=>x.OrganizationId==)
+            thankyouVm.Person = await _context.Persons.SingleAsync(x => x.PersonId == userId);
+            //thankyouVm.MarketResearch=await _context.MarketResearches.SingleAsync(x=>x.MarketResearchId)
+            return View(thankyouVm);
 
         }
 

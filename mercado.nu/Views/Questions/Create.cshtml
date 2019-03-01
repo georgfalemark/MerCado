@@ -55,6 +55,7 @@
             <input type="hidden" asp-for="Question.ActualQuestion" />
             <input type="hidden" asp-for="QuestionTypes" />
             <input type="hidden" asp-for="Question.QuestionId" />
+            <input type="hidden" asp-for="Question.QuestionNumber" />
             <input type="hidden" asp-for="GradeChoices" />
             <input type="hidden" asp-for="BinaryChoice" />
 
@@ -106,17 +107,17 @@
                             }
                         }
 
-                                <div>
-                                    <label asp-for="Alternative" class="control-label"></label>
-                                    <input asp-for="Alternative" class="form-control" />
-                                    <div class="form-group">
-                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till" class="btn btn-default" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
-                                    </div>
+                        <div>
+                            <label asp-for="Alternative" class="control-label"></label>
+                            <input asp-for="Alternative" class="form-control" />
+                            <div class="form-group">
+                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="false" value="Lägg till" class="btn btn-default" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" asp-action="CreateQuestionType" asp-route-buttonstate="true" value="Klar" class="btn btn-default" />
+                            </div>
 
-                                </div>
+                        </div>
                         break;
                     }
                 case "Textfråga":

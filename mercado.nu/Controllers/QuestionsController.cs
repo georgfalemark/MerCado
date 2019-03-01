@@ -27,7 +27,7 @@ namespace mercado.nu
         public IActionResult ShowQuestionsForMarketResearch(Guid marketResearchId)
         {
             var viewModelAllQuestions = GetQuestions(marketResearchId);
-
+            viewModelAllQuestions.CurrentMarketResearchId = marketResearchId;
             return View(viewModelAllQuestions);
         }
 
@@ -451,8 +451,119 @@ namespace mercado.nu
             _context.Update(addQuestionToMarketResearch.Question);
             await _context.SaveChangesAsync();
 
-            return View("Create", addQuestionToMarketResearch);
+            return View("Update", addQuestionToMarketResearch);
 
+        }
+
+        public async Task<IActionResult> UpdateType(AddQuestionToMarketResearchVm questionToMarketResearchVm, bool buttonstate)
+        {
+
+            var listOfChapters = _dataAccessQuestion.GetChapters(questionToMarketResearchVm.CurrentMarketResearchId);
+            var selectChapters = GetSelectChapters(listOfChapters);
+
+            questionToMarketResearchVm.Chapters = selectChapters;
+
+
+
+
+            string qType = questionToMarketResearchVm.QuestionTypes.First().ToString();
+            switch (qType)
+            {
+                case "Graderingsfråga":
+                    {
+                        var vm = new AddQuestionToMarketResearchVm();
+                        questionToMarketResearchVm.GradeChoices = vm.SetGradeChoicesList();
+                        for (int i = 0; i < questionToMarketResearchVm.HighGrade; i++)
+                        {
+                            var questionOption = new QuestionOption();
+                            questionOption.Value = (i + 1).ToString();
+                            questionOption.QuestionId = questionToMarketResearchVm.Question.QuestionId;
+                            if (i == 0)
+                            {
+                                var listitem = questionToMarketResearchVm.GradeChoices[questionToMarketResearchVm.TypeChoice];
+                                string[] headingsInArray = listitem.Text.Split('-');
+                                questionOption.QuestionOptionHeading = headingsInArray[0].Trim();
+                            }
+                            else if (i == questionToMarketResearchVm.HighGrade - 1)
+                            {
+                                var listitem = questionToMarketResearchVm.GradeChoices[questionToMarketResearchVm.TypeChoice];
+                                string[] headingsInArray = listitem.Text.Split('-');
+                                questionOption.QuestionOptionHeading = headingsInArray[1].Trim();
+                            }
+                            await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                        }
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
+                        {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        }
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        ModelState.Clear();
+                        break;
+                    }
+                case "Binärfråga":
+                    {
+                        var vm = new AddQuestionToMarketResearchVm();
+                        questionToMarketResearchVm.BinaryChoice = vm.SetBinaryChoiceList();
+                        var questionOption = new QuestionOption();
+                        var bin = questionToMarketResearchVm.BinaryChoice[questionToMarketResearchVm.TypeChoice];
+                        questionOption.QuestionOptionHeading = bin.Text.ToString();
+                        questionOption.Value = bin.Text.ToString();
+                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
+                        {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        }
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        break;
+                    }
+                case "Flervalsfråga":
+                    {
+                        string x = questionToMarketResearchVm.Alternative.ToString();
+                        List<string> queOptList = new List<string>();
+                        queOptList.Add(x);
+                        if (buttonstate)
+                        {
+                            questionToMarketResearchVm.QuestionTypes = null;
+                            ModelState.Clear();
+                            if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
+                            {
+                                await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                            }
+                        }
+                        else
+                        {
+                            var questionOption = new QuestionOption();
+                            questionOption.QuestionOptionHeading = questionToMarketResearchVm.Alternative.ToString();
+                            questionOption.Value = questionToMarketResearchVm.Alternative.ToString();
+                            await _dataAccessQuestion.AddQuestionOptionForFlerval(questionOption, questionToMarketResearchVm);
+                            ViewData["listOfAlternatives"] = queOptList;
+                        }
+                        return View("Create", questionToMarketResearchVm);
+                    }
+                case "Textfråga":
+                    {
+                        if (string.IsNullOrEmpty(questionToMarketResearchVm.Question.QuestionNumber.ToString()) || questionToMarketResearchVm.Question.QuestionNumber == 0)
+                        {
+                            await _dataAccessQuestion.SetNumberOnQuestion(questionToMarketResearchVm);
+                        }
+                        var questionOption = new QuestionOption();
+                        questionOption.QuestionOptionHeading = "Text";
+                        await _dataAccessQuestion.AddQuestionOption(questionOption, questionToMarketResearchVm);
+
+                        questionToMarketResearchVm.QuestionTypes = null;
+                        questionToMarketResearchVm.Question.ActualQuestion = null;
+                        ModelState.Clear();
+                        return View("Create", questionToMarketResearchVm);
+                    }
+                default:
+                    break;
+            }
+            //var mrId = questionToMarketResearchVm.CurrentMarketResearchId;
+            //ShowQuestionsForMarketResearch(questionToMarketResearchVm.CurrentMarketResearchId);
+            //return RedirectToAction("ShowQuestionsForMarketResearch", questionToMarketResearchVm.CurrentMarketResearchId);
+            //return Redirect("ShowQuestionsForMarketResearch", "Questions", questionToMarketResearchVm);
+            //return View("ShowQuestionsForMarketResearch", questionToMarketResearchVm);
+            return RedirectToAction("ShowQuestionsForMarketResearch", new { Guid = questionToMarketResearchVm.CurrentMarketResearchId });
         }
     }
 }
