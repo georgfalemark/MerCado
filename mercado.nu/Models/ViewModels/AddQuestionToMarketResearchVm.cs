@@ -13,7 +13,7 @@ namespace mercado.nu.Models.ViewModels
         public Question Question { get; set; }
         public Guid CurrentMarketResearchId { get; set; }
         public List<SelectListItem> GradeChoices { get; set; }
-
+        public List<string> TypeOptions { get; set; }
         public List<SelectListItem> Chapters { get; set; }
         public List<QuestionTypes> QuestionTypes { get; set; }
         [Display(Name = "Välj maxvärde")]
