@@ -152,8 +152,8 @@ namespace mercado.nu
             }
             else if (search.SearchAlternative == "Fråga")
             {
-                var question_Direct_Name = _context.Questions.Where(x => x.ActualQuestion.ToLower() == searchWord).ToList();
-                var question_Contains_This = _context.Questions.Where(x => x.ActualQuestion.Contains($"{searchWord}")).ToList();
+                var question_Direct_Name = _context.Questions.Include(x => x.Answers).Where(x => x.ActualQuestion.ToLower() == searchWord).ToList();
+                var question_Contains_This = _context.Questions.Include(x => x.Answers).Where(x => x.ActualQuestion.Contains($"{searchWord}")).ToList();
 
                 if (question_Direct_Name.Count() > 0)
                 {
@@ -173,8 +173,8 @@ namespace mercado.nu
             }
             else if (search.SearchAlternative == "Organisation")
             {
-                var organizations_Direct_Name = _context.Organizations.Where(x => x.Name.ToLower() == searchWord).ToList();
-                var organization_Contains_This = _context.Organizations.Where(x => x.Name.Contains($"{searchWord}")).ToList();
+                var organizations_Direct_Name = _context.Organizations.Include(x => x.MarketResearches).Where(x => x.Name.ToLower() == searchWord).ToList();
+                var organization_Contains_This = _context.Organizations.Include(x => x.MarketResearches).Where(x => x.Name.Contains($"{searchWord}")).ToList();
 
                 if (organizations_Direct_Name.Count() > 0)
                 {
@@ -197,13 +197,7 @@ namespace mercado.nu
                 return View();
             }
 
-
             throw new Exception();
-
-
-
-
-
         }
 
 
@@ -250,7 +244,7 @@ namespace mercado.nu
 
                 await _accessQuestions.SetMarketResearchToPersonAndOrganizationAndSave(marketResearch, userId);
                 await _accessQuestions.GetRespondersToMarketResearch(marketResearch);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetMarketResearchesWithStatusOngoing));
             }
            
 

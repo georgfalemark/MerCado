@@ -47,7 +47,7 @@ namespace mercado.nu.Controllers
                 }
             }
 
-            Organization organization = _context.Organizations.Include(x => x.ContactPerson).SingleOrDefault(x => x.OrganizationId == organizationID);
+            Organization organization = _context.Organizations.Include(x => x.ContactPerson).Include(x => x.MarketResearches).SingleOrDefault(x => x.OrganizationId == organizationID);
             return View(organization);
         }
 

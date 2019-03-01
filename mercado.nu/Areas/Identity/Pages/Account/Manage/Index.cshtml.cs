@@ -28,6 +28,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
+        [Display(Name = "Användarnamn")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -45,7 +46,7 @@ namespace mercado.nu.Areas.Identity.Pages.Account.Manage
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefonnummer")]
             public string PhoneNumber { get; set; }
         }
 
