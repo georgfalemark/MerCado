@@ -1,9 +1,61 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-image: url(../Content/ALT1.jpg);
+    /*background-color: #FFFDF5;*/
+    /*background-image: url('../content/pexels-photo.png');*/
 }
+
+/*Denna är kopplad till all text*/
+* {
+    font-family: Asap;
+}
+
+
+/*Detta definierar bakgrundsfärgen på navbaren*/
+.navbar {
+    background-color: transparent;
+}
+
+/*Padding för loggan*/
+.navbar-brand {
+    padding: 22px 16px;
+}
+
+
+/*De föremål i navbaren som är <a> */
+.nav.navbar-nav li a {
+    color: black;
+    font-size: 1.2em;
+}
+
+/*De föremål i navbaren som är <button> */
+.nav.navbar-nav li button {
+    color: black;
+    font-size: 1.2em;
+    padding: 4px 0px;
+}
+
+/*Styling för en knapp med <a class="btn"> */
+.btn {
+    background-color: #000000;
+}
+
+    /*Styling för logga-ut knappen*/
+    .btn.btn-link.navbar-btn.navbar-link {
+        background-color: transparent;
+    }
+
+
+#settings:hover {
+    background-color: transparent;
+}
+
+#settings {
+    padding: 12px;
+}
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -12,11 +64,62 @@ body {
     padding-right: 15px;
 }
 
+
+
+    /*.body-content:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.6;
+        background-image: url(../Content/background7.jpg);
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }*/
+
+
+
+
+
+
+
+
+
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
+/*.row {
+    height: 16vh;
+}
+.full-height {
+    height: 100%;
+}*/
+/*Denna är kopplad till navigeringskorten*/
+.navcard {
+    opacity: 0.7;
+    height: 20rem;
+    font-weight: 900;
+    text-shadow: 0px 0px 3px #000;
+}
+
+/*.ïmagebox-desc {
+    opacity: 0.7;
+    height: 20rem;
+    font-weight: 900;
+    text-shadow: 0px 0px 3px #000;
+}*/
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
@@ -34,4 +137,26 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+
+/*Dessa gör att sidan tar upp 100% och att footern därför stannar längst ner*/
+.Site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/*Dessa gör att sidan tar upp 100% och att footern därför stannar längst ner*/
+.Site-content {
+    flex: 1;
+}
+
+/*Sätter färg på footern*/
+.footer-copyright {
+    background-color: #403F3E;
+    color: white;
+}
+
+.page-footer {
+    background-color: #BFBEB9;
 }

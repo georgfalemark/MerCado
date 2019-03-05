@@ -1,0 +1,43 @@
+﻿@page
+@model ChooseIfHaveCompanyOrNotModel
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center text-center align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title pt-2"><strong>Befintlig kund</strong></h3>
+                        <p>
+                            Tryck här om erat företag redan finns registrerat.
+                        </p>
+                        <br />
+                        <a asp-area="Identity" asp-page="/Account/RegisterCompanyUser" class="btn btn-primary" style="padding: 150px 30px; width: 250px">Jag tillhör ett befintligt företag</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center text-center align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title pt-2"><strong>Ny kund</strong></h3>
+                        <p>
+                            Tryck här om ni behöver registrera ett nytt företag.
+                        </p>
+                        <br />
+                        <a asp-area="Identity" asp-page="/Account/RegisterCompanyUserWithoutCompany" class="btn btn-primary" style="padding: 150px 30px; width: 250px">Jag behöver registrera ett nytt företag</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

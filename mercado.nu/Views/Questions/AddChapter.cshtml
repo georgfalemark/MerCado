@@ -1,0 +1,16 @@
+﻿@model AddChapterVm
+
+<h3>Lägga till nytt avsnitt för undersökning</h3>
+
+<div>
+    <form asp-action="SaveChapter">
+        <div class="form-group">
+            <label class="control-label">Namn på avsnitt: </label>
+            <input type="hidden" asp-for="MarketResearchId"/>
+            <input class="form-control" width="10" type="text" asp-for="Name" />
+        </div>
+             <div class="form-group">
+        <button class="btn btn-primary">Spara</button>
+        </div>
+    </form>
+</div>

@@ -1,17 +1,68 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Bli en del av mercaDo";
 }
 
-<h2>@ViewData["Title"]</h2>
+
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <h2>@ViewData["Title"]</h2>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Skapa ditt nya konto kostnadsfritt</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Person.FirstName"></label>
+                <input asp-for="Input.Person.FirstName" class="form-control" />
+                <span asp-validation-for="Input.Person.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.LastName"></label>
+                <input asp-for="Input.Person.LastName" class="form-control" />
+                <span asp-validation-for="Input.Person.LastName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Input.Person.BirthDay"></label>
+                <input asp-for="Input.Person.BirthDay" type="date" class="form-control" />
+                <span asp-validation-for="Input.Person.BirthDay" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Kön</label>
+                <select asp-for="Input.Person.Gender" asp-items="Model.Input.Genders" class="form-control">
+                    <option disabled selected>--- VÄLJ KÖN ---</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Person.Street"></label>
+                <input asp-for="Input.Person.Street" class="form-control" />
+                <span asp-validation-for="Input.Person.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.StreetNumber"></label>
+                <input asp-for="Input.Person.StreetNumber" class="form-control" />
+                <span asp-validation-for="Input.Person.StreetNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.City"></label>
+                <input asp-for="Input.Person.City" class="form-control" />
+                <span asp-validation-for="Input.Person.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.PostNumber"></label>
+                <input asp-for="Input.Person.PostNumber" class="form-control" />
+                <span asp-validation-for="Input.Person.PostNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Person.Country"></label>
+                <input asp-for="Input.Person.Country" class="form-control" />
+                <span asp-validation-for="Input.Person.Country" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
@@ -27,9 +78,15 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-primary">Skapa nytt konto</button>
         </form>
+
+        <hr />
+        <p>Är du företagsanvändare? <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot">Tryck här!</a></p>
+
     </div>
+    <div class="col-md-6"></div>
+
 </div>
 
 @section Scripts {

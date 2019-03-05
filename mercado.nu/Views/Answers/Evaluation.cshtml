@@ -1,0 +1,244 @@
+﻿@model mercado.nu.Models.ViewModels.MarketResearchSummeryVm
+@using mercado.nu.Models.Evaluations
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-8">
+            <h2>Utvärdering av undersökning</h2>
+        </div>
+        
+        <div class="col-4"> <a class="btn btn-primary" asp-controller="MarketResearches" asp-action="Index">Tillbaka till undersökningarna</a></div>
+    </div>
+    @{ int tableNumber = 0;}
+    @foreach (var List in Model.SummaryOfMarketResearch)
+    {
+        string tableName = "table" + tableNumber;
+        string canvasName = "canvas" + tableNumber;
+        if (List is SpanQuestion)
+        {
+
+            SpanQuestion parseList = (SpanQuestion)List;
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h3>Fråga @parseList.QuestionNumber</h3>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h4>@parseList.TheQuestion</h4>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <table class="table" id="@tableName">
+                                <thead>
+                                    <tr>
+                                        <th>Alternativ</th>
+                                        <th>Antal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in parseList.CountListSorted)
+                                    {
+
+                                        <tr>
+                                            <td>@item.Key</td>
+                                            <td>@item.Count</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                            
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                <canvas id="@canvasName" width="50" height="25"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tableNumber++;
+        }
+
+        if (List is BinaryQuestion)
+        {
+
+            BinaryQuestion parseList = (BinaryQuestion)List;
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h3>Fråga @parseList.QuestionNumber</h3>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h4>@parseList.TheQuestion</h4>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <table class="table" id="@tableName">
+                                <thead>
+                                    <tr>
+                                        <th>Alternativ</th>
+                                        <th>Antal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in parseList.CountListSorted)
+                                    {
+                                        <tr>
+                                            <td>@item.Key</td>
+                                            <td>@item.Count</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="@canvasName" width="50" height="25"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tableNumber++;
+        }
+
+        if (List is MultipleChoiceQuestion)
+        {
+
+            MultipleChoiceQuestion parseList = (MultipleChoiceQuestion)List;
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h3>Fråga @parseList.QuestionNumber</h3>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4>@parseList.TheQuestion</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <table class="table" id="@tableName">
+                                <thead>
+                                    <tr>
+                                        <th>Alternativ</th>
+                                        <th>Antal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in parseList.CountListSorted)
+                                    {
+
+                                        <tr>
+                                            <td>@item.Key</td>
+                                            <td>@item.Count</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="@canvasName" width="50" height="25"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tableNumber++;
+        }
+
+        if (List is TextQuestion)
+        {
+
+            TextQuestion parseList = (TextQuestion)List;
+            <div class="card">
+                <div class="card-body'">
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h3>Fråga @parseList.QuestionNumber</h3>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h4>@parseList.TheQuestion</h4>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Respondent</th>
+                                        <th>Svar</th>
+                                    </tr>
+                                </thead>
+                                @{ int number = 1; }
+                                @foreach (var item in parseList.TextList)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>@number</td>
+                                            <td>@item.TextAnswer</td>
+                                        </tr>
+                                    </tbody>
+                                    number++;
+                                }
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    <div class="row">
+
+        <div class="col-8">
+            <a class="btn btn-primary" asp-controller="MarketResearches" asp-action="Index">Tillbaka till undersökningarna</a>
+        </div>
+
+        <div class="col-4"> </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script src="~/js/MercadoChart.js"></script>

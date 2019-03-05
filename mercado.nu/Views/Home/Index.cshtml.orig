@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
+@using mercado.nu.Models.Entities
+@using System.Security.Claims;
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<ApplicationRole> RoleManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    ApplicationUser user = await UserManager.GetUserAsync(User);
+
+    if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+    {
+
+        <br />
+        <br />
+        <br />
+
+        <div class="row text-center">
+            <div class="col-lg-6">
+                <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Skapa undersökning</a>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Pågående undersökningar</a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Tidigare undersökningar</a>
+            </div>
+            <div class="col-lg-4">
+                <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Undersökningsbiblioteket</a>
+            </div>
+            <div class="col-lg-4">
+                <a asp-controller="Organizaions" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Ert företag</a>
+            </div>
+        </div>
+    }
+
+    if (await UserManager.IsInRoleAsync(user, "User"))
+    {
+
+        <br />
+        <br />
+        <br />
+
+        <div class="row text-center">
+            <div class="col-lg-6">
+                <a asp-controller="MarketResearches" asp-action="MarketResearchForPerson" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Tillgängliga undersökningar för mig</a>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Mina tidigare undersökningar</a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="text-center">
+            <a class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Alla undersökningar</a>
+        </div>
+    }
+
+}
+else
+{
+    <br />
+    <br />
+    <br />
+
+    <div class="row text-center">
+        <div class="col-lg-6">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Logga in</a>
+        </div>
+        <div class="col-lg-6">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-default" style="height: 250px; width: 350px; padding: 150px 12px; font-size: 22px ">Registrera dig</a>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row text-center">
+        <div class="col-lg-4">
+            <a asp-controller="About" asp-action="InfoMarketresearches" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Varför MercaDo?</a>
+        </div>
+        <div class="col-lg-4">
+            <a asp-controller="About" asp-action="Index" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Om oss</a>
+        </div>
+        <div class="col-lg-4">
+            <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot" class="btn btn-default" style="height: 200px; width: 200px; padding: 150px 12px; font-size: 22px ">Företagsanvändare</a>
+        </div>
+    </div>
+}
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1a7494b284c880026e6829196eab46ac25f9f2dc

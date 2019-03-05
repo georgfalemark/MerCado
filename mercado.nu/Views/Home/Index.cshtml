@@ -1,4 +1,246 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
+@using mercado.nu.Models.Entities
+@using System.Security.Claims;
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<ApplicationRole> RoleManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    ApplicationUser user = await UserManager.GetUserAsync(User);
+
+    if (await UserManager.IsInRoleAsync(user, "CompanyUser") || await UserManager.IsInRoleAsync(user, "SuperCompanyUser"))
+    {
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col big-box">
+                    <div class="row">
+                        <div class="col mini-box">
+                            <div class="card card-image" style="background-image: url(Content/ongoing.png);">
+                                <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2"><strong>Pågående</strong></h3>
+                                        <p>
+                                            Här hittar du de undersökningar som är pågående i detta nu.
+                                        </p>
+                                        <a asp-controller="MarketResearches" asp-action="GetMarketResearchesWithStatusOngoing" class="btn btn-primary btn-rounded">Gå till Pågående</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mini-box">
+                            <div class="card card-image" style="background-image: url(Content/library.png);">
+                                <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2"><strong>Biblioteket</strong></h3>
+                                        <p>
+                                            Kolla i arkivet innan du skapar nytt, kanske finns något användbart.
+                                        </p>
+                                        <a asp-controller="MarketResearches" asp-action="SearchFor" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Gå till Bibliotek</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col mini-box">
+                            <div class="card card-image" style="background-image: url(Content/gamle.png);">
+                                <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2"><strong>Tidigare</strong></h3>
+                                        <p>
+                                            Här hittar du alla era tidigare undersökningar.
+                                        </p>
+                                        <a asp-controller="MarketResearches" asp-action="GetMarketResearchesWithStatusOld" class="btn btn-primary btn-rounded">Gå till tidigare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col mini-box">
+                            <div class="card card-image" style="background-image: url(Content/business4.jpeg);">
+
+                                <!-- Content -->
+                                <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2"><strong>Ert företag</strong></h3>
+                                        <p>
+                                            Här hittar du information om er.
+                                        </p>
+                                        <a asp-controller="Organizations" asp-action="Index" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i> Gå till ert Företag</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                        <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                            <div>
+                                <h3 class="card-title pt-2"><strong>Skapa en undersökning</strong></h3>
+                                <p>
+                                    Ta första steget mot att få reda på vad folk tycker genom att skapa en undersökning.
+                                </p>
+                                <a asp-controller="MarketResearches" asp-action="Create" class="btn btn-primary btn-rounded"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    if (await UserManager.IsInRoleAsync(user, "User"))
+    {
+        <div class="row">
+            <div class="col mini-box">
+                <div class="card card-image" style="background-image: url(Content/library.png);">
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h3 class="card-title pt-2"><strong>Biblioteket</strong></h3>
+                            <p>
+                                Vad är den tredje för respondenten? Minns inte men du minns väl Georg?
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="SearchFor" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Gå till Gamla undersökningar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mini-box">
+                <div class="card card-image" style="background-image: url(Content/done1.png);">
+
+                    <!-- Content -->
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                        <div class="text-blue">
+                            <h3 class="card-title pt-2"><strong>Redan gjorda</strong></h3>
+                            <p>
+                                Dina tidigare undersökningar som du har svarat på.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="PersonsPreviousMarketResearches" class="btn btn-primary btn-rounded "><i class="fas fa-clone left"></i>Gå till Genomförda undersökningar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col big-box">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h3 class="card-title pt-2"><strong>Svara på undersökning</strong></h3>
+                            <p>
+                                Här hittar du alla aktuella undersökningar att göra.
+                            </p>
+                            <a asp-controller="MarketResearches" asp-action="MarketResearchForPerson" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Gå till Mina marknadsundersökningar</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <br />
+        <br />
+        <br />
+
+    }
+
+}
+else
+{
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col big-box">
+                <div class="row">
+                    <div class="col mini-box">
+                        <div class="card card-image img-fluid" style="background-image: url(Content/Skärmklipp1.jpg);" >
+                            <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2"><strong>För företag</strong></h3>
+                                    <p>
+                                        
+                                    </p>
+                                    <a asp-area="Identity" asp-page="/Account/ChooseIfHaveCompanyOrNot" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Företagsanvändare</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mini-box">
+                        <div class="card card-image" style="background-image: url(Content/fire2.jpg);">
+                            <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2"><strong>Om MercaDo</strong></h3>
+                                    <p>
+                                    </p>
+                                    <a asp-controller="About" asp-action="Index" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Om Mercado</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col mini-box">
+                        <div class="card card-image" style="background-image: url(Content/survey.jpg);">
+                            <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2"><strong>Varför MercaDo?</strong></h3>
+                                    <p>
+                                    </p>
+                                    <a asp-controller="About" asp-action="InfoMarketresearches" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Varför MercaDo?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mini-box">
+                        <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                            <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2"><strong>Logga in på din sida</strong></h3>
+                                    <p>
+                                    </p>
+                                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i> Logga in</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-image" style="background-image: url(Content/open-book.png);">
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h3 class="card-title pt-2"><strong>Registrera dig</strong></h3>
+                            <p>
+                            </p>
+                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-rounded"><i class="fas fa-clone left"></i>Registrera dig</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ 
+    
 }
 

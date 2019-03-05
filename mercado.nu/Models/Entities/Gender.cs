@@ -4,6 +4,6 @@
     {
         Kvinna,
         Man,
-        Other   
+        Annat
     }
 }

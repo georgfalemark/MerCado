@@ -1,5 +1,6 @@
 ﻿using mercado.nu.Models;
 using mercado.nu.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,8 +21,9 @@ namespace mercado.nu.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
         public DbSet<QuestionTypes> QuestionTypes { get; set; }
-        public DbSet<QuestionToMarketResearch> QuestionToMarketResearches { get; set; }
+        public DbSet<QuestionToMarketResearch> GetQuestionToMarketResearches { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet <Content> Contents { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -37,6 +39,8 @@ namespace mercado.nu.Data
         {
             
             modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             modelBuilder.Entity<Answer>().HasKey(x => new { x.MarketResearchId, x.PersonId, x.QuestionId });
             base.OnModelCreating(modelBuilder);

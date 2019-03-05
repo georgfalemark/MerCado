@@ -1,0 +1,74 @@
+﻿@model mercado.nu.Models.Entities.Question
+@using mercado.nu.Models.Entities
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualQuestion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActualQuestion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chapter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chapter.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionType)
+        </dd>
+    </dl>
+    <table class="table">
+        <thead>
+            @foreach (var item in Model.QuestionOptions)
+            {
+                <tr>
+                    <th>@Html.DisplayNameFor(modelItem => item.QuestionOptionHeading)</th>
+                    <th>@Html.DisplayNameFor(modelItem => item.Value)</th>
+                    <th>Input type</th>
+                </tr>
+                break;
+            }
+        </thead>
+        <tbody>
+            @foreach (var item in Model.QuestionOptions)
+            {
+            <tr>
+                <td>@item.QuestionOptionHeading</td>
+                <td>@item.Value</td>
+                @if (Model.QuestionType == QuestionTypes.Graderingsfråga)
+                {
+                    <td><input type="radio" /></td>
+                }
+                @if (Model.QuestionType == QuestionTypes.Flervalsfråga)
+                {
+                    <td><input type="checkbox" /></td>
+                }
+                @if (Model.QuestionType == QuestionTypes.Binärfråga)
+                {
+                    <td><input type="radio" /></td>
+                }
+                @if (Model.QuestionType == QuestionTypes.Textfråga)
+                {
+                    <td><input type="text" /></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.QuestionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

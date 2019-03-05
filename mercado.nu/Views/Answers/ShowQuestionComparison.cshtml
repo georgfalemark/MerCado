@@ -1,0 +1,83 @@
+﻿@model mercado.nu.Models.ViewModels.ShowQuestionComparisonVm
+
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col">
+            <h1> Uppdelning av svar för frågor</h1>
+        </div>
+        <div class="col"></div>
+       
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                
+                <div class="col">
+                    <table id="table0" class="table">
+
+                        <thead>
+                            <tr>
+                                <th></th>
+                                @foreach (var horizontal in Model.HeadingsHorizontal)
+                                {
+                                    <th>@horizontal</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.HeadingsVertical.Length; i++)
+                            {
+                                <tr>
+                                    <th>@Model.HeadingsVertical[i]</th>
+                                    @foreach (var data in Model.DataArrayForComparison[i])
+                                    {
+                                        <td>@data</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                @for (int i = 0; i < Model.HeadingsVertical.Length; i++)
+                {
+                    string nameCanvas = "canvas" + i;
+                    <div class="col">
+                        <canvas id="@nameCanvas"></canvas>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script src="~/js/MercadoCompare.js"></script>
+
+
+
+
+
+

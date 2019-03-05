@@ -1,0 +1,31 @@
+﻿@using static mercado.nu.MarketResearchesController;
+
+@model Search
+
+
+<form asp-action="GetSearchResult" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="SearchPhrase"></label>
+        <input asp-for="SearchPhrase" class="form-control" />
+        <span asp-validation-for="SearchPhrase" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Vad vill du söka på?</label>
+        <select asp-for="SearchAlternative" asp-items="Model.SearchAlternatives" class="form-control">
+            <option disabled selected>--- VÄLJ HÄR ---</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sök</button>
+</form>
+
+<br />
+<a class="btn btn-primary" asp-controller="MarketResearches" asp-action="Index">Alla tidigare undersökningar</a>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,106 @@
+﻿@model mercado.nu.Models.ViewModels.ViewAllQuestionsForMarketResearchVm
+@using mercado.nu.Models.Entities
+
+
+
+
+
+<h1>Alla frågor i marknadsundersökningen</h1>
+
+@foreach (var question in Model.Questions)
+{
+    <!-- Card -->
+    <div class="card bg-light mb-3" style="max-width: 30rem;">
+        <div class="card-header">Fråga @question.QuestionNumber</div>
+        <div class="card-body text-dark">
+            <h5 class="card-title">@question.ActualQuestion</h5>
+            @if (question.QuestionType == QuestionTypes.Graderingsfråga)
+            {
+
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <form>
+                            @foreach (var questionOption in question.QuestionOptions)
+                            {
+                                <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                                <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="@questionOption.Value" />
+                            }
+
+                        </form>
+                    </div>
+
+                </div>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
+
+
+            }
+            else if (question.QuestionType == QuestionTypes.Flervalsfråga)
+            {
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <form>
+                            @foreach (var questionOption in question.QuestionOptions)
+                            {
+
+                                <label for="@questionOption.QuestionOptionId">@questionOption.QuestionOptionHeading</label>
+                                <input name="question" id="@questionOption.QuestionOptionId" type="checkbox" value="@questionOption.Value" />
+
+                            }
+
+                        </form>
+                    </div>
+                </div>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
+            }
+            else if (question.QuestionType == QuestionTypes.Binärfråga)
+            {
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <form>
+                            @foreach (var questionOption in question.QuestionOptions)
+                            {
+                                string binaryType = questionOption.QuestionOptionHeading;
+                                string[] binaryTypes = binaryType.Split('-');
+
+                                <label>@binaryTypes[0].Trim()</label>
+                                <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="true" />
+                                <label>@binaryTypes[1].Trim()</label>
+                                <input name="question" id="@questionOption.QuestionOptionId" type="radio" value="false" />
+
+                            }
+
+                        </form>
+                    </div>
+                </div>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
+
+            }
+            else if (question.QuestionType == QuestionTypes.Textfråga)
+            {
+                <div class="card">
+
+
+                    <div class="card-body">
+                        @foreach (var questionOption in question.QuestionOptions)
+                        {
+                            <textarea></textarea>
+                        }
+
+                    </div>
+                </div>
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@question.QuestionId">Ändra frågan</a>
+            }
+        </div>
+    </div>
+}
+
+<a class="btn btn-primary" asp-controller="Questions" asp-action="ShowQuestionsForMarketResearch"asp-route-marketReaserchId="@Model.CurrentMarketResearchId">Tillbaka till undersökningarna</a>
+
+
+

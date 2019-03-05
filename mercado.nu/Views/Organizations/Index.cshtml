@@ -1,0 +1,81 @@
+﻿@model mercado.nu.Models.Organization
+@using Microsoft.AspNetCore.Identity
+@using mercado.nu.Models
+
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+
+<br />
+<h2>Hej @ViewData["Title"]!</h2>
+<br />
+
+
+@*Dessa gör att allt hamnar i ett kort*@
+<main class="container" role="main">
+    <div class="card">
+        <div class="card-body">
+
+            @if (Model.PathLogoImage != null)
+            {
+                <img class="thumbnail" style="max-height: 150px; max-width: 150px" src="@Html.DisplayFor(model => model.PathLogoImage)" />
+            }
+
+            <hr />
+            <h4>Antal pågående marknadsundersökningar: @Model.MarketResearches.Where(x => x.OnGoing == true).Count() </h4>
+            <hr />
+            <h4>Antal gjorda marknadsundersökningar: @Model.MarketResearches.Where(x => x.OnGoing == false).Count()</h4>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.StreetName): @Html.DisplayFor(model => model.StreetName)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.StreetNumber): @Html.DisplayFor(model => model.StreetNumber)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.City): @Html.DisplayFor(model => model.City)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.Country): @Html.DisplayFor(model => model.Country)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.ContactPerson): @Html.DisplayFor(model => model.ContactPerson.FirstName) @Html.DisplayFor(model => model.ContactPerson.LastName)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.PhoneNumber): @Html.DisplayFor(model => model.PhoneNumber)</h5>
+            <hr />
+            <h5>@Html.DisplayNameFor(model => model.Email): @Html.DisplayFor(model => model.Email)</h5>
+            <hr />
+
+        </div>
+    </div>
+</main>
+
+
+
+<br />
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Gå tillbaka</a>
+</p>
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (Model == null)
+        {
+            <br />
+            <hr />
+            <p>
+                <a asp-action="Create" class="btn btn-primary">Registrera företag</a>
+            </p>
+        }
+        else
+        {
+            <br />
+            <p>
+                <a asp-action="Edit" asp-route-id="@Model.OrganizationId" class="btn btn-danger" style="width: 250px; background-color: red">Ändra företagsinställningar</a>
+            </p>
+            <p>
+                <a asp-action="Delete" asp-route-id="@Model.OrganizationId" class="btn btn-danger" style="width: 250px; background-color: red">Radera företagskonto</a>
+            </p>
+        }
+    }
