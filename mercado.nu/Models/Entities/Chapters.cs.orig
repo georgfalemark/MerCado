@@ -13,8 +13,11 @@ namespace mercado.nu.Models.Entities
         [Display(Name = "Avsnitt")]
         public string Name { get; set; }
         public List<Question> ListOfQuestion { get; set; }
+<<<<<<< HEAD
+=======
 
         public Guid MarketResearchId { get; set; }
+>>>>>>> master
         public MarketResearch MarketResearch { get; set; }
     }
 }

@@ -89,7 +89,11 @@ namespace mercado.nu.Models
 
         public List<Answer> Answers { get; set; }
 
+<<<<<<< HEAD
         public Organization Organization { get; set; }
+=======
+
+>>>>>>> master
 
     }
 }

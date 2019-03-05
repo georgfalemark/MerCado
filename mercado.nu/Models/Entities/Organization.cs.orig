@@ -25,12 +25,18 @@ namespace mercado.nu.Models
 
         [Display(Name = "Land")]
         public string Country { get; set; }
+
         public Guid ContactPersonId { get; set; }
+<<<<<<< HEAD
 
         [Display(Name = "Kontaktperson")]
         public Person ContactPerson { get; set; }
 
         [Display(Name = "Telefonnummer")]
+=======
+        [ForeignKey("ContactPersonId")]
+        public Person Contactperson { get; set; }
+>>>>>>> master
         public int PhoneNumber { get; set; }
 
         [Display(Name = "Email")]

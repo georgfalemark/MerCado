@@ -52,7 +52,11 @@ namespace mercado.nu.Models
         [Display(Name = "Land")]
         public string Country { get; set; }
 
+<<<<<<< HEAD
         public Guid? OrganizationId { get; set; }
+=======
+        [ForeignKey("ContactPersonId")]
+>>>>>>> master
         public List<Organization> ContactPersonOrganizations { get; set; }
 
         public Organization Employer { get; set; }
@@ -61,9 +65,6 @@ namespace mercado.nu.Models
 
         public ApplicationUser User { get; set; }
 
-        public List<Answer> Answer { get; set; }
-
-        public List<MarketResearch> MarketResearches { get; set; }
-
+        public List<Answer> Answers { get; set; }
     }
 }

@@ -20,8 +20,12 @@ namespace mercado.nu.Data
         public DbSet<MarketResearch> MarketResearches { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
-        public DbSet<QuestionTypes> QuestionTypes { get; set; }
+<<<<<<< HEAD
         public DbSet<QuestionToMarketResearch> GetQuestionToMarketResearches { get; set; }
+=======
+        public DbSet<QuestionTypes> QuestionTypes { get; set; }
+        public DbSet<QuestionToMarketResearch> QuestionToMarketResearches { get; set; }
+>>>>>>> master
         public DbSet<Answer> Answers { get; set; }
         public DbSet <Content> Contents { get; set; }
 
@@ -38,8 +42,6 @@ namespace mercado.nu.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             modelBuilder.Entity<Answer>().HasKey(x => new { x.MarketResearchId, x.PersonId, x.QuestionId });
             base.OnModelCreating(modelBuilder);
