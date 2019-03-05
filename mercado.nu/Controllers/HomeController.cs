@@ -52,18 +52,17 @@ namespace mercado.nu.Controllers
             //    return RedirectToAction("/Account/Register", "Identity");
             //}
 
-            Migrate();
 
-            return View();
+
+             return View();
         }
 
 
         public IActionResult Migrate()
         {
             _context.Database.Migrate();
-            ViewData["Message"] = "Database migrated";
-            _context.SaveChanges();
-            return View("Index");
+            ViewData["Message"] = "Migration complete";
+            return Ok("migrering klar");
         }
 
         public IActionResult Recreate()
