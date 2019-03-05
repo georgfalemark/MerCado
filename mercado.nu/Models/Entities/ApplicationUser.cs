@@ -8,7 +8,7 @@ namespace mercado.nu.Models
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public Guid PersonId { get; set; }
-        public Person Person { get; set; }
+        //public Guid PersonId { get; set; }
+        //public Person Person { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace mercado.nu.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<QuestionToMarketResearch>().HasKey(x => new { x.MarketResearchId, x.QuestionId });
             modelBuilder.Entity<Responders>().HasKey(x => new { x.MarketResearchId, x.PersonId });
             modelBuilder.Entity<Answer>().HasKey(x => new { x.MarketResearchId, x.PersonId, x.QuestionId });
@@ -53,7 +54,7 @@ namespace mercado.nu.Data
 
 
 
-            modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
+            //modelBuilder.Entity<Organization>().HasOne(p => p.Contactperson).WithMany(b => b.ContactPersonOrganizations).HasForeignKey(p => p.ContactPersonId).HasConstraintName("ForeignKey_ContacPersonOrganisation_ContactPerson");
         }
 
     }
