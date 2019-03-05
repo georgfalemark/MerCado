@@ -34,6 +34,8 @@ namespace mercado.nu.Areas.Identity.Pages.Account
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
+                //return LocalRedirect("https://localhost:44378/");
+
             }
             else
             {
